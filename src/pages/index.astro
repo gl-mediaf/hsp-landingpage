@@ -1,0 +1,1010 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+
+const benefits = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`,
+    title: 'Unterkunft',
+    desc: 'Eine Ferienwohnung fürs Team wird von hsp organisiert – keine extra Kosten, kein Stress mit der Suche.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>`,
+    title: 'Fahrzeug inklusive',
+    desc: 'Auto und Transport sind geregelt – du teilst die Kosten fair im Team. Keine eigenen Fahrtkosten.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>`,
+    title: 'Tablet & Ausweis',
+    desc: 'Professionelles Equipment: Tablet, Uniform, Dienstausweis – alles inklusive, sofort einsatzbereit.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>`,
+    title: 'Kostenlose Seminare',
+    desc: 'Drei aufbauende Seminarmodule – Rhetorik, Leadership, Networking. Alles kostenlos für Fundraiser.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>`,
+    title: 'Referenzschreiben',
+    desc: 'Ab 4 Wochen erhältst du ein professionelles Referenzschreiben – ein echtes Plus in jedem Lebenslauf.',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>`,
+    title: 'Wöchentliche Vorauszahlung',
+    desc: 'Bereits nach der ersten Arbeitswoche hast du Anspruch auf einen Vorschuss. Kein Warten auf den Monat.',
+  },
+];
+
+const modules = [
+  {
+    num: '01',
+    title: 'Aufbauseminar',
+    subtitle: 'für erfolgreiche Fundraiser im 1. Jahr',
+    items: ['Körpersprache & Rhetorik', 'Argumentationstechnik', 'Videocoaching', 'Gruppenmoderation', 'Konfliktbewältigung'],
+  },
+  {
+    num: '02',
+    title: 'Teamleiterseminar',
+    subtitle: 'auf dem Weg zum Teamleiter',
+    items: ['Fortgeschrittene Kommunikationstechniken', 'Teamorganisation & Führungsstile', 'Zeitmanagement', 'Coaching-Methoden'],
+  },
+  {
+    num: '03',
+    title: 'Teamleiter Kick-Off',
+    subtitle: 'für erfolgreiche Teamleiter',
+    items: ['Networking & Erfahrungsaustausch', 'Impulsseminare zu Spezialthemen', 'Teambuilding Events'],
+  },
+];
+
+const careerSteps = [
+  {
+    step: '1',
+    role: 'Fundraiser',
+    tag: 'Start',
+    desc: 'Du wirst von Anfang an von deinem Teamleiter begleitet und lernst "on the job".',
+    highlight: false,
+  },
+  {
+    step: '2',
+    role: 'Senior Fundraiser',
+    tag: 'PRO',
+    desc: 'Du kennst das Spiel. Hoher Provisionsfaktor, starke Performance, echtes Geld.',
+    highlight: false,
+  },
+  {
+    step: '3',
+    role: 'Teamleiter',
+    tag: 'CAREER',
+    desc: 'Du führst dein eigenes Team, trägst Verantwortung und verdienst entsprechend mehr.',
+    highlight: true,
+  },
+  {
+    step: '4',
+    role: 'Elite Teamleiter',
+    tag: 'TOP',
+    desc: 'Die Spitze. Du trainierst Teamleiter, gestaltest Seminare und entwickelst Strukturen.',
+    highlight: false,
+  },
+];
+---
+
+<Layout>
+  <!-- ══════════════════════════════════════════
+       NAV
+  ══════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-hsp-red rounded-full flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+          <span class="text-white font-black text-sm tracking-tight">hsp</span>
+        </div>
+        <span class="font-bold text-hsp-dark hidden sm:block text-base" id="nav-brand">hsp – der job</span>
+      </a>
+
+      <!-- Links (desktop) -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#was-du-machst" class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Was du machst</a>
+        <a href="#verdienst"      class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Verdienst</a>
+        <a href="#lernst"         class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Was du lernst</a>
+        <a href="#team"           class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Das Team</a>
+      </div>
+
+      <!-- CTA -->
+      <a
+        href="#bewerbung"
+        class="bg-hsp-lime hover:bg-hsp-lime-dark text-white font-bold px-5 py-2.5 rounded-full text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap"
+      >
+        Jetzt bewerben
+      </a>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-white pt-20">
+
+    <!-- Background shapes -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 right-0 w-[55%] h-full bg-hsp-light rounded-bl-[100px]"></div>
+      <div class="absolute top-16 right-12 w-80 h-80 bg-hsp-lime/8 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-8 w-48 h-48 bg-hsp-red/6 rounded-full blur-2xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-20 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- ── Text side ── -->
+      <div class="space-y-8">
+        <!-- Tag -->
+        <div class="inline-flex items-center gap-2 bg-hsp-lime/12 text-hsp-lime border border-hsp-lime/20 px-4 py-2 rounded-full text-sm font-semibold">
+          <span class="w-2 h-2 bg-hsp-lime rounded-full animate-pulse"></span>
+          Jetzt für Sommer &amp; Herbst bewerben
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.03] tracking-tight text-hsp-dark">
+          Dein Job.<br>
+          <span class="text-gradient">Dein Geld.</span><br>
+          Deine Skills.
+        </h1>
+
+        <!-- Sub -->
+        <p class="text-xl text-hsp-gray leading-relaxed max-w-md">
+          Verdiene bis zu <strong class="text-hsp-dark font-bold">3.500&nbsp;€ in 4&nbsp;Wochen</strong> –
+          und lerne dabei Rhetorik, Kommunikation und echte Menschenkenntnis.
+          Skills für ein Leben lang.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="#bewerbung"
+            class="inline-flex items-center gap-2 bg-hsp-lime hover:bg-hsp-lime-dark text-white font-bold px-8 py-4 rounded-full text-lg transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
+          >
+            Jetzt bewerben
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a
+            href="#was-du-machst"
+            class="inline-flex items-center gap-2 border-2 border-hsp-dark/15 hover:border-hsp-lime text-hsp-dark hover:text-hsp-lime font-semibold px-8 py-4 rounded-full text-lg transition-all duration-200"
+          >
+            Mehr erfahren
+          </a>
+        </div>
+
+        <!-- Mini stats -->
+        <div class="flex flex-wrap items-center gap-8 pt-2">
+          <div>
+            <div class="text-3xl font-black text-hsp-lime">25+</div>
+            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Jahre Erfahrung</div>
+          </div>
+          <div class="w-px h-10 bg-hsp-dark/10"></div>
+          <div>
+            <div class="text-3xl font-black text-hsp-dark">3.500&nbsp;€</div>
+            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Verdienst in 4 Wochen</div>
+          </div>
+          <div class="w-px h-10 bg-hsp-dark/10"></div>
+          <div>
+            <div class="text-3xl font-black text-hsp-dark">Jan–Nov</div>
+            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Verfügbarkeit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Image side ── -->
+      <div class="relative">
+        <!-- Main image -->
+        <div class="relative rounded-[32px] overflow-hidden shadow-2xl aspect-[4/5]">
+          <img
+            src="/images/10.png"
+            alt="HSP Fundraiser Team"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Lime bubble – earnings -->
+        <div class="absolute -bottom-6 -left-6 w-40 h-40 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl animate-float z-10">
+          <div class="text-center text-white">
+            <div class="text-2xl font-black leading-none">3.500€</div>
+            <div class="text-xs font-semibold mt-1 leading-tight">in nur<br>4 Wochen</div>
+          </div>
+        </div>
+
+        <!-- Red hsp bubble -->
+        <div class="absolute -top-4 -right-4 w-20 h-20 bg-hsp-red rounded-full flex items-center justify-center shadow-xl z-10">
+          <span class="text-white font-black text-xl">hsp</span>
+        </div>
+
+        <!-- Float card top-left -->
+        <div class="absolute top-8 -left-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 z-10">
+          <div class="w-9 h-9 bg-hsp-lime/15 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-4.5 h-4.5 text-hsp-lime w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-[10px] text-hsp-gray font-medium">Top-Ausbildung</div>
+            <div class="text-sm font-black text-hsp-dark">Kostenlose Seminare</div>
+          </div>
+        </div>
+
+        <!-- Float card bottom-right -->
+        <div class="absolute bottom-12 -right-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 z-10">
+          <div class="w-9 h-9 bg-hsp-red/10 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-hsp-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-[10px] text-hsp-gray font-medium">Community</div>
+            <div class="text-sm font-black text-hsp-dark">Echtes Teamgefühl</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-hsp-gray/40 animate-bounce">
+      <span class="text-[10px] uppercase tracking-widest font-semibold">Scroll</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       STATS BAR
+  ══════════════════════════════════════════ -->
+  <section class="bg-hsp-dark py-14">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <div class="text-4xl sm:text-5xl font-black text-hsp-lime counter" data-target="25" data-suffix="+">0</div>
+          <div class="text-sm text-white/50 mt-2 font-medium">Jahre Erfahrung</div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <div class="text-4xl sm:text-5xl font-black text-white">3.500&nbsp;€</div>
+          <div class="text-sm text-white/50 mt-2 font-medium">Verdienst möglich</div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="text-4xl sm:text-5xl font-black text-hsp-lime counter" data-target="5" data-suffix="">0</div>
+          <div class="text-sm text-white/50 mt-2 font-medium">Top-Organisationen</div>
+        </div>
+        <div class="reveal reveal-delay-3">
+          <div class="text-4xl sm:text-5xl font-black text-white">18+</div>
+          <div class="text-sm text-white/50 mt-2 font-medium">Mindestalter</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       TRUSTED BY
+  ══════════════════════════════════════════ -->
+  <section class="py-10 bg-hsp-light border-b border-hsp-dark/5">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 text-center">
+      <p class="text-xs font-bold text-hsp-gray/50 uppercase tracking-[0.2em] mb-7">
+        Du arbeitest für diese renommierten Organisationen
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12">
+        {[
+          { name: 'Deutsches Rotes Kreuz', color: 'text-red-600' },
+          { name: 'BUND', color: 'text-green-700' },
+          { name: 'Malteser', color: 'text-red-700' },
+          { name: 'BN Bayern', color: 'text-green-800' },
+          { name: 'Österr. Rotes Kreuz', color: 'text-red-600' },
+        ].map(org => (
+          <span class={`${org.color} font-black text-sm sm:text-base opacity-50 hover:opacity-80 transition-opacity`}>
+            {org.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       WAS DU MACHST
+  ══════════════════════════════════════════ -->
+  <section id="was-du-machst" class="py-28 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+        <!-- Image -->
+        <div class="relative reveal order-2 md:order-1">
+          <div class="rounded-[32px] overflow-hidden aspect-[4/5] shadow-xl">
+            <img
+              src="/images/1.png"
+              alt="Fundraiser im Gespräch"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <!-- Lime bubble -->
+          <div class="absolute -bottom-8 -right-6 w-52 h-52 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl">
+            <div class="text-center text-white px-6">
+              <div class="text-xl font-black leading-tight">Arbeiten für<br>den guten<br>Zweck</div>
+            </div>
+          </div>
+          <!-- Small decorative circle -->
+          <div class="absolute top-6 -left-4 w-16 h-16 bg-hsp-red/10 rounded-full"></div>
+        </div>
+
+        <!-- Text -->
+        <div class="space-y-7 order-1 md:order-2 reveal reveal-delay-1">
+          <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em]">Dein Alltag als Fundraiser</div>
+
+          <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
+            Du bist der erste<br>
+            Kontakt – und der<br>
+            wichtigste.
+          </h2>
+
+          <p class="text-lg text-hsp-gray leading-relaxed">
+            Als Fundraiser besuchst du Haushalte in einem definierten Landkreis und informierst
+            Bürger über renommierte gemeinnützige Organisationen. Dein Ziel: echtes Gespräch,
+            echte Begeisterung, echte Mitgliedschaft.
+          </p>
+          <p class="text-lg text-hsp-gray leading-relaxed">
+            Dabei trainierst du täglich, was wirklich zählt: Menschenkenntnis, Überzeugungskraft
+            und natürliche Kommunikation. Kein Skript – du entwickelst deinen eigenen Stil.
+          </p>
+
+          <!-- Checklist -->
+          <div class="space-y-3 pt-2">
+            {[
+              'Persönlicher Kontakt an der Haustür',
+              'Modernes Tablet für reibungslose Abwicklung',
+              'Teamleiter begleitet dich von Anfang an',
+              'Laufendes Peer-Coaching im Team',
+              'Gemeinsame Abende, Sport & Freizeitaktivitäten',
+            ].map(item => (
+              <div class="flex items-center gap-3">
+                <div class="w-6 h-6 bg-hsp-lime rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <span class="text-hsp-gray font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       VERDIENST
+  ══════════════════════════════════════════ -->
+  <section id="verdienst" class="py-28 bg-hsp-dark text-white overflow-hidden relative">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-hsp-lime/5 rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-hsp-red/5 rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
+
+      <!-- Header -->
+      <div class="text-center mb-16 reveal">
+        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Leistung lohnt sich</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
+          Dein Verdienst:<br>So funktioniert's.
+        </h2>
+        <p class="text-xl text-white/55 mt-6 max-w-2xl mx-auto leading-relaxed">
+          Je mehr Mitglieder du wirbst, desto höher dein Provisionsfaktor.
+          Das Prinzip ist simpel – der Verdienst ist real.
+        </p>
+      </div>
+
+      <!-- Level cards -->
+      <div class="grid md:grid-cols-3 gap-5 mb-14 reveal">
+
+        <!-- Newcomer -->
+        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-hsp-lime/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-block bg-white/10 text-hsp-lime text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">Newcomer</div>
+          <div class="text-4xl font-black text-white mb-1">Faktor 4–7</div>
+          <div class="text-white/45 text-sm mb-7">In den ersten Wochen</div>
+          <div class="space-y-2.5">
+            {['Mindestprovision garantiert', 'Einarbeitung & Training', '200€ Anreisebonus'].map(i => (
+              <div class="flex items-center gap-2.5 text-white/65 text-sm">
+                <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
+                  <div class="w-1.5 h-1.5 bg-hsp-lime rounded-full"></div>
+                </div>
+                {i}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Pro (featured) -->
+        <div class="bg-hsp-lime rounded-3xl p-8 relative overflow-hidden shadow-2xl shadow-hsp-lime/20 transform scale-105">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-black/5 rounded-full"></div>
+
+          <div class="relative z-10">
+            <div class="inline-block bg-white text-hsp-lime text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">PRO</div>
+            <div class="text-4xl font-black text-white mb-1">Faktor 8–9</div>
+            <div class="text-white/70 text-sm mb-7">Du bist reingekickt</div>
+            <div class="space-y-2.5">
+              {['Deutlich mehr Verdienst', 'Aufbauseminar inklusive', 'Teamverantwortung möglich'].map(i => (
+                <div class="flex items-center gap-2.5 text-white text-sm font-medium">
+                  <svg class="w-4 h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  {i}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Elite -->
+        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-hsp-lime/40 transition-all duration-300 hover:-translate-y-1">
+          <div class="inline-block bg-white/10 text-hsp-lime text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">Elite</div>
+          <div class="text-4xl font-black text-white mb-1">Faktor 11+</div>
+          <div class="text-white/45 text-sm mb-7">Für Topperformer</div>
+          <div class="space-y-2.5">
+            {['Maximaler Verdienst', 'Teamleiter-Karriere', 'Kick-Off Seminar'].map(i => (
+              <div class="flex items-center gap-2.5 text-white/65 text-sm">
+                <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
+                  <div class="w-1.5 h-1.5 bg-hsp-lime rounded-full"></div>
+                </div>
+                {i}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Example calculation -->
+      <div class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 reveal">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Rechenbeispiel DRK</div>
+            <h3 class="text-3xl font-black text-white leading-tight mb-4">
+              So sieht dein Verdienst<br>in 4 Wochen aus.
+            </h3>
+            <p class="text-white/50 leading-relaxed">
+              Basierend auf realistischen Zahlen – 765 geworbenen Einheiten
+              beim Deutschen Roten Kreuz in 4 Wochen.
+            </p>
+            <div class="mt-6">
+              <img src="/images/9.png" alt="Fundraiser mit Tablet" class="rounded-2xl h-40 object-cover w-full" />
+            </div>
+          </div>
+          <div class="space-y-0">
+            {[
+              { label: '4 Wochen Leistung', value: '765 EH', sub: false },
+              { label: '× Faktor 5,53', value: '4.230 €', sub: false },
+              { label: '− 20% Stornorücklage', value: '− 846 €', sub: true },
+            ].map(row => (
+              <div class={`flex justify-between items-center py-4 border-b ${row.sub ? 'border-white/5' : 'border-white/10'}`}>
+                <span class={row.sub ? 'text-white/40 text-sm' : 'text-white/60'}>{row.label}</span>
+                <span class={row.sub ? 'text-white/40 font-semibold' : 'text-white font-bold'}>{row.value}</span>
+              </div>
+            ))}
+            <div class="flex justify-between items-center py-5">
+              <span class="text-hsp-lime font-bold text-lg">Dein Nettoverdienst</span>
+              <span class="text-hsp-lime font-black text-3xl">3.384 €</span>
+            </div>
+            <div class="bg-hsp-lime/15 border border-hsp-lime/25 rounded-2xl p-4 text-center">
+              <span class="text-hsp-lime font-black text-sm">+ 200 € Anreisebonus für neue Fundraiser</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       BENEFITS
+  ══════════════════════════════════════════ -->
+  <section class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+      <div class="text-center mb-16 reveal">
+        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Was du bekommst</div>
+        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark">
+          Alles drin.<br>Kein Stress.
+        </h2>
+        <p class="text-xl text-hsp-gray mt-6 max-w-2xl mx-auto leading-relaxed">
+          hsp kümmert sich um alles, damit du dich voll auf deine Leistung konzentrieren kannst.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal">
+        {benefits.map((b, i) => (
+          <div class={`group bg-hsp-light hover:bg-hsp-lime/8 rounded-3xl p-8 transition-all duration-300 hover-lift border border-transparent hover:border-hsp-lime/20 reveal reveal-delay-${i % 4}`}>
+            <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:bg-hsp-lime group-hover:text-white transition-all duration-300 text-hsp-lime" set:html={b.icon}></div>
+            <h3 class="text-xl font-black text-hsp-dark mb-3 group-hover:text-hsp-lime transition-colors duration-200">{b.title}</h3>
+            <p class="text-hsp-gray leading-relaxed text-[15px]">{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       WAS DU LERNST
+  ══════════════════════════════════════════ -->
+  <section id="lernst" class="py-28 bg-hsp-light overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+        <!-- Text -->
+        <div class="space-y-8 reveal">
+          <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em]">Mehr als ein Ferienjob</div>
+          <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
+            Skills, die ein<br>
+            Leben lang<br>
+            nützlich sind.
+          </h2>
+          <p class="text-lg text-hsp-gray leading-relaxed">
+            Du lernst nicht im Seminarraum – du lernst in der echten Welt.
+            Rhetorik, Körpersprache, Überzeugungskraft: Die Kompetenzen, die überall gefragt sind
+            und die du bei uns nicht nur lernst, sondern täglich anwendest.
+          </p>
+
+          <!-- Seminar modules -->
+          <div class="space-y-4">
+            {modules.map((mod, i) => (
+              <div class={`bg-white rounded-2xl p-6 border border-hsp-dark/5 hover:border-hsp-lime/40 hover:shadow-md transition-all duration-300 reveal reveal-delay-${i + 1}`}>
+                <div class="flex items-start gap-5">
+                  <div class="text-5xl font-black text-hsp-lime/20 leading-none flex-shrink-0 mt-0.5">{mod.num}</div>
+                  <div>
+                    <div class="font-black text-hsp-dark text-lg">{mod.title}</div>
+                    <div class="text-hsp-gray text-xs mb-3 font-medium">{mod.subtitle}</div>
+                    <div class="flex flex-wrap gap-1.5">
+                      {mod.items.map(item => (
+                        <span class="bg-hsp-light text-hsp-gray text-xs px-2.5 py-1 rounded-full font-medium">{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Image collage -->
+        <div class="relative reveal reveal-delay-1">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg">
+              <img src="/images/2.png" alt="Team Energie" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg mt-8">
+              <img src="/images/11.png" alt="Fundraiserin" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg">
+              <img src="/images/12.png" alt="Konfident" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg mt-8">
+              <img src="/images/3.png" alt="Team Selfie" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+            </div>
+          </div>
+          <!-- Center bubble -->
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl z-10 animate-float">
+            <div class="text-white text-center">
+              <div class="text-2xl font-black leading-none">100%</div>
+              <div class="text-xs font-bold mt-0.5">kostenlos</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       TEAM GALLERY
+  ══════════════════════════════════════════ -->
+  <section id="team" class="py-28 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+      <div class="text-center mb-16 reveal">
+        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Community & Abenteuer</div>
+        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark">
+          Dein Team wartet<br>schon auf dich.
+        </h2>
+        <p class="text-xl text-hsp-gray mt-6 max-w-2xl mx-auto leading-relaxed">
+          Neue Freunde, unvergessliche Erlebnisse, echte Verbindungen –
+          das ist der Unterschied zu jedem anderen Job.
+        </p>
+      </div>
+
+      <!-- Masonry-style gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
+          <img src="/images/7.png" alt="Team in der Stadt" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+        <div class="rounded-2xl overflow-hidden row-span-2 shadow-md">
+          <img src="/images/4.png" alt="On the Job" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
+          <img src="/images/8.png" alt="Erfolg teilen" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
+          <img src="/images/12.png" alt="Selbstbewusst" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
+          <img src="/images/6.png" alt="Team Spaß" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-square col-span-2 shadow-md">
+          <img src="/images/10.png" alt="DRK Team" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       KARRIERE
+  ══════════════════════════════════════════ -->
+  <section class="py-28 bg-hsp-dark text-white overflow-hidden relative">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-hsp-lime/3 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
+
+      <div class="text-center mb-16 reveal">
+        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Karriere bei hsp</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
+          Newcomer heute.<br>
+          <span class="text-hsp-lime">Teamleiter morgen.</span>
+        </h2>
+        <p class="text-xl text-white/50 mt-6 max-w-xl mx-auto">
+          Der Aufstieg ist real – und hsp investiert in deine Entwicklung.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 reveal">
+        {careerSteps.map((s, i) => (
+          <div class={`relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 ${s.highlight ? 'bg-hsp-lime shadow-2xl shadow-hsp-lime/20' : 'bg-white/5 border border-white/10 hover:border-hsp-lime/40'}`}>
+            <div class={`text-8xl font-black absolute top-4 right-5 leading-none ${s.highlight ? 'text-white/10' : 'text-white/5'}`}>{s.step}</div>
+            <div class={`inline-block text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-5 ${s.highlight ? 'bg-white text-hsp-lime' : 'bg-hsp-lime/15 text-hsp-lime'}`}>
+              {s.tag}
+            </div>
+            <div class={`text-2xl font-black mb-3 ${s.highlight ? 'text-white' : 'text-white'}`}>{s.role}</div>
+            <p class={`text-sm leading-relaxed ${s.highlight ? 'text-white/80' : 'text-white/50'}`}>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       QUOTE / TESTIMONIAL
+  ══════════════════════════════════════════ -->
+  <section class="py-24 bg-hsp-lime relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-black/5 rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 text-center reveal">
+      <div class="text-[6rem] text-white/20 font-serif leading-none select-none mb-4">"</div>
+      <blockquote class="text-2xl md:text-3xl font-bold text-white leading-relaxed -mt-10">
+        Dieser Job hat mich verändert. Ich rede heute mit jedem – selbstbewusst, klar,
+        überzeugend. Das Geld war super, aber die Skills sind unbezahlbar.
+      </blockquote>
+      <div class="mt-10 flex items-center justify-center gap-4">
+        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30">
+          <img src="/images/9.png" alt="Testimonial" class="w-full h-full object-cover"/>
+        </div>
+        <div class="text-left">
+          <div class="text-white font-bold text-sm">Maximilian K.</div>
+          <div class="text-white/60 text-xs">Ehemaliger Fundraiser, heute Teamleiter</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       BEWERBUNGSFORMULAR
+  ══════════════════════════════════════════ -->
+  <section id="bewerbung" class="py-28 bg-white">
+    <div class="max-w-2xl mx-auto px-5 sm:px-8">
+
+      <div class="text-center mb-14 reveal">
+        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Bewerbung</div>
+        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
+          Bereit<br>durchzustarten?
+        </h2>
+        <p class="text-xl text-hsp-gray mt-6 leading-relaxed">
+          Füll das Formular aus –<br>wir melden uns innerhalb von 24&nbsp;Stunden.
+        </p>
+      </div>
+
+      <form id="apply-form" class="space-y-5 reveal" novalidate>
+
+        <!-- Name -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">Vorname *</label>
+            <input
+              type="text"
+              name="vorname"
+              required
+              placeholder="Max"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">Nachname *</label>
+            <input
+              type="text"
+              name="nachname"
+              required
+              placeholder="Mustermann"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
+            />
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">E-Mail *</label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="max@email.de"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">Telefon *</label>
+            <input
+              type="tel"
+              name="telefon"
+              required
+              placeholder="+49 123 456789"
+              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
+            />
+          </div>
+        </div>
+
+        <!-- Availability -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">Verfügbar ab *</label>
+            <input
+              type="month"
+              name="verfuegbar"
+              required
+              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark transition-colors text-[15px]"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-hsp-dark mb-2">Wie lange? *</label>
+            <div class="relative">
+              <select
+                name="dauer"
+                required
+                class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark transition-colors bg-white appearance-none cursor-pointer text-[15px]"
+              >
+                <option value="">Bitte wählen …</option>
+                <option value="2">2 Wochen</option>
+                <option value="4">4 Wochen</option>
+                <option value="6">6 Wochen</option>
+                <option value="8">8 Wochen oder mehr</option>
+              </select>
+              <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-hsp-gray">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Age -->
+        <div>
+          <label class="block text-sm font-bold text-hsp-dark mb-2">Dein Alter *</label>
+          <input
+            type="number"
+            name="alter"
+            required
+            min="18"
+            max="40"
+            placeholder="z.B. 21"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
+          />
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label class="block text-sm font-bold text-hsp-dark mb-2">Warum willst du Fundraiser werden?</label>
+          <textarea
+            name="motivation"
+            rows="4"
+            placeholder="Schreib kurz, was dich motiviert – gerne direkt und ehrlich …"
+            class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors resize-none text-[15px] leading-relaxed"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full bg-hsp-lime hover:bg-hsp-lime-dark text-white font-black py-5 rounded-2xl text-lg transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5 flex items-center justify-center gap-3 group"
+        >
+          Bewerbung absenden
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </button>
+
+        <p class="text-center text-[13px] text-hsp-gray/50">
+          Wir melden uns innerhalb von 24 Stunden. Deine Daten werden vertraulich behandelt.
+        </p>
+      </form>
+
+      <!-- Success state -->
+      <div id="form-success" class="hidden text-center py-16">
+        <div class="w-20 h-20 bg-hsp-lime/12 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-hsp-lime" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <h3 class="text-3xl font-black text-hsp-dark mb-4">Bewerbung eingegangen!</h3>
+        <p class="text-hsp-gray text-lg leading-relaxed">
+          Danke – wir melden uns innerhalb von 24&nbsp;Stunden.<br>
+          Schau sicherheitshalber in deinen Spam-Ordner.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="bg-hsp-dark text-white py-16">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid md:grid-cols-3 gap-12 mb-14">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-11 h-11 bg-hsp-red rounded-full flex items-center justify-center shadow">
+              <span class="text-white font-black text-base">hsp</span>
+            </div>
+            <span class="font-bold text-base">hsp – der job</span>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed">
+            Der Ferienjob mit dem gewissen Etwas.<br>Seit über 25 Jahren.
+          </p>
+        </div>
+
+        <!-- Nav links -->
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-[0.18em] text-hsp-lime mb-5">Navigation</h4>
+          <div class="space-y-3">
+            {[
+              { href: '#was-du-machst', label: 'Was du machst' },
+              { href: '#verdienst',     label: 'Dein Verdienst' },
+              { href: '#lernst',        label: 'Was du lernst' },
+              { href: '#team',          label: 'Das Team' },
+              { href: '#bewerbung',     label: 'Jetzt bewerben →', highlight: true },
+            ].map(link => (
+              <a href={link.href} class={`block text-sm transition-colors ${link.highlight ? 'text-hsp-lime hover:text-hsp-lime/70 font-semibold' : 'text-white/50 hover:text-white'}`}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-[0.18em] text-hsp-lime mb-5">Kontakt</h4>
+          <div class="space-y-3 text-sm text-white/50">
+            <div>hsp GmbH</div>
+            <div>
+              <a href="https://www.hsp-derjob.de" class="hover:text-white transition-colors">
+                www.hsp-derjob.de
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-white/8 pt-8 flex flex-wrap justify-between items-center gap-4">
+        <p class="text-white/30 text-sm">© 2025 hsp GmbH. Alle Rechte vorbehalten.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-white/30 hover:text-white text-sm transition-colors">Impressum</a>
+          <a href="#" class="text-white/30 hover:text-white text-sm transition-colors">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</Layout>
+
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  // ── Scroll reveal ──────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ── Navbar scroll effect ───────────────────
+  const navbar = document.getElementById('navbar');
+  const onScroll = () => {
+    if (window.scrollY > 60) {
+      navbar?.classList.add('nav-scrolled');
+    } else {
+      navbar?.classList.remove('nav-scrolled');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ── Counter animation ──────────────────────
+  const counters = document.querySelectorAll<HTMLElement>('.counter');
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.target ?? '0', 10);
+        const suffix = el.dataset.suffix ?? '';
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 60));
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current.toString() + suffix;
+          if (current >= target) clearInterval(timer);
+        }, 35);
+        counterObserver.unobserve(el);
+      });
+    },
+    { threshold: 0.5 }
+  );
+  counters.forEach(c => counterObserver.observe(c));
+
+  // ── Smooth scroll ──────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = (anchor as HTMLAnchorElement).getAttribute('href');
+      if (!href) return;
+      const target = document.querySelector(href);
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── Form submit (placeholder) ──────────────
+  const form = document.getElementById('apply-form') as HTMLFormElement | null;
+  const successEl = document.getElementById('form-success');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.style.cssText = 'opacity:0; transform:scale(0.97); transition:all 0.3s ease;';
+    setTimeout(() => {
+      form.classList.add('hidden');
+      successEl?.classList.remove('hidden');
+    }, 300);
+  });
+</script>
