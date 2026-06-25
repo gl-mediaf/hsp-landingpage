@@ -65,30 +65,24 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- STATS BAR -->
-    <section class="bg-[#1B2A4A]">
-      <div class="max-w-5xl mx-auto px-5 py-5 grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4 place-items-center">
-        {[
-          { num: 'Ø 3.300 €', label: 'in 4 Wochen',     color: '#97BF0D' },
-          { num: '25+',        label: 'Jahre Erfahrung',  color: '#00B4D8' },
-          { num: '18+',        label: 'Mindestalter',     color: '#E5007D' },
-          { num: 'Jan–Nov',    label: 'Verfügbar',        color: '#97BF0D' },
-        ].map(s => (
-          <div class="flex flex-col items-center gap-1 text-center">
-            <span class="hd" style={`color:${s.color};font-size:clamp(1.4rem,4.5vw,2rem)`}>{s.num}</span>
-            <span class="text-white/50 font-bold uppercase tracking-wider" style="font-size:0.62rem">{s.label}</span>
-          </div>
-        ))}
-      </div>
-      <!-- NGO Logos strip -->
-      <div class="border-t border-white/10 py-4 px-5">
-        <div class="max-w-5xl mx-auto">
-          <p class="text-white/20 text-xs font-bold uppercase tracking-widest mb-4 text-center">Unterwegs für diese Organisationen</p>
-          <div class="flex flex-wrap items-center justify-center gap-5 md:gap-10">
-            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-dark" />
-            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-dark" />
-            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-dark" />
-            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-dark" />
+    <!-- NGO LOGOS BAR -->
+    <section class="bg-[#1B2A4A] py-5 px-5">
+      <div class="max-w-5xl mx-auto">
+        <p class="text-white/25 text-xs font-bold uppercase tracking-widest mb-5 text-center">Unterwegs für diese Organisationen</p>
+        <!-- Desktop: alle 4 nebeneinander -->
+        <div class="hidden md:flex items-center justify-center gap-12">
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" />
+        </div>
+        <!-- Mobile: 2er-Slider -->
+        <div class="md:hidden ngo-slider-wrap">
+          <div class="ngo-slider-track" id="ngo-track">
+            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" /></div>
+            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" /></div>
+            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" /></div>
+            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" /></div>
           </div>
         </div>
       </div>
@@ -555,9 +549,6 @@ import Layout from '../layouts/Layout.astro';
   /* HSP Logo */
   .hsp-logo-img { width: 42px; height: 42px; object-fit: contain; }
 
-  /* NGO logos on dark background */
-  .ngo-logo-dark { height: 30px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.55; transition: all 0.2s; }
-  .ngo-logo-dark:hover { opacity: 0.9; }
 
   /* Buttons */
   .btn-nav { background: #1B2A4A; color: #fff; font-weight: 800; border-radius: 100px; border: none; cursor: pointer; padding: 9px 20px; font-size: 0.82rem; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
@@ -576,9 +567,14 @@ import Layout from '../layouts/Layout.astro';
   .scroll-dot { position: absolute; left: 50%; top: 6px; width: 4px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 4px; transform: translateX(-50%); animation: sdrop 2s ease-in-out infinite; }
   @keyframes sdrop { 0%,100% { top:6px; opacity:1; } 80% { top:18px; opacity:0; } }
 
-  /* NGO logos */
-  .ngo-logo { height: 36px; object-fit: contain; filter: grayscale(0.3); opacity: 0.8; transition: all 0.2s; }
-  .ngo-logo:hover { opacity: 1; filter: none; }
+  /* NGO logos – colored, desktop */
+  .ngo-logo-color { height: 52px; object-fit: contain; transition: transform 0.2s; }
+  .ngo-logo-color:hover { transform: scale(1.05); }
+
+  /* NGO mobile slider */
+  .ngo-slider-wrap { overflow: hidden; }
+  .ngo-slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .ngo-slide { flex: 0 0 50%; display: flex; align-items: center; justify-content: center; padding: 0 16px; }
 
   /* Phone */
   .phone-mockup { width: 260px; height: 520px; background: #fff; border-radius: 40px; border: 3px solid rgba(27,42,74,0.12); padding: 10px; position: relative; box-shadow: 0 30px 60px rgba(27,42,74,0.18); }
@@ -917,6 +913,15 @@ import Layout from '../layouts/Layout.astro';
     document.getElementById('fs-ok')?.classList.remove('hidden');
     document.getElementById('progress-bar').style.width='100%';
   }
+
+  /* ── NGO slider (mobile, 2 per view) ── */
+  let ngoIdx = 0;
+  const NGO_TOTAL = 4, NGO_PER = 2;
+  setInterval(() => {
+    ngoIdx = (ngoIdx + NGO_PER) % NGO_TOTAL;
+    const t = document.getElementById('ngo-track');
+    if (t) t.style.transform = `translateX(-${ngoIdx * 50}%)`;
+  }, 2800);
 
   window.goToPage=goToPage; window.goToSlide=goToSlide; window.nextStep=nextStep;
   window.submitForm=submitForm; window.revMove=revMove;
