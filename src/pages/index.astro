@@ -19,9 +19,7 @@ import Layout from '../layouts/Layout.astro';
     <!-- NAV -->
     <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
       <!-- HSP Logo -->
-      <div class="hsp-logo">
-        <span>hsp</span>
-      </div>
+      <img src="/images/hsp-logo.svg" alt="hsp" class="hsp-logo-img" />
       <div class="hidden md:flex gap-8 text-sm font-bold text-[#1B2A4A]/70">
         <a href="#was-du-machst" class="hover:text-[#E5007D] transition-colors">Was du machst</a>
         <a href="#community" class="hover:text-[#E5007D] transition-colors">Community</a>
@@ -33,29 +31,34 @@ import Layout from '../layouts/Layout.astro';
     <section class="relative min-h-screen flex flex-col justify-end overflow-hidden">
       <div class="absolute inset-0 z-0">
         <img
-          src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/83f030975e710fa51e73d412a5b6b838.png"
-          alt="hsp Fundraiser Team"
-          class="w-full h-full object-cover object-center"
-          onerror="this.src='/images/3.png'"
+          src="/images/hero-car.jpg"
+          alt="hsp Fundraiserin"
+          class="w-full h-full object-cover object-top"
+          onerror="this.src='https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/83f030975e710fa51e73d412a5b6b838.png'"
         />
-        <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.55) 55%,rgba(27,42,74,0.1) 100%)"></div>
+        <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.6) 45%,rgba(27,42,74,0.15) 100%)"></div>
       </div>
-      <div class="relative z-10 px-5 md:px-16 pb-16 pt-32 max-w-4xl">
-        <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-5 shadow-sm">
+      <div class="relative z-10 px-5 md:px-16 pb-10 md:pb-16 pt-24 max-w-4xl">
+        <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-4 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-[#97BF0D] animate-pulse"></span>
           <span class="text-[#1B2A4A] text-sm font-bold">Jetzt für Sommer & Herbst verfügbar</span>
         </div>
-        <h1 class="hd text-white mb-5" style="font-size:clamp(3rem,12vw,7rem);line-height:0.92">
+        <h1 class="hd text-white mb-4" style="font-size:clamp(2.6rem,11vw,6.5rem);line-height:0.92">
           3 Monate<br />
           <span style="color:#97BF0D">arbeiten.</span><br />
           9 Monate<br />
           reisen.
         </h1>
-        <p class="text-white/80 font-bold leading-relaxed" style="font-size:clamp(1rem,3vw,1.25rem);max-width:480px">
+        <!-- Ø earnings highlight -->
+        <div class="inline-flex items-center gap-3 rounded-2xl px-5 py-3 mb-4" style="background:rgba(27,42,74,0.7);backdrop-filter:blur(8px)">
+          <span class="hd" style="color:#97BF0D;font-size:clamp(1.4rem,5vw,2rem)">Ø 3.300 €</span>
+          <span class="text-white/80 font-bold text-sm md:text-base">in 4 Wochen</span>
+        </div>
+        <p class="text-white/70 font-bold leading-relaxed" style="font-size:clamp(0.9rem,2.5vw,1.1rem);max-width:420px">
           Für den guten Zweck von Tür zu Tür unterwegs –
           und dabei richtig gutes Geld machen.
         </p>
-        <div class="mt-10 flex items-center gap-3 text-white/50 text-sm font-semibold">
+        <div class="mt-6 flex items-center gap-3 text-white/40 text-sm font-semibold">
           <div class="scroll-dot-wrap"><span class="scroll-dot"></span></div>
           Scroll
         </div>
@@ -64,7 +67,7 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- STATS BAR -->
     <section class="bg-[#1B2A4A]">
-      <div class="max-w-5xl mx-auto px-5 py-6 grid grid-cols-2 md:grid-cols-4 gap-y-5 gap-x-4 place-items-center">
+      <div class="max-w-5xl mx-auto px-5 py-5 grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-4 place-items-center">
         {[
           { num: 'Ø 3.300 €', label: 'in 4 Wochen',     color: '#97BF0D' },
           { num: '25+',        label: 'Jahre Erfahrung',  color: '#00B4D8' },
@@ -72,16 +75,28 @@ import Layout from '../layouts/Layout.astro';
           { num: 'Jan–Nov',    label: 'Verfügbar',        color: '#97BF0D' },
         ].map(s => (
           <div class="flex flex-col items-center gap-1 text-center">
-            <span class="hd" style={`color:${s.color};font-size:clamp(1.6rem,5vw,2.2rem)`}>{s.num}</span>
-            <span class="text-white/50 font-bold uppercase tracking-wider" style="font-size:0.65rem">{s.label}</span>
+            <span class="hd" style={`color:${s.color};font-size:clamp(1.4rem,4.5vw,2rem)`}>{s.num}</span>
+            <span class="text-white/50 font-bold uppercase tracking-wider" style="font-size:0.62rem">{s.label}</span>
           </div>
         ))}
+      </div>
+      <!-- NGO Logos strip -->
+      <div class="border-t border-white/10 py-4 px-5">
+        <div class="max-w-5xl mx-auto">
+          <p class="text-white/20 text-xs font-bold uppercase tracking-widest mb-4 text-center">Unterwegs für diese Organisationen</p>
+          <div class="flex flex-wrap items-center justify-center gap-5 md:gap-10">
+            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-dark" />
+            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-dark" />
+            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-dark" />
+            <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-dark" />
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- WAS DU MACHST -->
-    <section id="was-du-machst" class="bg-white py-20 px-5">
-      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <section id="was-du-machst" class="bg-white py-10 md:py-16 px-5">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div>
           <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3.25rem);line-height:1.0">
             Du überzeugst Menschen<br />für den <span style="color:#97BF0D">guten Zweck.</span>
@@ -114,21 +129,10 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- NGO Logos -->
-      <div class="max-w-5xl mx-auto mt-16">
-        <p class="text-[#1B2A4A]/30 text-xs font-bold uppercase tracking-widest mb-8 text-center">Unterwegs für diese Organisationen</p>
-        <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BN Bayern" class="ngo-logo" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a98fef5f3f240e8f02a44ddf26c2b6ad.png" alt="BRK" class="ngo-logo" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo" />
-        </div>
-      </div>
     </section>
 
     <!-- PHONE MOCKUP – UGC -->
-    <section class="bg-[#F0F7FF] py-20 px-5 overflow-hidden">
+    <section class="bg-[#F0F7FF] py-10 md:py-16 px-5 overflow-hidden">
       <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div class="md:w-1/2">
           <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
@@ -170,7 +174,7 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- COMMUNITY -->
-    <section id="community" class="bg-white py-20 px-5">
+    <section id="community" class="bg-white py-10 md:py-16 px-5">
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-10">
           <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
@@ -192,7 +196,7 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- GOOGLE REVIEWS SLIDER -->
-    <section class="bg-[#1B2A4A] py-20 px-5 overflow-hidden">
+    <section class="bg-[#1B2A4A] py-10 md:py-16 px-5 overflow-hidden">
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-10">
           <h2 class="hd text-white" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
@@ -239,7 +243,7 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- CTA TO PAGE 2 -->
-    <section class="py-24 px-5 text-center" style="background:#97BF0D">
+    <section class="py-12 md:py-20 px-5 text-center" style="background:#97BF0D">
       <h2 class="hd text-white max-w-xl mx-auto" style="font-size:clamp(2rem,6vw,3rem)">
         Wie viel kannst du machen?
       </h2>
@@ -261,7 +265,7 @@ import Layout from '../layouts/Layout.astro';
 
     <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
       <button onclick="goToPage(1)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] text-sm font-bold transition-colors">← Zurück</button>
-      <div class="hsp-logo"><span>hsp</span></div>
+      <img src="/images/hsp-logo.svg" alt="hsp" class="hsp-logo-img" />
       <button onclick="goToPage(3)" class="btn-nav">Jetzt anfragen →</button>
     </nav>
 
@@ -312,7 +316,7 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- RECHNER -->
-    <section class="bg-[#F0F7FF] py-16 px-5">
+    <section class="bg-[#F0F7FF] py-10 md:py-14 px-5">
       <div class="max-w-5xl mx-auto">
         <h2 class="hd text-[#1B2A4A] text-center mb-3" style="font-size:clamp(2rem,6vw,3rem)">
           Rechne deinen <span style="color:#E5007D">Einsatz durch.</span>
@@ -411,7 +415,7 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- CTA -->
-    <section class="py-24 px-5 text-center" style="background:#E5007D">
+    <section class="py-12 md:py-20 px-5 text-center" style="background:#E5007D">
       <h2 class="hd text-white max-w-xl mx-auto" style="font-size:clamp(2rem,6vw,3rem)">
         Klingt gut?<br />Dann frag an.
       </h2>
@@ -428,7 +432,7 @@ import Layout from '../layouts/Layout.astro';
   <div id="page-3" class="page">
     <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
       <button onclick="goToPage(2)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] text-sm font-bold transition-colors">← Zurück</button>
-      <div class="hsp-logo"><span>hsp</span></div>
+      <img src="/images/hsp-logo.svg" alt="hsp" class="hsp-logo-img" />
       <div></div>
     </nav>
     <section class="min-h-screen bg-white flex items-center justify-center px-5 pt-24 pb-12">
@@ -549,17 +553,11 @@ import Layout from '../layouts/Layout.astro';
   .nav-bar { background: rgba(255,255,255,0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(27,42,74,0.08); }
 
   /* HSP Logo */
-  .hsp-logo {
-    width: 42px; height: 42px;
-    border-radius: 50%;
-    background: #E5001A;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .hsp-logo span {
-    font-family: 'BundaySlab', 'Arial Black', sans-serif;
-    font-size: 1rem; color: #fff; font-weight: 700;
-    line-height: 1;
-  }
+  .hsp-logo-img { width: 42px; height: 42px; object-fit: contain; }
+
+  /* NGO logos on dark background */
+  .ngo-logo-dark { height: 30px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.55; transition: all 0.2s; }
+  .ngo-logo-dark:hover { opacity: 0.9; }
 
   /* Buttons */
   .btn-nav { background: #1B2A4A; color: #fff; font-weight: 800; border-radius: 100px; border: none; cursor: pointer; padding: 9px 20px; font-size: 0.82rem; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
@@ -677,11 +675,15 @@ import Layout from '../layouts/Layout.astro';
 
   /* Mobile */
   @media(max-width:640px) {
-    .community-grid { grid-template-columns: repeat(2,1fr); }
-    .community-img.tall { height: 180px; }
-    .phone-mockup { width: 220px; height: 440px; }
-    .review-slide { width: calc(100% / 1.2); }
-    .photo-panel { min-height: 260px; }
+    .community-grid { grid-template-columns: repeat(2,1fr); gap: 4px; }
+    .community-img { height: 130px; }
+    .community-img.tall { height: 130px; }
+    .phone-mockup { width: 200px; height: 400px; }
+    .review-slide { width: calc(100% / 1.15); }
+    .photo-panel { min-height: 200px; }
+    .guarantee-card { padding: 16px; }
+    .week-tile { padding: 10px; }
+    .chart-wrap { height: 160px; }
   }
 </style>
 
