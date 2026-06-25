@@ -1,1010 +1,954 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
-
-const benefits = [
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>`,
-    title: 'Unterkunft',
-    desc: 'Eine Ferienwohnung fürs Team wird von hsp organisiert – keine extra Kosten, kein Stress mit der Suche.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>`,
-    title: 'Fahrzeug inklusive',
-    desc: 'Auto und Transport sind geregelt – du teilst die Kosten fair im Team. Keine eigenen Fahrtkosten.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>`,
-    title: 'Tablet & Ausweis',
-    desc: 'Professionelles Equipment: Tablet, Uniform, Dienstausweis – alles inklusive, sofort einsatzbereit.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>`,
-    title: 'Kostenlose Seminare',
-    desc: 'Drei aufbauende Seminarmodule – Rhetorik, Leadership, Networking. Alles kostenlos für Fundraiser.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>`,
-    title: 'Referenzschreiben',
-    desc: 'Ab 4 Wochen erhältst du ein professionelles Referenzschreiben – ein echtes Plus in jedem Lebenslauf.',
-  },
-  {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>`,
-    title: 'Wöchentliche Vorauszahlung',
-    desc: 'Bereits nach der ersten Arbeitswoche hast du Anspruch auf einen Vorschuss. Kein Warten auf den Monat.',
-  },
-];
-
-const modules = [
-  {
-    num: '01',
-    title: 'Aufbauseminar',
-    subtitle: 'für erfolgreiche Fundraiser im 1. Jahr',
-    items: ['Körpersprache & Rhetorik', 'Argumentationstechnik', 'Videocoaching', 'Gruppenmoderation', 'Konfliktbewältigung'],
-  },
-  {
-    num: '02',
-    title: 'Teamleiterseminar',
-    subtitle: 'auf dem Weg zum Teamleiter',
-    items: ['Fortgeschrittene Kommunikationstechniken', 'Teamorganisation & Führungsstile', 'Zeitmanagement', 'Coaching-Methoden'],
-  },
-  {
-    num: '03',
-    title: 'Teamleiter Kick-Off',
-    subtitle: 'für erfolgreiche Teamleiter',
-    items: ['Networking & Erfahrungsaustausch', 'Impulsseminare zu Spezialthemen', 'Teambuilding Events'],
-  },
-];
-
-const careerSteps = [
-  {
-    step: '1',
-    role: 'Fundraiser',
-    tag: 'Start',
-    desc: 'Du wirst von Anfang an von deinem Teamleiter begleitet und lernst "on the job".',
-    highlight: false,
-  },
-  {
-    step: '2',
-    role: 'Senior Fundraiser',
-    tag: 'PRO',
-    desc: 'Du kennst das Spiel. Hoher Provisionsfaktor, starke Performance, echtes Geld.',
-    highlight: false,
-  },
-  {
-    step: '3',
-    role: 'Teamleiter',
-    tag: 'CAREER',
-    desc: 'Du führst dein eigenes Team, trägst Verantwortung und verdienst entsprechend mehr.',
-    highlight: true,
-  },
-  {
-    step: '4',
-    role: 'Elite Teamleiter',
-    tag: 'TOP',
-    desc: 'Die Spitze. Du trainierst Teamleiter, gestaltest Seminare und entwickelst Strukturen.',
-    highlight: false,
-  },
-];
 ---
 
-<Layout>
-  <!-- ══════════════════════════════════════════
-       NAV
-  ══════════════════════════════════════════ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+<Layout
+  title="hsp – Der Ferienjob mit dem gewissen Etwas"
+  description="Mach Ø 3.300 € in 4 Wochen. Für den guten Zweck von Tür zu Tür. Jetzt anfragen."
+>
 
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 bg-hsp-red rounded-full flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-          <span class="text-white font-black text-sm tracking-tight">hsp</span>
-        </div>
-        <span class="font-bold text-hsp-dark hidden sm:block text-base" id="nav-brand">hsp – der job</span>
-      </a>
+<div id="app">
 
-      <!-- Links (desktop) -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#was-du-machst" class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Was du machst</a>
-        <a href="#verdienst"      class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Verdienst</a>
-        <a href="#lernst"         class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Was du lernst</a>
-        <a href="#team"           class="text-sm font-medium text-hsp-gray hover:text-hsp-lime transition-colors">Das Team</a>
+  <!-- ══════════════════════════════════════════════════════
+       PAGE 1 — HOOK & INFO
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-1" class="page active">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 nav-blur">
+      <div class="text-white font-black text-xl tracking-tight">hsp</div>
+      <div class="hidden md:flex gap-8 text-sm text-white/60 font-medium">
+        <a href="#was-du-machst" class="hover:text-white transition-colors">Was du machst</a>
+        <a href="#community" class="hover:text-white transition-colors">Community</a>
       </div>
+      <button onclick="goToPage(3)" class="btn-ghost text-sm">Jetzt anfragen →</button>
+    </nav>
 
-      <!-- CTA -->
-      <a
-        href="#bewerbung"
-        class="bg-hsp-lime hover:bg-hsp-lime-dark text-white font-bold px-5 py-2.5 rounded-full text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap"
-      >
-        Jetzt bewerben
-      </a>
-    </div>
-  </nav>
-
-
-  <!-- ══════════════════════════════════════════
-       HERO
-  ══════════════════════════════════════════ -->
-  <section class="relative min-h-screen flex items-center overflow-hidden bg-white pt-20">
-
-    <!-- Background shapes -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-0 right-0 w-[55%] h-full bg-hsp-light rounded-bl-[100px]"></div>
-      <div class="absolute top-16 right-12 w-80 h-80 bg-hsp-lime/8 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 left-8 w-48 h-48 bg-hsp-red/6 rounded-full blur-2xl"></div>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-20 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-      <!-- ── Text side ── -->
-      <div class="space-y-8">
-        <!-- Tag -->
-        <div class="inline-flex items-center gap-2 bg-hsp-lime/12 text-hsp-lime border border-hsp-lime/20 px-4 py-2 rounded-full text-sm font-semibold">
-          <span class="w-2 h-2 bg-hsp-lime rounded-full animate-pulse"></span>
-          Jetzt für Sommer &amp; Herbst bewerben
+    <!-- HERO -->
+    <section class="relative min-h-screen flex flex-col justify-end overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="/images/3.png" alt="" class="w-full h-full object-cover object-center" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]/10"></div>
+      </div>
+      <div class="relative z-10 px-6 md:px-16 pb-20 pt-32 max-w-5xl">
+        <div class="inline-flex items-center gap-2 bg-hsp-lime/10 border border-hsp-lime/30 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 rounded-full bg-hsp-lime animate-pulse"></span>
+          <span class="text-hsp-lime text-sm font-semibold">Jetzt für Sommer & Herbst verfügbar</span>
         </div>
-
-        <!-- Headline -->
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.03] tracking-tight text-hsp-dark">
-          Dein Job.<br>
-          <span class="text-gradient">Dein Geld.</span><br>
-          Deine Skills.
+        <h1 class="text-white font-black leading-[0.92] mb-6" style="font-size: clamp(3.5rem,10vw,7rem)">
+          3 Monate<br />
+          <span class="text-hsp-lime">arbeiten.</span><br />
+          9 Monate<br />
+          reisen.
         </h1>
-
-        <!-- Sub -->
-        <p class="text-xl text-hsp-gray leading-relaxed max-w-md">
-          Verdiene bis zu <strong class="text-hsp-dark font-bold">3.500&nbsp;€ in 4&nbsp;Wochen</strong> –
-          und lerne dabei Rhetorik, Kommunikation und echte Menschenkenntnis.
-          Skills für ein Leben lang.
+        <p class="text-white/70 text-lg md:text-xl max-w-xl leading-relaxed">
+          Für den guten Zweck von Tür zu Tür unterwegs –<br class="hidden md:block" />
+          und dabei richtig gutes Geld machen.
         </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="#bewerbung"
-            class="inline-flex items-center gap-2 bg-hsp-lime hover:bg-hsp-lime-dark text-white font-bold px-8 py-4 rounded-full text-lg transition-all duration-200 hover:shadow-2xl hover:-translate-y-1"
-          >
-            Jetzt bewerben
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
-          <a
-            href="#was-du-machst"
-            class="inline-flex items-center gap-2 border-2 border-hsp-dark/15 hover:border-hsp-lime text-hsp-dark hover:text-hsp-lime font-semibold px-8 py-4 rounded-full text-lg transition-all duration-200"
-          >
-            Mehr erfahren
-          </a>
-        </div>
-
-        <!-- Mini stats -->
-        <div class="flex flex-wrap items-center gap-8 pt-2">
-          <div>
-            <div class="text-3xl font-black text-hsp-lime">25+</div>
-            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Jahre Erfahrung</div>
-          </div>
-          <div class="w-px h-10 bg-hsp-dark/10"></div>
-          <div>
-            <div class="text-3xl font-black text-hsp-dark">3.500&nbsp;€</div>
-            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Verdienst in 4 Wochen</div>
-          </div>
-          <div class="w-px h-10 bg-hsp-dark/10"></div>
-          <div>
-            <div class="text-3xl font-black text-hsp-dark">Jan–Nov</div>
-            <div class="text-xs font-medium text-hsp-gray uppercase tracking-wider mt-0.5">Verfügbarkeit</div>
-          </div>
+        <div class="mt-12 flex items-center gap-3 text-white/40 text-sm">
+          <div class="scroll-dot-wrap"><span class="scroll-dot"></span></div>
+          Scroll
         </div>
       </div>
+    </section>
 
-      <!-- ── Image side ── -->
-      <div class="relative">
-        <!-- Main image -->
-        <div class="relative rounded-[32px] overflow-hidden shadow-2xl aspect-[4/5]">
-          <img
-            src="/images/10.png"
-            alt="HSP Fundraiser Team"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-        </div>
-
-        <!-- Lime bubble – earnings -->
-        <div class="absolute -bottom-6 -left-6 w-40 h-40 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl animate-float z-10">
-          <div class="text-center text-white">
-            <div class="text-2xl font-black leading-none">3.500€</div>
-            <div class="text-xs font-semibold mt-1 leading-tight">in nur<br>4 Wochen</div>
-          </div>
-        </div>
-
-        <!-- Red hsp bubble -->
-        <div class="absolute -top-4 -right-4 w-20 h-20 bg-hsp-red rounded-full flex items-center justify-center shadow-xl z-10">
-          <span class="text-white font-black text-xl">hsp</span>
-        </div>
-
-        <!-- Float card top-left -->
-        <div class="absolute top-8 -left-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 z-10">
-          <div class="w-9 h-9 bg-hsp-lime/15 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-4.5 h-4.5 text-hsp-lime w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="text-[10px] text-hsp-gray font-medium">Top-Ausbildung</div>
-            <div class="text-sm font-black text-hsp-dark">Kostenlose Seminare</div>
-          </div>
-        </div>
-
-        <!-- Float card bottom-right -->
-        <div class="absolute bottom-12 -right-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3 z-10">
-          <div class="w-9 h-9 bg-hsp-red/10 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-hsp-red" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="text-[10px] text-hsp-gray font-medium">Community</div>
-            <div class="text-sm font-black text-hsp-dark">Echtes Teamgefühl</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll hint -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-hsp-gray/40 animate-bounce">
-      <span class="text-[10px] uppercase tracking-widest font-semibold">Scroll</span>
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       STATS BAR
-  ══════════════════════════════════════════ -->
-  <section class="bg-hsp-dark py-14">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div class="reveal">
-          <div class="text-4xl sm:text-5xl font-black text-hsp-lime counter" data-target="25" data-suffix="+">0</div>
-          <div class="text-sm text-white/50 mt-2 font-medium">Jahre Erfahrung</div>
-        </div>
-        <div class="reveal reveal-delay-1">
-          <div class="text-4xl sm:text-5xl font-black text-white">3.500&nbsp;€</div>
-          <div class="text-sm text-white/50 mt-2 font-medium">Verdienst möglich</div>
-        </div>
-        <div class="reveal reveal-delay-2">
-          <div class="text-4xl sm:text-5xl font-black text-hsp-lime counter" data-target="5" data-suffix="">0</div>
-          <div class="text-sm text-white/50 mt-2 font-medium">Top-Organisationen</div>
-        </div>
-        <div class="reveal reveal-delay-3">
-          <div class="text-4xl sm:text-5xl font-black text-white">18+</div>
-          <div class="text-sm text-white/50 mt-2 font-medium">Mindestalter</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       TRUSTED BY
-  ══════════════════════════════════════════ -->
-  <section class="py-10 bg-hsp-light border-b border-hsp-dark/5">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 text-center">
-      <p class="text-xs font-bold text-hsp-gray/50 uppercase tracking-[0.2em] mb-7">
-        Du arbeitest für diese renommierten Organisationen
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12">
+    <!-- SOCIAL PROOF BAR -->
+    <section class="bg-[#111] border-y border-white/5">
+      <div class="max-w-6xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center md:justify-between gap-6">
         {[
-          { name: 'Deutsches Rotes Kreuz', color: 'text-red-600' },
-          { name: 'BUND', color: 'text-green-700' },
-          { name: 'Malteser', color: 'text-red-700' },
-          { name: 'BN Bayern', color: 'text-green-800' },
-          { name: 'Österr. Rotes Kreuz', color: 'text-red-600' },
-        ].map(org => (
-          <span class={`${org.color} font-black text-sm sm:text-base opacity-50 hover:opacity-80 transition-opacity`}>
-            {org.name}
-          </span>
+          { num: 'Ø 3.300 €', label: 'in 4 Wochen' },
+          { num: '25+',       label: 'Jahre Erfahrung' },
+          { num: '18+',       label: 'Mindestalter' },
+          { num: 'Jan–Nov',   label: 'Verfügbar' },
+        ].map((s, i) => (
+          <>
+            <div class="flex flex-col items-center gap-0.5">
+              <span class="text-white font-extrabold text-lg">{s.num}</span>
+              <span class="text-white/40 text-xs">{s.label}</span>
+            </div>
+            {i < 3 && <div class="hidden md:block w-px h-8 bg-white/10"></div>}
+          </>
         ))}
       </div>
-    </div>
-  </section>
+    </section>
 
-
-  <!-- ══════════════════════════════════════════
-       WAS DU MACHST
-  ══════════════════════════════════════════ -->
-  <section id="was-du-machst" class="py-28 bg-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-        <!-- Image -->
-        <div class="relative reveal order-2 md:order-1">
-          <div class="rounded-[32px] overflow-hidden aspect-[4/5] shadow-xl">
-            <img
-              src="/images/1.png"
-              alt="Fundraiser im Gespräch"
-              class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
+    <!-- WAS DU MACHST -->
+    <section id="was-du-machst" class="bg-[#0a0a0a] py-24 px-6">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="section-label">Was du machst</p>
+          <h2 class="section-h text-white">
+            Du überzeugst Menschen<br />für den <span class="text-hsp-lime">guten Zweck.</span>
+          </h2>
+          <p class="text-white/60 text-lg leading-relaxed mt-6 mb-8">
+            Als Fundraiser bist du für renommierte Hilfsorganisationen von Tür zu Tür
+            unterwegs – und begeisterst Menschen im direkten Gespräch für fördernde
+            Mitgliedschaften. Nicht einfach. Genau deshalb machst du richtig gutes Geld.
+          </p>
+          <ul class="space-y-4">
+            {[
+              'Direkter Kontakt – persönlich & überzeugend',
+              'Modernes Tablet für reibungslose Abwicklung',
+              'Crew Coach begleitet dich von Tag 1',
+              'Freiwillige Coachings: Rhetorik, Sales & Kommunikation',
+            ].map(item => (
+              <li class="flex items-start gap-3 text-white/70">
+                <span class="mt-1 shrink-0 w-5 h-5 rounded-full bg-hsp-lime/20 flex items-center justify-center">
+                  <svg class="w-3 h-3 text-hsp-lime" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="relative">
+          <img src="/images/1.png" alt="Fundraiser im Gespräch" class="w-full rounded-2xl object-cover aspect-[4/5]" />
+          <div class="absolute -bottom-4 -left-4 bg-hsp-lime rounded-2xl px-5 py-4 shadow-xl">
+            <p class="text-[#0a0a0a] font-black text-2xl">Ø 3.300 €</p>
+            <p class="text-[#0a0a0a]/70 text-sm font-medium">in 4 Wochen</p>
           </div>
-          <!-- Lime bubble -->
-          <div class="absolute -bottom-8 -right-6 w-52 h-52 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl">
-            <div class="text-center text-white px-6">
-              <div class="text-xl font-black leading-tight">Arbeiten für<br>den guten<br>Zweck</div>
+        </div>
+      </div>
+
+      <!-- Org logos -->
+      <div class="max-w-6xl mx-auto mt-20 text-center">
+        <p class="text-white/30 text-xs uppercase tracking-widest mb-8">Unterwegs für diese Organisationen</p>
+        <div class="flex flex-wrap items-center justify-center gap-10">
+          {['Deutsches Rotes Kreuz', 'BUND', 'Malteser', 'BN Bayern', 'Österr. Rotes Kreuz'].map(org => (
+            <span class="text-white/50 font-semibold text-sm">{org}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PHONE MOCKUP – UGC -->
+    <section class="bg-[#0f0f0f] py-24 px-6 overflow-hidden">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+        <div class="md:w-1/2">
+          <p class="section-label">Ein Tag als Fundraiser</p>
+          <h2 class="section-h text-white">
+            Schau rein –<br /><span class="text-hsp-lime">echter Alltag.</span>
+          </h2>
+          <p class="text-white/60 text-lg leading-relaxed mt-6">
+            Kein Büro, kein 9-to-5. Du bist draußen, im Gespräch,
+            mit deiner Crew unterwegs – und wächst mit jeder Tür.
+          </p>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen" id="ugc-screen">
+              <div class="ugc-slides" id="ugc-slides">
+                {[
+                  { img: '/images/4.png', tag: '@fundraiser_life',  text: 'Tag 3 – schon 12 EH heute 🔥' },
+                  { img: '/images/7.png', tag: '@hsp_crew',         text: 'Crew Dinner nach nem langen Tag 🍕' },
+                  { img: '/images/2.png', tag: '@leo.fundraiser',   text: 'Woche 2 – Faktor steigt, Konto auch 💸' },
+                ].map(s => (
+                  <div class="ugc-slide">
+                    <img src={s.img} alt="" />
+                    <div class="ugc-overlay">
+                      <p class="ugc-tag">{s.tag}</p>
+                      <p class="ugc-text">{s.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div class="ugc-dots">
+                <span class="ugc-dot active" onclick="goToSlide(0)"></span>
+                <span class="ugc-dot"        onclick="goToSlide(1)"></span>
+                <span class="ugc-dot"        onclick="goToSlide(2)"></span>
+              </div>
             </div>
           </div>
-          <!-- Small decorative circle -->
-          <div class="absolute top-6 -left-4 w-16 h-16 bg-hsp-red/10 rounded-full"></div>
         </div>
+      </div>
+    </section>
 
-        <!-- Text -->
-        <div class="space-y-7 order-1 md:order-2 reveal reveal-delay-1">
-          <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em]">Dein Alltag als Fundraiser</div>
-
-          <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
-            Du bist der erste<br>
-            Kontakt – und der<br>
-            wichtigste.
+    <!-- COMMUNITY -->
+    <section id="community" class="bg-[#0a0a0a] py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="section-label">Community</p>
+          <h2 class="section-h text-white text-center">
+            Deine Community<br /><span class="text-hsp-lime">wartet auf dich.</span>
           </h2>
-
-          <p class="text-lg text-hsp-gray leading-relaxed">
-            Als Fundraiser besuchst du Haushalte in einem definierten Landkreis und informierst
-            Bürger über renommierte gemeinnützige Organisationen. Dein Ziel: echtes Gespräch,
-            echte Begeisterung, echte Mitgliedschaft.
+          <p class="text-white/60 text-lg mt-4 max-w-xl mx-auto">
+            Neue Freundschaften, unvergessliche Erlebnisse, echte Verbindungen –
+            das ist der Unterschied zu jedem anderen Job.
           </p>
-          <p class="text-lg text-hsp-gray leading-relaxed">
-            Dabei trainierst du täglich, was wirklich zählt: Menschenkenntnis, Überzeugungskraft
-            und natürliche Kommunikation. Kein Skript – du entwickelst deinen eigenen Stil.
-          </p>
-
-          <!-- Checklist -->
-          <div class="space-y-3 pt-2">
-            {[
-              'Persönlicher Kontakt an der Haustür',
-              'Modernes Tablet für reibungslose Abwicklung',
-              'Teamleiter begleitet dich von Anfang an',
-              'Laufendes Peer-Coaching im Team',
-              'Gemeinsame Abende, Sport & Freizeitaktivitäten',
-            ].map(item => (
-              <div class="flex items-center gap-3">
-                <div class="w-6 h-6 bg-hsp-lime rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                  </svg>
-                </div>
-                <span class="text-hsp-gray font-medium">{item}</span>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div class="community-grid">
+          <img src="/images/6.png"  alt="" class="community-img tall" />
+          <img src="/images/8.png"  alt="" class="community-img" />
+          <img src="/images/10.png" alt="" class="community-img" />
+          <img src="/images/5.png"  alt="" class="community-img tall" />
+          <img src="/images/11.png" alt="" class="community-img" />
+          <img src="/images/12.png" alt="" class="community-img" />
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="bg-[#0f0f0f] py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <p class="section-label">Bewertungen</p>
+          <div class="flex items-center justify-center gap-2 mt-2">
+            <div class="flex gap-1">★★★★★</div>
+            <span class="text-white font-bold text-lg">4.8</span>
+            <span class="text-white/40 text-sm">auf Google</span>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          {[
+            { name: 'Maximilian K.', age: 22, text: 'Dieser Job hat mich verändert. Ich rede heute mit jedem – selbstbewusst, klar, überzeugend. Das Geld war super, aber die Skills sind unbezahlbar.' },
+            { name: 'Lena S.',       age: 20, text: 'In 4 Wochen mehr gemacht als in meinem letzten Sommerjob in einem halben Jahr. Und das für einen guten Zweck. Kann ich nur empfehlen.' },
+            { name: 'Jonas M.',      age: 24, text: 'Die Community ist das Beste. Man kommt als Fremder und geht mit Freunden fürs Leben. Nebenbei macht man richtig gutes Geld.' },
+          ].map(r => (
+            <div class="review-card">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-hsp-lime/20 flex items-center justify-center text-hsp-lime font-bold text-sm">
+                  {r.name[0]}
+                </div>
+                <div>
+                  <p class="text-white font-semibold text-sm">{r.name}, {r.age}</p>
+                  <div class="text-yellow-400 text-xs mt-0.5">★★★★★</div>
+                </div>
+              </div>
+              <p class="text-white/70 text-sm leading-relaxed">"{r.text}"</p>
+            </div>
+          ))}
+        </div>
+        <div class="text-center mt-8">
+          <a href="https://www.google.com/search?q=hsp+DIE+FUNDRAISER+GmbH+Rezensionen" target="_blank" class="text-hsp-lime/70 hover:text-hsp-lime text-sm underline transition-colors">
+            Alle Bewertungen auf Google lesen →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA TO PAGE 2 -->
+    <section class="bg-[#0a0a0a] py-32 px-6 text-center">
+      <p class="section-label">Geld machen</p>
+      <h2 class="section-h text-white max-w-2xl mx-auto">
+        Wie viel kannst<br />du <span class="text-hsp-lime">machen?</span>
+      </h2>
+      <p class="text-white/60 text-lg mt-4 mb-10 max-w-lg mx-auto">
+        Kein fixes Gehalt – du bestimmst deinen Einsatz. Rechne selbst nach.
+      </p>
+      <button onclick="goToPage(2)" class="btn-primary text-lg px-10 py-4">
+        Dein Geld ausrechnen →
+      </button>
+    </section>
+
+  </div><!-- /page-1 -->
 
 
-  <!-- ══════════════════════════════════════════
-       VERDIENST
-  ══════════════════════════════════════════ -->
-  <section id="verdienst" class="py-28 bg-hsp-dark text-white overflow-hidden relative">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-hsp-lime/5 rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-72 h-72 bg-hsp-red/5 rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+  <!-- ══════════════════════════════════════════════════════
+       PAGE 2 — GELD MACHEN + RECHNER
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-2" class="page">
 
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 nav-blur">
+      <button onclick="goToPage(1)" class="text-white/50 hover:text-white transition-colors text-sm">← Zurück</button>
+      <div class="text-white font-black text-xl tracking-tight">hsp</div>
+      <button onclick="goToPage(3)" class="btn-ghost text-sm">Jetzt anfragen →</button>
+    </nav>
 
-      <!-- Header -->
-      <div class="text-center mb-16 reveal">
-        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Leistung lohnt sich</div>
-        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
-          Dein Verdienst:<br>So funktioniert's.
+    <!-- Mindestgarantie -->
+    <section class="bg-[#0a0a0a] pt-32 pb-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <p class="section-label text-center">So machst du dein Geld</p>
+        <h2 class="section-h text-white text-center mb-4">
+          Dein Geld.<br /><span class="text-hsp-lime">Dein Einsatz.</span>
         </h2>
-        <p class="text-xl text-white/55 mt-6 max-w-2xl mx-auto leading-relaxed">
-          Je mehr Mitglieder du wirbst, desto höher dein Provisionsfaktor.
-          Das Prinzip ist simpel – der Verdienst ist real.
+        <p class="text-white/60 text-lg text-center max-w-xl mx-auto mb-16">
+          Du wirst nach Provision bezahlt. Je mehr Menschen du begeisterst,
+          desto mehr machst du. Als Sicherheitsnetz gibt's eine garantierte Basis.
         </p>
-      </div>
 
-      <!-- Level cards -->
-      <div class="grid md:grid-cols-3 gap-5 mb-14 reveal">
-
-        <!-- Newcomer -->
-        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-hsp-lime/40 transition-all duration-300 hover:-translate-y-1">
-          <div class="inline-block bg-white/10 text-hsp-lime text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">Newcomer</div>
-          <div class="text-4xl font-black text-white mb-1">Faktor 4–7</div>
-          <div class="text-white/45 text-sm mb-7">In den ersten Wochen</div>
-          <div class="space-y-2.5">
-            {['Mindestprovision garantiert', 'Einarbeitung & Training', '200€ Anreisebonus'].map(i => (
-              <div class="flex items-center gap-2.5 text-white/65 text-sm">
-                <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                  <div class="w-1.5 h-1.5 bg-hsp-lime rounded-full"></div>
-                </div>
-                {i}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Pro (featured) -->
-        <div class="bg-hsp-lime rounded-3xl p-8 relative overflow-hidden shadow-2xl shadow-hsp-lime/20 transform scale-105">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-          <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-black/5 rounded-full"></div>
-
-          <div class="relative z-10">
-            <div class="inline-block bg-white text-hsp-lime text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">PRO</div>
-            <div class="text-4xl font-black text-white mb-1">Faktor 8–9</div>
-            <div class="text-white/70 text-sm mb-7">Du bist reingekickt</div>
-            <div class="space-y-2.5">
-              {['Deutlich mehr Verdienst', 'Aufbauseminar inklusive', 'Teamverantwortung möglich'].map(i => (
-                <div class="flex items-center gap-2.5 text-white text-sm font-medium">
-                  <svg class="w-4 h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                  </svg>
-                  {i}
+        <div class="guarantee-card mb-4">
+          <div class="flex flex-col md:flex-row md:items-center gap-8">
+            <div class="md:w-1/3">
+              <p class="text-white/40 text-xs uppercase tracking-widest mb-2">Garantierte Basis</p>
+              <p class="text-hsp-lime font-black" style="font-size:3rem">2.400 €</p>
+              <p class="text-white/50 mt-1 text-sm">Mindestprovision in 4 Wochen</p>
+            </div>
+            <div class="md:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { week: 'Woche 1', rate: '55 €' },
+                { week: 'Woche 2', rate: '85 €' },
+                { week: 'Woche 3', rate: '115 €' },
+                { week: 'Woche 4', rate: '145 €' },
+              ].map(w => (
+                <div class="bg-white/4 rounded-xl p-4 border border-white/8">
+                  <p class="text-white/40 text-xs mb-1">{w.week}</p>
+                  <p class="text-white font-bold text-xl">{w.rate}</p>
+                  <p class="text-white/30 text-xs">pro Tag</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
-        <!-- Elite -->
-        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-hsp-lime/40 transition-all duration-300 hover:-translate-y-1">
-          <div class="inline-block bg-white/10 text-hsp-lime text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">Elite</div>
-          <div class="text-4xl font-black text-white mb-1">Faktor 11+</div>
-          <div class="text-white/45 text-sm mb-7">Für Topperformer</div>
-          <div class="space-y-2.5">
-            {['Maximaler Verdienst', 'Teamleiter-Karriere', 'Kick-Off Seminar'].map(i => (
-              <div class="flex items-center gap-2.5 text-white/65 text-sm">
-                <div class="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center flex-shrink-0">
-                  <div class="w-1.5 h-1.5 bg-hsp-lime rounded-full"></div>
-                </div>
-                {i}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <!-- Example calculation -->
-      <div class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 reveal">
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Rechenbeispiel DRK</div>
-            <h3 class="text-3xl font-black text-white leading-tight mb-4">
-              So sieht dein Verdienst<br>in 4 Wochen aus.
-            </h3>
-            <p class="text-white/50 leading-relaxed">
-              Basierend auf realistischen Zahlen – 765 geworbenen Einheiten
-              beim Deutschen Roten Kreuz in 4 Wochen.
-            </p>
-            <div class="mt-6">
-              <img src="/images/9.png" alt="Fundraiser mit Tablet" class="rounded-2xl h-40 object-cover w-full" />
+          <div class="mt-6 pt-5 border-t border-white/8 flex flex-wrap gap-6">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-hsp-lime shrink-0"></span>
+              <span class="text-white/60 text-sm">+ <strong class="text-white">200 € Anreisebonus</strong> nach deinem 6. Einsatztag</span>
             </div>
-          </div>
-          <div class="space-y-0">
-            {[
-              { label: '4 Wochen Leistung', value: '765 EH', sub: false },
-              { label: '× Faktor 5,53', value: '4.230 €', sub: false },
-              { label: '− 20% Stornorücklage', value: '− 846 €', sub: true },
-            ].map(row => (
-              <div class={`flex justify-between items-center py-4 border-b ${row.sub ? 'border-white/5' : 'border-white/10'}`}>
-                <span class={row.sub ? 'text-white/40 text-sm' : 'text-white/60'}>{row.label}</span>
-                <span class={row.sub ? 'text-white/40 font-semibold' : 'text-white font-bold'}>{row.value}</span>
-              </div>
-            ))}
-            <div class="flex justify-between items-center py-5">
-              <span class="text-hsp-lime font-bold text-lg">Dein Nettoverdienst</span>
-              <span class="text-hsp-lime font-black text-3xl">3.384 €</span>
-            </div>
-            <div class="bg-hsp-lime/15 border border-hsp-lime/25 rounded-2xl p-4 text-center">
-              <span class="text-hsp-lime font-black text-sm">+ 200 € Anreisebonus für neue Fundraiser</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-hsp-lime shrink-0"></span>
+              <span class="text-white/60 text-sm">Provision immer <strong class="text-white">"best case"</strong> abgerechnet</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-
-  <!-- ══════════════════════════════════════════
-       BENEFITS
-  ══════════════════════════════════════════ -->
-  <section class="py-28 bg-white">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-
-      <div class="text-center mb-16 reveal">
-        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Was du bekommst</div>
-        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark">
-          Alles drin.<br>Kein Stress.
+    <!-- INTERAKTIVER RECHNER -->
+    <section class="bg-[#0f0f0f] py-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <p class="section-label text-center">Interaktiver Rechner</p>
+        <h2 class="section-h text-white text-center mb-12">
+          Rechne deinen<br /><span class="text-hsp-lime">Einsatz durch.</span>
         </h2>
-        <p class="text-xl text-hsp-gray mt-6 max-w-2xl mx-auto leading-relaxed">
-          hsp kümmert sich um alles, damit du dich voll auf deine Leistung konzentrieren kannst.
-        </p>
-      </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal">
-        {benefits.map((b, i) => (
-          <div class={`group bg-hsp-light hover:bg-hsp-lime/8 rounded-3xl p-8 transition-all duration-300 hover-lift border border-transparent hover:border-hsp-lime/20 reveal reveal-delay-${i % 4}`}>
-            <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-5 shadow-sm group-hover:bg-hsp-lime group-hover:text-white transition-all duration-300 text-hsp-lime" set:html={b.icon}></div>
-            <h3 class="text-xl font-black text-hsp-dark mb-3 group-hover:text-hsp-lime transition-colors duration-200">{b.title}</h3>
-            <p class="text-hsp-gray leading-relaxed text-[15px]">{b.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+        <div class="calc-card">
 
-
-  <!-- ══════════════════════════════════════════
-       WAS DU LERNST
-  ══════════════════════════════════════════ -->
-  <section id="lernst" class="py-28 bg-hsp-light overflow-hidden">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
-
-        <!-- Text -->
-        <div class="space-y-8 reveal">
-          <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em]">Mehr als ein Ferienjob</div>
-          <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
-            Skills, die ein<br>
-            Leben lang<br>
-            nützlich sind.
-          </h2>
-          <p class="text-lg text-hsp-gray leading-relaxed">
-            Du lernst nicht im Seminarraum – du lernst in der echten Welt.
-            Rhetorik, Körpersprache, Überzeugungskraft: Die Kompetenzen, die überall gefragt sind
-            und die du bei uns nicht nur lernst, sondern täglich anwendest.
-          </p>
-
-          <!-- Seminar modules -->
-          <div class="space-y-4">
-            {modules.map((mod, i) => (
-              <div class={`bg-white rounded-2xl p-6 border border-hsp-dark/5 hover:border-hsp-lime/40 hover:shadow-md transition-all duration-300 reveal reveal-delay-${i + 1}`}>
-                <div class="flex items-start gap-5">
-                  <div class="text-5xl font-black text-hsp-lime/20 leading-none flex-shrink-0 mt-0.5">{mod.num}</div>
-                  <div>
-                    <div class="font-black text-hsp-dark text-lg">{mod.title}</div>
-                    <div class="text-hsp-gray text-xs mb-3 font-medium">{mod.subtitle}</div>
-                    <div class="flex flex-wrap gap-1.5">
-                      {mod.items.map(item => (
-                        <span class="bg-hsp-light text-hsp-gray text-xs px-2.5 py-1 rounded-full font-medium">{item}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Image collage -->
-        <div class="relative reveal reveal-delay-1">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg">
-              <img src="/images/2.png" alt="Team Energie" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
-            </div>
-            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg mt-8">
-              <img src="/images/11.png" alt="Fundraiserin" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
-            </div>
-            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg">
-              <img src="/images/12.png" alt="Konfident" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
-            </div>
-            <div class="rounded-2xl overflow-hidden aspect-square shadow-lg mt-8">
-              <img src="/images/3.png" alt="Team Selfie" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+          <!-- Org select -->
+          <div class="mb-10">
+            <p class="calc-label">Organisation wählen</p>
+            <div class="flex flex-wrap gap-3" id="org-grid">
+              <!-- rendered by JS to keep data in one place -->
             </div>
           </div>
-          <!-- Center bubble -->
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-hsp-lime rounded-full flex items-center justify-center shadow-2xl z-10 animate-float">
-            <div class="text-white text-center">
-              <div class="text-2xl font-black leading-none">100%</div>
-              <div class="text-xs font-bold mt-0.5">kostenlos</div>
+
+          <!-- Einheiten slider -->
+          <div class="mb-8">
+            <div class="flex justify-between items-end mb-3">
+              <p class="calc-label mb-0">Einheiten in 4 Wochen</p>
+              <span class="text-white font-black text-2xl" id="eh-display">300 EH</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       TEAM GALLERY
-  ══════════════════════════════════════════ -->
-  <section id="team" class="py-28 bg-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-
-      <div class="text-center mb-16 reveal">
-        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Community & Abenteuer</div>
-        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark">
-          Dein Team wartet<br>schon auf dich.
-        </h2>
-        <p class="text-xl text-hsp-gray mt-6 max-w-2xl mx-auto leading-relaxed">
-          Neue Freunde, unvergessliche Erlebnisse, echte Verbindungen –
-          das ist der Unterschied zu jedem anderen Job.
-        </p>
-      </div>
-
-      <!-- Masonry-style gallery -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
-        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
-          <img src="/images/7.png" alt="Team in der Stadt" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-        <div class="rounded-2xl overflow-hidden row-span-2 shadow-md">
-          <img src="/images/4.png" alt="On the Job" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
-          <img src="/images/8.png" alt="Erfolg teilen" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
-          <img src="/images/12.png" alt="Selbstbewusst" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-        <div class="rounded-2xl overflow-hidden aspect-square shadow-md">
-          <img src="/images/6.png" alt="Team Spaß" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-        <div class="rounded-2xl overflow-hidden aspect-square col-span-2 shadow-md">
-          <img src="/images/10.png" alt="DRK Team" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       KARRIERE
-  ══════════════════════════════════════════ -->
-  <section class="py-28 bg-hsp-dark text-white overflow-hidden relative">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-hsp-lime/3 rounded-full blur-3xl"></div>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
-
-      <div class="text-center mb-16 reveal">
-        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Karriere bei hsp</div>
-        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
-          Newcomer heute.<br>
-          <span class="text-hsp-lime">Teamleiter morgen.</span>
-        </h2>
-        <p class="text-xl text-white/50 mt-6 max-w-xl mx-auto">
-          Der Aufstieg ist real – und hsp investiert in deine Entwicklung.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-4 gap-4 reveal">
-        {careerSteps.map((s, i) => (
-          <div class={`relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1 ${s.highlight ? 'bg-hsp-lime shadow-2xl shadow-hsp-lime/20' : 'bg-white/5 border border-white/10 hover:border-hsp-lime/40'}`}>
-            <div class={`text-8xl font-black absolute top-4 right-5 leading-none ${s.highlight ? 'text-white/10' : 'text-white/5'}`}>{s.step}</div>
-            <div class={`inline-block text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full mb-5 ${s.highlight ? 'bg-white text-hsp-lime' : 'bg-hsp-lime/15 text-hsp-lime'}`}>
-              {s.tag}
-            </div>
-            <div class={`text-2xl font-black mb-3 ${s.highlight ? 'text-white' : 'text-white'}`}>{s.role}</div>
-            <p class={`text-sm leading-relaxed ${s.highlight ? 'text-white/80' : 'text-white/50'}`}>{s.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       QUOTE / TESTIMONIAL
-  ══════════════════════════════════════════ -->
-  <section class="py-24 bg-hsp-lime relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
-    <div class="absolute bottom-0 right-0 w-80 h-80 bg-black/5 rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 text-center reveal">
-      <div class="text-[6rem] text-white/20 font-serif leading-none select-none mb-4">"</div>
-      <blockquote class="text-2xl md:text-3xl font-bold text-white leading-relaxed -mt-10">
-        Dieser Job hat mich verändert. Ich rede heute mit jedem – selbstbewusst, klar,
-        überzeugend. Das Geld war super, aber die Skills sind unbezahlbar.
-      </blockquote>
-      <div class="mt-10 flex items-center justify-center gap-4">
-        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/30">
-          <img src="/images/9.png" alt="Testimonial" class="w-full h-full object-cover"/>
-        </div>
-        <div class="text-left">
-          <div class="text-white font-bold text-sm">Maximilian K.</div>
-          <div class="text-white/60 text-xs">Ehemaliger Fundraiser, heute Teamleiter</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       BEWERBUNGSFORMULAR
-  ══════════════════════════════════════════ -->
-  <section id="bewerbung" class="py-28 bg-white">
-    <div class="max-w-2xl mx-auto px-5 sm:px-8">
-
-      <div class="text-center mb-14 reveal">
-        <div class="text-hsp-lime font-bold text-sm uppercase tracking-[0.15em] mb-4">Bewerbung</div>
-        <h2 class="text-4xl md:text-5xl font-black text-hsp-dark leading-tight">
-          Bereit<br>durchzustarten?
-        </h2>
-        <p class="text-xl text-hsp-gray mt-6 leading-relaxed">
-          Füll das Formular aus –<br>wir melden uns innerhalb von 24&nbsp;Stunden.
-        </p>
-      </div>
-
-      <form id="apply-form" class="space-y-5 reveal" novalidate>
-
-        <!-- Name -->
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">Vorname *</label>
-            <input
-              type="text"
-              name="vorname"
-              required
-              placeholder="Max"
-              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">Nachname *</label>
-            <input
-              type="text"
-              name="nachname"
-              required
-              placeholder="Mustermann"
-              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
-            />
-          </div>
-        </div>
-
-        <!-- Contact -->
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">E-Mail *</label>
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="max@email.de"
-              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">Telefon *</label>
-            <input
-              type="tel"
-              name="telefon"
-              required
-              placeholder="+49 123 456789"
-              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
-            />
-          </div>
-        </div>
-
-        <!-- Availability -->
-        <div class="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">Verfügbar ab *</label>
-            <input
-              type="month"
-              name="verfuegbar"
-              required
-              class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark transition-colors text-[15px]"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-bold text-hsp-dark mb-2">Wie lange? *</label>
             <div class="relative">
-              <select
-                name="dauer"
-                required
-                class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark transition-colors bg-white appearance-none cursor-pointer text-[15px]"
-              >
-                <option value="">Bitte wählen …</option>
-                <option value="2">2 Wochen</option>
-                <option value="4">4 Wochen</option>
-                <option value="6">6 Wochen</option>
-                <option value="8">8 Wochen oder mehr</option>
-              </select>
-              <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-hsp-gray">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                </svg>
+              <input type="range" id="eh-slider" min="0" max="900" value="840" step="10"
+                class="calc-slider w-full" oninput="updateCalc()" />
+              <div class="flex justify-between text-xs text-white/30 mt-2">
+                <span>0 EH</span>
+                <span>900 EH</span>
+              </div>
+            </div>
+
+            <!-- Level indicator -->
+            <div class="level-track mt-5">
+              <div class="level-fill" id="level-fill" style="width:33%"></div>
+              <div class="level-labels">
+                <span id="lbl-newcomer" class="level-lbl active-lbl">NEWCOMER</span>
+                <span id="lbl-pro"      class="level-lbl">PRO</span>
+                <span id="lbl-elite"    class="level-lbl">ELITE</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Age -->
-        <div>
-          <label class="block text-sm font-bold text-hsp-dark mb-2">Dein Alter *</label>
-          <input
-            type="number"
-            name="alter"
-            required
-            min="18"
-            max="40"
-            placeholder="z.B. 21"
-            class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors text-[15px]"
-          />
-        </div>
-
-        <!-- Message -->
-        <div>
-          <label class="block text-sm font-bold text-hsp-dark mb-2">Warum willst du Fundraiser werden?</label>
-          <textarea
-            name="motivation"
-            rows="4"
-            placeholder="Schreib kurz, was dich motiviert – gerne direkt und ehrlich …"
-            class="w-full px-5 py-4 rounded-2xl border-2 border-hsp-dark/10 focus:border-hsp-lime focus:outline-none text-hsp-dark placeholder-hsp-gray/30 transition-colors resize-none text-[15px] leading-relaxed"
-          ></textarea>
-        </div>
-
-        <!-- Submit -->
-        <button
-          type="submit"
-          class="w-full bg-hsp-lime hover:bg-hsp-lime-dark text-white font-black py-5 rounded-2xl text-lg transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5 flex items-center justify-center gap-3 group"
-        >
-          Bewerbung absenden
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </button>
-
-        <p class="text-center text-[13px] text-hsp-gray/50">
-          Wir melden uns innerhalb von 24 Stunden. Deine Daten werden vertraulich behandelt.
-        </p>
-      </form>
-
-      <!-- Success state -->
-      <div id="form-success" class="hidden text-center py-16">
-        <div class="w-20 h-20 bg-hsp-lime/12 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-10 h-10 text-hsp-lime" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-        </div>
-        <h3 class="text-3xl font-black text-hsp-dark mb-4">Bewerbung eingegangen!</h3>
-        <p class="text-hsp-gray text-lg leading-relaxed">
-          Danke – wir melden uns innerhalb von 24&nbsp;Stunden.<br>
-          Schau sicherheitshalber in deinen Spam-Ordner.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
-  <footer class="bg-hsp-dark text-white py-16">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="grid md:grid-cols-3 gap-12 mb-14">
-
-        <!-- Brand -->
-        <div>
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-11 h-11 bg-hsp-red rounded-full flex items-center justify-center shadow">
-              <span class="text-white font-black text-base">hsp</span>
+          <!-- Result -->
+          <div class="result-box" id="result-box">
+            <div class="grid md:grid-cols-3 gap-6">
+              <div>
+                <p class="text-white/40 text-xs uppercase tracking-widest mb-1">Faktor</p>
+                <p class="text-white font-black text-4xl" id="r-factor">7.0</p>
+              </div>
+              <div class="md:border-l md:border-white/10 md:pl-6">
+                <p class="text-white/40 text-xs uppercase tracking-widest mb-1">Brutto-Provision</p>
+                <p class="text-white font-black text-4xl" id="r-gross">2.100 €</p>
+                <p class="text-white/30 text-xs mt-1">– 20 % Stornorücklage*</p>
+              </div>
+              <div class="md:border-l md:border-white/10 md:pl-6">
+                <p class="text-hsp-lime text-xs uppercase tracking-widest mb-1 font-semibold">Dein Geld</p>
+                <p class="text-hsp-lime font-black text-4xl" id="r-net">1.880 €</p>
+                <p class="text-white/30 text-xs mt-1">inkl. 200 € Anreisebonus</p>
+              </div>
             </div>
-            <span class="font-bold text-base">hsp – der job</span>
+
+            <!-- What you can buy -->
+            <div class="mt-8 pt-6 border-t border-white/10">
+              <p class="text-white/30 text-xs uppercase tracking-widest mb-4">Das steckt dahinter</p>
+              <div class="flex flex-wrap gap-2" id="buy-grid"></div>
+            </div>
           </div>
-          <p class="text-white/45 text-sm leading-relaxed">
-            Der Ferienjob mit dem gewissen Etwas.<br>Seit über 25 Jahren.
+
+          <p class="text-white/20 text-xs mt-4">
+            * 20 % Stornorücklage werden nach 1,5 Jahren mit tatsächlichen Stornos verrechnet und ggf. zurückerstattet.
+            Alle Angaben sind Beispielrechnungen ohne Gewähr.
           </p>
         </div>
+      </div>
+    </section>
 
-        <!-- Nav links -->
-        <div>
-          <h4 class="font-bold text-xs uppercase tracking-[0.18em] text-hsp-lime mb-5">Navigation</h4>
-          <div class="space-y-3">
-            {[
-              { href: '#was-du-machst', label: 'Was du machst' },
-              { href: '#verdienst',     label: 'Dein Verdienst' },
-              { href: '#lernst',        label: 'Was du lernst' },
-              { href: '#team',          label: 'Das Team' },
-              { href: '#bewerbung',     label: 'Jetzt bewerben →', highlight: true },
-            ].map(link => (
-              <a href={link.href} class={`block text-sm transition-colors ${link.highlight ? 'text-hsp-lime hover:text-hsp-lime/70 font-semibold' : 'text-white/50 hover:text-white'}`}>
-                {link.label}
-              </a>
-            ))}
+    <!-- CTA TO FORM -->
+    <section class="bg-[#0a0a0a] py-32 px-6 text-center">
+      <h2 class="section-h text-white max-w-xl mx-auto">
+        Klingt gut?<br /><span class="text-hsp-lime">Dann frag an.</span>
+      </h2>
+      <p class="text-white/60 text-lg mt-4 mb-10 max-w-md mx-auto">
+        Wir melden uns innerhalb von 24 Stunden. Keine Verpflichtung.
+      </p>
+      <button onclick="goToPage(3)" class="btn-primary text-lg px-10 py-4">
+        Jetzt anfragen →
+      </button>
+    </section>
+
+  </div><!-- /page-2 -->
+
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE 3 — MULTI-STEP FORM
+  ══════════════════════════════════════════════════════════ -->
+  <div id="page-3" class="page">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 nav-blur">
+      <button onclick="goToPage(2)" class="text-white/50 hover:text-white transition-colors text-sm">← Zurück</button>
+      <div class="text-white font-black text-xl tracking-tight">hsp</div>
+      <div></div>
+    </nav>
+
+    <section class="min-h-screen bg-[#0a0a0a] flex items-center justify-center px-6 pt-24 pb-16">
+      <div class="w-full max-w-lg">
+
+        <div class="mb-10">
+          <div class="flex justify-between text-xs text-white/40 mb-2">
+            <span id="step-label">Schritt 1 von 3</span>
+            <span id="step-pct">33 %</span>
+          </div>
+          <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+            <div class="h-full bg-hsp-lime rounded-full transition-all duration-500" id="progress-bar" style="width:33%"></div>
           </div>
         </div>
 
-        <!-- Contact -->
-        <div>
-          <h4 class="font-bold text-xs uppercase tracking-[0.18em] text-hsp-lime mb-5">Kontakt</h4>
-          <div class="space-y-3 text-sm text-white/50">
-            <div>hsp GmbH</div>
-            <div>
-              <a href="https://www.hsp-derjob.de" class="hover:text-white transition-colors">
-                www.hsp-derjob.de
-              </a>
+        <!-- Step 1 -->
+        <div id="fs-1" class="fstep">
+          <h2 class="text-white font-black text-3xl mb-2">Wer bist du?</h2>
+          <p class="text-white/50 mb-8">Kurz vorstellen – das war's für Schritt 1.</p>
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="fgroup">
+                <label class="flabel">Vorname *</label>
+                <input id="f-fn" type="text" class="finput" placeholder="Max" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Nachname *</label>
+                <input id="f-ln" type="text" class="finput" placeholder="Mustermann" />
+              </div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Alter *</label>
+              <input id="f-age" type="number" class="finput" placeholder="21" min="18" />
             </div>
           </div>
+          <button onclick="nextStep(2)" class="btn-primary w-full mt-8 py-4">Weiter →</button>
         </div>
-      </div>
 
-      <div class="border-t border-white/8 pt-8 flex flex-wrap justify-between items-center gap-4">
-        <p class="text-white/30 text-sm">© 2025 hsp GmbH. Alle Rechte vorbehalten.</p>
-        <div class="flex gap-6">
-          <a href="#" class="text-white/30 hover:text-white text-sm transition-colors">Impressum</a>
-          <a href="#" class="text-white/30 hover:text-white text-sm transition-colors">Datenschutz</a>
+        <!-- Step 2 -->
+        <div id="fs-2" class="fstep hidden">
+          <h2 class="text-white font-black text-3xl mb-2">Wie erreichst du dich?</h2>
+          <p class="text-white/50 mb-8">Damit wir uns melden können.</p>
+          <div class="space-y-4">
+            <div class="fgroup">
+              <label class="flabel">E-Mail *</label>
+              <input id="f-email" type="email" class="finput" placeholder="max@beispiel.de" />
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Telefon *</label>
+              <input id="f-phone" type="tel" class="finput" placeholder="+49 ..." />
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Beste Erreichbarkeit</label>
+              <select id="f-reach" class="finput">
+                <option value="">Bitte wählen …</option>
+                <option>Vormittags</option>
+                <option>Mittags</option>
+                <option>Nachmittags</option>
+                <option>Abends</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-8">
+            <button onclick="nextStep(1)" class="btn-ghost flex-1 py-4">← Zurück</button>
+            <button onclick="nextStep(3)" class="btn-primary flex-1 py-4">Weiter →</button>
+          </div>
         </div>
+
+        <!-- Step 3 -->
+        <div id="fs-3" class="fstep hidden">
+          <h2 class="text-white font-black text-3xl mb-2">Fast geschafft.</h2>
+          <p class="text-white/50 mb-8">Noch ein paar Details – dann sind wir fertig.</p>
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="fgroup">
+                <label class="flabel">Ort *</label>
+                <input id="f-city" type="text" class="finput" placeholder="München" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">PLZ *</label>
+                <input id="f-plz" type="text" class="finput" placeholder="80331" />
+              </div>
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Land</label>
+              <select id="f-land" class="finput">
+                <option>Deutschland</option>
+                <option>Österreich</option>
+                <option>Schweiz</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Was motiviert dich?</label>
+              <textarea id="f-motive" class="finput" rows="3" placeholder="Kurz in eigenen Worten …"></textarea>
+            </div>
+            <p class="text-white/25 text-xs">
+              Mit dem Absenden akzeptierst du unsere
+              <a href="https://www.hsp-derjob.de/datenschutz/" target="_blank" class="underline hover:text-white/40">Datenschutzerklärung</a>.
+            </p>
+          </div>
+          <div class="flex gap-3 mt-8">
+            <button onclick="nextStep(2)" class="btn-ghost flex-1 py-4">← Zurück</button>
+            <button onclick="submitForm()" class="btn-primary flex-1 py-4">Anfrage absenden ✓</button>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div id="fs-ok" class="fstep hidden text-center">
+          <div class="w-16 h-16 rounded-full bg-hsp-lime/20 flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-hsp-lime" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h2 class="text-white font-black text-3xl mb-3">Anfrage eingegangen!</h2>
+          <p class="text-white/60 text-lg max-w-sm mx-auto">
+            Danke – wir melden uns innerhalb von <strong class="text-white">24 Stunden</strong>.
+            Schau sicherheitshalber auch in deinen Spam-Ordner.
+          </p>
+          <button onclick="goToPage(1)" class="btn-ghost mt-8 px-8 py-3">Zurück zur Startseite</button>
+        </div>
+
       </div>
-    </div>
-  </footer>
+    </section>
 
-</Layout>
+  </div><!-- /page-3 -->
+
+</div><!-- /app -->
 
 
-<!-- ══════════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════════ -->
+<!-- ────────────────────────────────────────────────────── STYLES ── -->
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #0a0a0a; color: #fff; overflow-x: hidden; font-family: 'Inter', system-ui, sans-serif; }
+
+  /* Pages */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Nav */
+  .nav-blur {
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    background: #97BF0D; color: #0a0a0a;
+    font-weight: 800; border-radius: 100px;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block; text-align: center;
+  }
+  .btn-primary:hover { background: #aad40f; transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent; color: #fff;
+    font-weight: 600; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer; transition: border-color 0.2s;
+    display: inline-block; text-align: center;
+    padding: 10px 20px;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); }
+
+  /* Typography helpers */
+  .section-label {
+    display: block;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #97BF0D; margin-bottom: 12px;
+  }
+  .section-h {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 900; line-height: 1.05;
+  }
+
+  /* Scroll indicator */
+  .scroll-dot-wrap {
+    width: 22px; height: 36px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 12px; position: relative;
+  }
+  .scroll-dot {
+    position: absolute; left: 50%; top: 6px;
+    width: 4px; height: 8px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 4px; transform: translateX(-50%);
+    animation: sdrop 2s ease-in-out infinite;
+  }
+  @keyframes sdrop {
+    0%,100% { top: 6px; opacity: 1; }
+    80%      { top: 18px; opacity: 0; }
+  }
+
+  /* Phone mockup */
+  .phone-mockup {
+    width: 270px; height: 550px;
+    background: #1a1a1a;
+    border-radius: 42px;
+    border: 3px solid rgba(255,255,255,0.12);
+    padding: 12px;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .phone-notch {
+    position: absolute; top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 70px; height: 5px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px; z-index: 10;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    border-radius: 30px; overflow: hidden; position: relative;
+  }
+  .ugc-slides {
+    display: flex; width: 300%; height: 100%;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .ugc-slide {
+    width: calc(100% / 3); height: 100%;
+    position: relative; flex-shrink: 0;
+  }
+  .ugc-slide img { width: 100%; height: 100%; object-fit: cover; }
+  .ugc-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  }
+  .ugc-tag  { color: #97BF0D; font-size: 0.68rem; font-weight: 700; margin-bottom: 4px; }
+  .ugc-text { color: #fff; font-size: 0.78rem; font-weight: 500; }
+  .ugc-dots {
+    position: absolute; bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 10;
+  }
+  .ugc-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer; transition: all 0.25s;
+  }
+  .ugc-dot.active { background: #97BF0D; width: 18px; border-radius: 4px; }
+
+  /* Community grid */
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+  }
+  .community-img {
+    width: 100%; height: 190px;
+    object-fit: cover; border-radius: 12px;
+    transition: transform 0.3s;
+  }
+  .community-img:hover { transform: scale(1.02); }
+  .community-img.tall { height: 270px; }
+
+  /* Review cards */
+  .review-card {
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 20px;
+  }
+
+  /* Guarantee card */
+  .guarantee-card {
+    background: #111;
+    border: 1px solid rgba(151,191,13,0.2);
+    border-radius: 20px; padding: 32px;
+  }
+
+  /* Calculator */
+  .calc-card {
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px; padding: 40px;
+  }
+  .calc-label {
+    display: block;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+
+  /* Org buttons */
+  .org-btn {
+    display: flex; flex-direction: column; align-items: flex-start;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 12px 16px;
+    cursor: pointer; transition: all 0.2s; min-width: 110px;
+  }
+  .org-btn:hover { border-color: rgba(151,191,13,0.4); }
+  .org-btn.active {
+    background: rgba(151,191,13,0.12);
+    border-color: #97BF0D;
+  }
+  .org-name { color: #fff; font-weight: 700; font-size: 0.88rem; }
+  .org-fac  { color: rgba(255,255,255,0.4); font-size: 0.68rem; margin-top: 3px; }
+  .org-btn.active .org-fac { color: #97BF0D; }
+
+  /* Slider */
+  .calc-slider {
+    width: 100%; height: 6px;
+    appearance: none; -webkit-appearance: none;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px; outline: none; cursor: pointer;
+  }
+  .calc-slider::-webkit-slider-thumb {
+    appearance: none; -webkit-appearance: none;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #97BF0D; cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(151,191,13,0.2);
+    transition: box-shadow 0.2s;
+  }
+  .calc-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(151,191,13,0.12);
+  }
+  .calc-slider::-moz-range-thumb {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #97BF0D; cursor: pointer; border: none;
+  }
+
+  /* Level track */
+  .level-track {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px; height: 30px;
+    position: relative; overflow: hidden;
+  }
+  .level-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(151,191,13,0.25), #97BF0D);
+    border-radius: 8px; transition: width 0.3s ease;
+  }
+  .level-labels {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: space-around;
+  }
+  .level-lbl {
+    font-size: 0.62rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.25); transition: color 0.3s;
+    z-index: 1;
+  }
+  .active-lbl { color: #fff; }
+
+  /* Result box */
+  .result-box {
+    background: rgba(151,191,13,0.06);
+    border: 1px solid rgba(151,191,13,0.2);
+    border-radius: 16px; padding: 28px;
+    transition: all 0.3s;
+  }
+
+  /* Buy items */
+  .buy-item {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px; padding: 8px 12px;
+    transition: all 0.3s;
+  }
+  .buy-icon { font-size: 1rem; }
+  .buy-text { color: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 500; }
+
+  /* Form */
+  .fstep.hidden { display: none; }
+  .fgroup { display: flex; flex-direction: column; gap: 6px; }
+  .flabel { color: rgba(255,255,255,0.45); font-size: 0.78rem; font-weight: 600; }
+  .finput {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 13px 16px;
+    color: #fff; font-size: 1rem; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%; font-family: inherit;
+  }
+  .finput:focus { border-color: #97BF0D; background: rgba(151,191,13,0.05); }
+  .finput::placeholder { color: rgba(255,255,255,0.2); }
+  textarea.finput { resize: vertical; }
+  select.finput option { background: #1a1a1a; }
+
+  /* Tailwind bg-white/4 workaround */
+  .bg-white\/4  { background: rgba(255,255,255,0.04); }
+  .bg-white\/8  { background: rgba(255,255,255,0.08); }
+  .border-white\/8 { border-color: rgba(255,255,255,0.08); }
+
+  @media (max-width: 640px) {
+    .community-grid { grid-template-columns: repeat(2,1fr); }
+    .community-img.tall { height: 190px; }
+    .phone-mockup { width: 230px; height: 460px; }
+    .calc-card { padding: 24px; }
+  }
+</style>
+
+
+<!-- ────────────────────────────────────────────────────── SCRIPTS ── -->
 <script>
-  // ── Scroll reveal ──────────────────────────
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  );
-  revealEls.forEach(el => revealObserver.observe(el));
+  /* ── Page nav ─────────────────────────────────── */
+  function goToPage(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const pg = document.getElementById('page-' + n);
+    if (pg) { pg.classList.add('active'); window.scrollTo({ top: 0 }); }
+    if (n === 2) { setTimeout(updateCalc, 100); }
+  }
 
-  // ── Navbar scroll effect ───────────────────
-  const navbar = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 60) {
-      navbar?.classList.add('nav-scrolled');
-    } else {
-      navbar?.classList.remove('nav-scrolled');
-    }
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
+  /* ── UGC slider ───────────────────────────────── */
+  let slide = 0;
+  function goToSlide(i) {
+    slide = i;
+    const el = document.getElementById('ugc-slides');
+    if (el) el.style.transform = `translateX(-${i * (100/3)}%)`;
+    document.querySelectorAll('.ugc-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+  }
+  setInterval(() => goToSlide((slide + 1) % 3), 3400);
 
-  // ── Counter animation ──────────────────────
-  const counters = document.querySelectorAll<HTMLElement>('.counter');
-  const counterObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target as HTMLElement;
-        const target = parseInt(el.dataset.target ?? '0', 10);
-        const suffix = el.dataset.suffix ?? '';
-        let current = 0;
-        const step = Math.max(1, Math.ceil(target / 60));
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = current.toString() + suffix;
-          if (current >= target) clearInterval(timer);
-        }, 35);
-        counterObserver.unobserve(el);
-      });
-    },
-    { threshold: 0.5 }
-  );
-  counters.forEach(c => counterObserver.observe(c));
-
-  // ── Smooth scroll ──────────────────────────
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const href = (anchor as HTMLAnchorElement).getAttribute('href');
-      if (!href) return;
-      const target = document.querySelector(href);
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  /* touch swipe */
+  let tx = 0;
+  document.addEventListener('DOMContentLoaded', () => {
+    const sc = document.getElementById('ugc-screen');
+    if (!sc) return;
+    sc.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    sc.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) goToSlide(dx < 0 ? Math.min(slide+1,2) : Math.max(slide-1,0));
     });
   });
 
-  // ── Form submit (placeholder) ──────────────
-  const form = document.getElementById('apply-form') as HTMLFormElement | null;
-  const successEl = document.getElementById('form-success');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    form.style.cssText = 'opacity:0; transform:scale(0.97); transition:all 0.3s ease;';
-    setTimeout(() => {
-      form.classList.add('hidden');
-      successEl?.classList.remove('hidden');
-    }, 300);
+  /* ── Calculator data ──────────────────────────── */
+  const ORGS = [
+    { id:'brk',  name:'BRK',       newcomer:4,  elite:7,  takeoff:550,  max:2750 },
+    { id:'drk',  name:'DRK',       newcomer:5,  elite:8,  takeoff:450,  max:2250 },
+    { id:'mhd',  name:'Malteser',  newcomer:6,  elite:9,  takeoff:400,  max:2000 },
+    { id:'bn',   name:'BN Bayern', newcomer:7,  elite:11, takeoff:300,  max:1500 },
+    { id:'bund', name:'BUND',      newcomer:9,  elite:13, takeoff:250,  max:1250 },
+  ];
+  let curOrg = ORGS[0]; // BRK als Standard
+
+  /* render org buttons */
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('org-grid');
+    if (!grid) return;
+    ORGS.forEach((org, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'org-btn' + (i === 0 ? ' active' : '');
+      btn.innerHTML = `<span class="org-name">${org.name}</span><span class="org-fac">Faktor ${org.newcomer}–${org.elite}</span>`;
+      btn.onclick = () => {
+        document.querySelectorAll('.org-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curOrg = org;
+        updateCalc();
+      };
+      grid.appendChild(btn);
+    });
+    updateCalc();
   });
+
+  function getFactor(org, eh) {
+    if (eh <= org.takeoff) return org.newcomer;
+    if (eh >= org.max)     return org.elite;
+    return org.newcomer + (eh - org.takeoff) / (org.max - org.takeoff) * (org.elite - org.newcomer);
+  }
+
+  const BUYS = [
+    { min: 300,  emoji:'🍕', text:'4 Wochen Essen & Ausgehen' },
+    { min: 800,  emoji:'🎫', text:'Festival-Sommer komplett' },
+    { min: 1200, emoji:'✈️', text:'1 Monat Backpacking' },
+    { min: 1800, emoji:'🚴', text:'Neues Rennrad' },
+    { min: 2400, emoji:'☕', text:'Siebträger-Maschine' },
+    { min: 3000, emoji:'🌏', text:'2 Monate Südostasien' },
+    { min: 3800, emoji:'🎓', text:'1 Semester Studiengebühren' },
+    { min: 4500, emoji:'🏄', text:'Surf-Trip Bali + Unterkunft' },
+  ];
+
+  function fmt(n) { return Math.round(n).toLocaleString('de-DE') + ' €'; }
+
+  function updateCalc() {
+    const slider = document.getElementById('eh-slider');
+    if (!slider) return;
+    const eh     = parseInt(slider.value);
+    const factor = getFactor(curOrg, eh);
+    const gross  = eh * factor;
+    const net    = gross * 0.8 + 200; // minus storno + anreisebonus
+
+    /* display */
+    document.getElementById('eh-display').textContent = eh + ' EH';
+    document.getElementById('r-factor').textContent   = factor.toFixed(1);
+    document.getElementById('r-gross').textContent    = fmt(gross);
+    document.getElementById('r-net').textContent      = fmt(net);
+
+    /* slider track */
+    const pct = (eh / 900) * 100;
+    slider.style.background = `linear-gradient(90deg,#97BF0D ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
+
+    /* level fill */
+    document.getElementById('level-fill').style.width = pct + '%';
+    ['newcomer','pro','elite'].forEach(l => document.getElementById('lbl-'+l)?.classList.remove('active-lbl'));
+    if      (eh >= curOrg.max)     document.getElementById('lbl-elite')?.classList.add('active-lbl');
+    else if (eh >= curOrg.takeoff) document.getElementById('lbl-pro')?.classList.add('active-lbl');
+    else                           document.getElementById('lbl-newcomer')?.classList.add('active-lbl');
+
+    /* buy items */
+    const buyGrid = document.getElementById('buy-grid');
+    if (buyGrid) {
+      const shown = BUYS.filter(b => net >= b.min);
+      buyGrid.innerHTML = shown.length
+        ? shown.map(b => `<div class="buy-item"><span class="buy-icon">${b.emoji}</span><span class="buy-text">${b.text}</span></div>`).join('')
+        : '<p style="color:rgba(255,255,255,0.3);font-size:.85rem">Schiebe den Regler nach rechts …</p>';
+    }
+  }
+
+  /* ── Form steps ───────────────────────────────── */
+  function nextStep(n) {
+    [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
+    document.getElementById('fs-'+n)?.classList.remove('hidden');
+    const pcts = { 1:33, 2:66, 3:100 };
+    const p = pcts[n] || 33;
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = p + '%';
+    const lbl = document.getElementById('step-label');
+    if (lbl) lbl.textContent = 'Schritt ' + n + ' von 3';
+    const pctEl = document.getElementById('step-pct');
+    if (pctEl) pctEl.textContent = p + ' %';
+  }
+
+  function submitForm() {
+    [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
+    document.getElementById('fs-ok')?.classList.remove('hidden');
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = '100%';
+  }
+
+  /* globals for inline handlers */
+  window.goToPage   = goToPage;
+  window.goToSlide  = goToSlide;
+  window.updateCalc = updateCalc;
+  window.nextStep   = nextStep;
+  window.submitForm = submitForm;
 </script>
+
+</Layout>
