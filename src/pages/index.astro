@@ -7,10 +7,7 @@ import Layout from '../layouts/Layout.astro';
   description="Mach Ø 3.300 € in 4 Wochen. Für den guten Zweck von Tür zu Tür. Jetzt anfragen."
 >
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
 <div id="app">
 
@@ -19,8 +16,12 @@ import Layout from '../layouts/Layout.astro';
   ══════════════════════════════════════════════════ -->
   <div id="page-1" class="page active">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 nav-bar">
-      <div class="logo">hsp</div>
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
+      <!-- HSP Logo -->
+      <div class="hsp-logo">
+        <span>hsp</span>
+      </div>
       <div class="hidden md:flex gap-8 text-sm font-bold text-[#1B2A4A]/70">
         <a href="#was-du-machst" class="hover:text-[#E5007D] transition-colors">Was du machst</a>
         <a href="#community" class="hover:text-[#E5007D] transition-colors">Community</a>
@@ -29,27 +30,32 @@ import Layout from '../layouts/Layout.astro';
     </nav>
 
     <!-- HERO -->
-    <section class="hero-wrap relative min-h-screen flex flex-col justify-end overflow-hidden">
+    <section class="relative min-h-screen flex flex-col justify-end overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img src="/images/3.png" alt="" class="w-full h-full object-cover object-center" />
-        <div class="absolute inset-0 hero-gradient"></div>
+        <img
+          src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/83f030975e710fa51e73d412a5b6b838.png"
+          alt="hsp Fundraiser Team"
+          class="w-full h-full object-cover object-center"
+          onerror="this.src='/images/3.png'"
+        />
+        <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.55) 55%,rgba(27,42,74,0.1) 100%)"></div>
       </div>
-      <div class="relative z-10 px-6 md:px-16 pb-20 pt-32 max-w-5xl">
-        <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-6 shadow-sm">
+      <div class="relative z-10 px-5 md:px-16 pb-16 pt-32 max-w-4xl">
+        <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-5 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-[#97BF0D] animate-pulse"></span>
           <span class="text-[#1B2A4A] text-sm font-bold">Jetzt für Sommer & Herbst verfügbar</span>
         </div>
-        <h1 class="headline-xl text-white mb-6">
+        <h1 class="hd text-white mb-5" style="font-size:clamp(3rem,12vw,7rem);line-height:0.92">
           3 Monate<br />
-          <span class="text-[#97BF0D]">arbeiten.</span><br />
+          <span style="color:#97BF0D">arbeiten.</span><br />
           9 Monate<br />
           reisen.
         </h1>
-        <p class="text-white/80 text-lg md:text-xl max-w-xl leading-relaxed font-semibold">
-          Für den guten Zweck von Tür zu Tür unterwegs –<br class="hidden md:block" />
+        <p class="text-white/80 font-bold leading-relaxed" style="font-size:clamp(1rem,3vw,1.25rem);max-width:480px">
+          Für den guten Zweck von Tür zu Tür unterwegs –
           und dabei richtig gutes Geld machen.
         </p>
-        <div class="mt-12 flex items-center gap-3 text-white/50 text-sm font-semibold">
+        <div class="mt-10 flex items-center gap-3 text-white/50 text-sm font-semibold">
           <div class="scroll-dot-wrap"><span class="scroll-dot"></span></div>
           Scroll
         </div>
@@ -58,83 +64,77 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- STATS BAR -->
     <section class="bg-[#1B2A4A]">
-      <div class="max-w-6xl mx-auto px-6 py-5 flex flex-wrap items-center justify-center md:justify-between gap-6">
+      <div class="max-w-5xl mx-auto px-5 py-6 grid grid-cols-2 md:grid-cols-4 gap-y-5 gap-x-4 place-items-center">
         {[
-          { num: 'Ø 3.300 €', label: 'in 4 Wochen', color: '#97BF0D' },
-          { num: '25+',       label: 'Jahre Erfahrung', color: '#00B4D8' },
-          { num: '18+',       label: 'Mindestalter', color: '#E5007D' },
-          { num: 'Jan–Nov',   label: 'Verfügbar', color: '#97BF0D' },
-        ].map((s, i) => (
-          <>
-            <div class="flex flex-col items-center gap-0.5">
-              <span class="headline-sm" style={`color:${s.color}`}>{s.num}</span>
-              <span class="text-white/50 text-xs font-semibold uppercase tracking-wider">{s.label}</span>
-            </div>
-            {i < 3 && <div class="hidden md:block w-px h-10 bg-white/10"></div>}
-          </>
+          { num: 'Ø 3.300 €', label: 'in 4 Wochen',     color: '#97BF0D' },
+          { num: '25+',        label: 'Jahre Erfahrung',  color: '#00B4D8' },
+          { num: '18+',        label: 'Mindestalter',     color: '#E5007D' },
+          { num: 'Jan–Nov',    label: 'Verfügbar',        color: '#97BF0D' },
+        ].map(s => (
+          <div class="flex flex-col items-center gap-1 text-center">
+            <span class="hd" style={`color:${s.color};font-size:clamp(1.6rem,5vw,2.2rem)`}>{s.num}</span>
+            <span class="text-white/50 font-bold uppercase tracking-wider" style="font-size:0.65rem">{s.label}</span>
+          </div>
         ))}
       </div>
     </section>
 
     <!-- WAS DU MACHST -->
-    <section id="was-du-machst" class="bg-white py-24 px-6">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <section id="was-du-machst" class="bg-white py-20 px-5">
+      <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div>
-          <div class="pill bg-[#E5007D]">Was du machst</div>
-          <h2 class="headline-lg text-[#1B2A4A] mt-4">
-            Du überzeugst<br />Menschen für den<br /><span class="text-[#97BF0D]">guten Zweck.</span>
+          <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3.25rem);line-height:1.0">
+            Du überzeugst Menschen<br />für den <span style="color:#97BF0D">guten Zweck.</span>
           </h2>
-          <p class="text-[#1B2A4A]/70 text-lg leading-relaxed mt-6 mb-8 font-medium">
+          <p class="text-[#1B2A4A]/65 text-base md:text-lg leading-relaxed mt-5 mb-7 font-semibold">
             Als Fundraiser bist du für renommierte Hilfsorganisationen von Tür zu Tür
             unterwegs – und begeisterst Menschen im direkten Gespräch für fördernde
             Mitgliedschaften. Nicht einfach. Genau deshalb machst du richtig gutes Geld.
           </p>
-          <ul class="space-y-4">
+          <ul class="space-y-3">
             {[
-              'Direkter Kontakt – persönlich & überzeugend',
-              'Modernes Tablet für reibungslose Abwicklung',
-              'Crew Coach begleitet dich von Tag 1',
-              'Freiwillige Coachings: Rhetorik, Sales & Kommunikation',
-            ].map((item, i) => (
-              <li class="flex items-start gap-3 text-[#1B2A4A]/80 font-semibold">
-                <span class="mt-1 shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-black"
-                  style={`background:${['#97BF0D','#E5007D','#00B4D8','#1B2A4A'][i]}`}>
-                  ✓
-                </span>
-                {item}
+              { t:'Direkter Kontakt – persönlich & überzeugend', c:'#97BF0D' },
+              { t:'Modernes Tablet für reibungslose Abwicklung', c:'#E5007D' },
+              { t:'Crew Coach begleitet dich von Tag 1', c:'#00B4D8' },
+              { t:'Freiwillige Coachings: Rhetorik, Sales & Kommunikation', c:'#1B2A4A' },
+            ].map(item => (
+              <li class="flex items-start gap-3 text-[#1B2A4A]/75 font-semibold text-sm md:text-base">
+                <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-black" style={`background:${item.c}`}>✓</span>
+                {item.t}
               </li>
             ))}
           </ul>
         </div>
         <div class="relative">
-          <img src="/images/1.png" alt="Fundraiser im Gespräch" class="w-full rounded-3xl object-cover aspect-[4/5] shadow-xl" />
-          <div class="absolute -bottom-5 -left-5 bg-[#97BF0D] rounded-2xl px-5 py-4 shadow-xl">
-            <p class="text-white font-black text-2xl headline-sm">Ø 3.300 €</p>
+          <img src="/images/1.png" alt="Fundraiser im Gespräch" class="w-full rounded-3xl object-cover shadow-xl" style="aspect-ratio:4/5" />
+          <div class="absolute -bottom-4 -left-4 rounded-2xl px-5 py-3 shadow-xl" style="background:#97BF0D">
+            <p class="hd text-white" style="font-size:1.6rem">Ø 3.300 €</p>
             <p class="text-white/80 text-sm font-bold">in 4 Wochen</p>
           </div>
         </div>
       </div>
 
-      <!-- Org logos -->
-      <div class="max-w-6xl mx-auto mt-20 text-center">
-        <p class="text-[#1B2A4A]/40 text-xs font-bold uppercase tracking-widest mb-8">Unterwegs für diese Organisationen</p>
-        <div class="flex flex-wrap items-center justify-center gap-10">
-          {['Deutsches Rotes Kreuz', 'BUND', 'Malteser', 'BN Bayern', 'Österr. Rotes Kreuz'].map(org => (
-            <span class="text-[#1B2A4A]/60 font-extrabold text-sm">{org}</span>
-          ))}
+      <!-- NGO Logos -->
+      <div class="max-w-5xl mx-auto mt-16">
+        <p class="text-[#1B2A4A]/30 text-xs font-bold uppercase tracking-widest mb-8 text-center">Unterwegs für diese Organisationen</p>
+        <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BN Bayern" class="ngo-logo" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a98fef5f3f240e8f02a44ddf26c2b6ad.png" alt="BRK" class="ngo-logo" />
+          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo" />
         </div>
       </div>
     </section>
 
     <!-- PHONE MOCKUP – UGC -->
-    <section class="bg-[#F0F7FF] py-24 px-6 overflow-hidden">
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+    <section class="bg-[#F0F7FF] py-20 px-5 overflow-hidden">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div class="md:w-1/2">
-          <div class="pill bg-[#00B4D8]">Ein Tag als Fundraiser</div>
-          <h2 class="headline-lg text-[#1B2A4A] mt-4">
-            Schau rein –<br /><span class="text-[#E5007D]">echter Alltag.</span>
+          <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
+            Schau rein –<br /><span style="color:#E5007D">echter Alltag.</span>
           </h2>
-          <p class="text-[#1B2A4A]/70 text-lg leading-relaxed mt-6 font-medium">
+          <p class="text-[#1B2A4A]/65 text-base md:text-lg leading-relaxed mt-5 font-semibold">
             Kein Büro, kein 9-to-5. Du bist draußen, im Gespräch,
             mit deiner Crew unterwegs – und wächst mit jeder Tür.
           </p>
@@ -145,9 +145,9 @@ import Layout from '../layouts/Layout.astro';
             <div class="phone-screen" id="ugc-screen">
               <div class="ugc-slides" id="ugc-slides">
                 {[
-                  { img: '/images/4.png', tag: '@fundraiser_life',  text: 'Tag 3 – schon 12 EH heute 🔥' },
-                  { img: '/images/7.png', tag: '@hsp_crew',         text: 'Crew Dinner nach nem langen Tag 🍕' },
-                  { img: '/images/2.png', tag: '@leo.fundraiser',   text: 'Woche 2 – Faktor steigt, Konto auch 💸' },
+                  { img:'/images/4.png', tag:'@fundraiser_life',  text:'Tag 3 – schon 12 EH heute 🔥' },
+                  { img:'/images/7.png', tag:'@hsp_crew',          text:'Crew Dinner nach nem langen Tag 🍕' },
+                  { img:'/images/2.png', tag:'@leo.fundraiser',    text:'Woche 2 – Faktor steigt, Konto auch 💸' },
                 ].map(s => (
                   <div class="ugc-slide">
                     <img src={s.img} alt="" />
@@ -170,14 +170,13 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- COMMUNITY -->
-    <section id="community" class="bg-white py-24 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <div class="pill bg-[#97BF0D] mx-auto w-fit">Community</div>
-          <h2 class="headline-lg text-[#1B2A4A] text-center mt-4">
-            Deine Community<br /><span class="text-[#E5007D]">wartet auf dich.</span>
+    <section id="community" class="bg-white py-20 px-5">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <h2 class="hd text-[#1B2A4A]" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
+            Deine Community<br /><span style="color:#E5007D">wartet auf dich.</span>
           </h2>
-          <p class="text-[#1B2A4A]/60 text-lg mt-4 max-w-xl mx-auto font-medium">
+          <p class="text-[#1B2A4A]/55 text-base md:text-lg mt-3 max-w-lg mx-auto font-semibold">
             Neue Freundschaften, unvergessliche Erlebnisse, echte Verbindungen.
           </p>
         </div>
@@ -192,37 +191,45 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="bg-[#1B2A4A] py-24 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <div class="pill bg-[#E5007D] mx-auto w-fit">Bewertungen</div>
-          <div class="flex items-center justify-center gap-2 mt-4">
-            <span class="text-yellow-400 text-2xl tracking-tight">★★★★★</span>
-            <span class="text-white font-black text-xl headline-sm">4.8</span>
+    <!-- GOOGLE REVIEWS SLIDER -->
+    <section class="bg-[#1B2A4A] py-20 px-5 overflow-hidden">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <h2 class="hd text-white" style="font-size:clamp(2rem,6vw,3rem);line-height:1.0">
+            Was andere sagen.
+          </h2>
+          <div class="flex items-center justify-center gap-2 mt-3">
+            <span class="text-yellow-400 text-xl">★★★★★</span>
+            <span class="hd text-white" style="font-size:1.4rem">4.8</span>
             <span class="text-white/40 text-sm font-semibold">auf Google</span>
           </div>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
-          {[
-            { name: 'Maximilian K.', age: 22, color: '#97BF0D', text: 'Dieser Job hat mich verändert. Ich rede heute mit jedem – selbstbewusst, klar, überzeugend. Das Geld war super, aber die Skills sind unbezahlbar.' },
-            { name: 'Lena S.',       age: 20, color: '#E5007D', text: 'In 4 Wochen mehr gemacht als in meinem letzten Sommerjob in einem halben Jahr. Und das für einen guten Zweck. Kann ich nur empfehlen.' },
-            { name: 'Jonas M.',      age: 24, color: '#00B4D8', text: 'Die Community ist das Beste. Man kommt als Fremder und geht mit Freunden fürs Leben. Nebenbei macht man richtig gutes Geld.' },
-          ].map(r => (
-            <div class="review-card">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-black text-base headline-sm"
-                  style={`background:${r.color}`}>{r.name[0]}</div>
-                <div>
-                  <p class="text-white font-bold text-sm">{r.name}, {r.age}</p>
-                  <div class="text-yellow-400 text-xs mt-0.5">★★★★★</div>
-                </div>
+
+        <!-- Image slider -->
+        <div class="reviews-slider-wrap">
+          <div class="reviews-track" id="reviews-track">
+            {[
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/0792d43e1c825562988748393508c1b5.png',
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/dac8c3f2ef50bf4f8d1d47a3e80cf14e.png',
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/d2c0b0e3ad7ceed17618c4c1178f6b6b.png',
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/ff88471118fbb49a9fe62493d87ee8e2.png',
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/ffd8e294bb250c2a760960795324b0e9.png',
+              'https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/0a611f8ed1e9324a436d4b4394587988.png',
+            ].map(url => (
+              <div class="review-slide">
+                <img src={url} alt="Google Bewertung" class="review-img" />
               </div>
-              <p class="text-white/70 text-sm leading-relaxed font-medium">"{r.text}"</p>
-            </div>
-          ))}
+            ))}
+          </div>
+          <!-- prev/next -->
+          <button class="rev-btn rev-prev" id="rev-prev" onclick="revMove(-1)">‹</button>
+          <button class="rev-btn rev-next" id="rev-next" onclick="revMove(1)">›</button>
         </div>
-        <div class="text-center mt-8">
+
+        <!-- dots -->
+        <div class="flex justify-center gap-2 mt-6" id="rev-dots"></div>
+
+        <div class="text-center mt-6">
           <a href="https://www.google.com/search?q=hsp+DIE+FUNDRAISER+GmbH+Rezensionen" target="_blank"
             class="text-[#97BF0D]/80 hover:text-[#97BF0D] text-sm font-bold underline transition-colors">
             Alle Bewertungen auf Google lesen →
@@ -232,14 +239,14 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
     <!-- CTA TO PAGE 2 -->
-    <section class="bg-[#97BF0D] py-28 px-6 text-center">
-      <h2 class="headline-lg text-white max-w-2xl mx-auto">
-        Wie viel kannst<br />du machen?
+    <section class="py-24 px-5 text-center" style="background:#97BF0D">
+      <h2 class="hd text-white max-w-xl mx-auto" style="font-size:clamp(2rem,6vw,3rem)">
+        Wie viel kannst du machen?
       </h2>
-      <p class="text-white/80 text-lg mt-4 mb-10 max-w-lg mx-auto font-semibold">
+      <p class="text-white/80 text-base md:text-lg mt-4 mb-8 max-w-md mx-auto font-semibold">
         Kein fixes Gehalt – du bestimmst deinen Einsatz. Rechne selbst nach.
       </p>
-      <button onclick="goToPage(2)" class="btn-dark text-lg px-10 py-4">
+      <button onclick="goToPage(2)" class="btn-dark text-base px-8 py-4">
         Dein Geld ausrechnen →
       </button>
     </section>
@@ -252,54 +259,51 @@ import Layout from '../layouts/Layout.astro';
   ══════════════════════════════════════════════════ -->
   <div id="page-2" class="page">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 nav-bar">
-      <button onclick="goToPage(1)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] transition-colors text-sm font-bold">← Zurück</button>
-      <div class="logo">hsp</div>
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
+      <button onclick="goToPage(1)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] text-sm font-bold transition-colors">← Zurück</button>
+      <div class="hsp-logo"><span>hsp</span></div>
       <button onclick="goToPage(3)" class="btn-nav">Jetzt anfragen →</button>
     </nav>
 
     <!-- Mindestgarantie -->
-    <section class="bg-white pt-28 pb-16 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="pill bg-[#1B2A4A] mx-auto w-fit mb-4">So machst du dein Geld</div>
-        <h2 class="headline-lg text-[#1B2A4A] text-center mb-4">
-          Dein Geld.<br /><span class="text-[#97BF0D]">Dein Einsatz.</span>
+    <section class="bg-white pt-24 pb-14 px-5">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="hd text-[#1B2A4A] text-center mb-3" style="font-size:clamp(2rem,6vw,3rem)">
+          Dein Geld. <span style="color:#97BF0D">Dein Einsatz.</span>
         </h2>
-        <p class="text-[#1B2A4A]/60 text-lg text-center max-w-xl mx-auto mb-14 font-medium">
+        <p class="text-[#1B2A4A]/55 text-base md:text-lg text-center max-w-xl mx-auto mb-12 font-semibold">
           Du wirst nach Provision bezahlt. Je mehr du begeisterst, desto mehr machst du.
           Als Sicherheitsnetz gibt's eine garantierte Basis.
         </p>
-
-        <!-- Guarantee card -->
-        <div class="guarantee-card mb-6">
+        <div class="guarantee-card">
           <div class="flex flex-col md:flex-row md:items-center gap-8">
             <div class="md:w-1/3">
               <p class="text-[#1B2A4A]/40 text-xs font-bold uppercase tracking-widest mb-2">Garantierte Basis</p>
-              <p class="headline-xl" style="color:#97BF0D;font-size:3.5rem">2.400 €</p>
+              <p class="hd" style="color:#97BF0D;font-size:3.2rem">2.400 €</p>
               <p class="text-[#1B2A4A]/50 mt-1 text-sm font-semibold">Mindestprovision in 4 Wochen</p>
             </div>
             <div class="md:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
-                { week: 'Woche 1', rate: '55 €', col: '#97BF0D' },
-                { week: 'Woche 2', rate: '85 €', col: '#00B4D8' },
-                { week: 'Woche 3', rate: '115 €', col: '#E5007D' },
-                { week: 'Woche 4', rate: '145 €', col: '#1B2A4A' },
+                { week:'Woche 1', rate:'55 €',  col:'#97BF0D' },
+                { week:'Woche 2', rate:'85 €',  col:'#00B4D8' },
+                { week:'Woche 3', rate:'115 €', col:'#E5007D' },
+                { week:'Woche 4', rate:'145 €', col:'#1B2A4A' },
               ].map(w => (
                 <div class="week-tile" style={`border-top:3px solid ${w.col}`}>
                   <p class="text-[#1B2A4A]/40 text-xs font-bold mb-1">{w.week}</p>
-                  <p class="headline-sm" style={`color:${w.col}`}>{w.rate}</p>
+                  <p class="hd" style={`color:${w.col};font-size:1.5rem`}>{w.rate}</p>
                   <p class="text-[#1B2A4A]/40 text-xs font-semibold">pro Tag</p>
                 </div>
               ))}
             </div>
           </div>
-          <div class="mt-6 pt-5 border-t border-[#1B2A4A]/8 flex flex-wrap gap-6">
+          <div class="mt-5 pt-5 border-t border-[#1B2A4A]/8 flex flex-wrap gap-5">
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-[#97BF0D] shrink-0"></span>
+              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#97BF0D"></span>
               <span class="text-[#1B2A4A]/60 text-sm font-semibold">+ <strong class="text-[#1B2A4A]">200 € Anreisebonus</strong> nach deinem 6. Einsatztag</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-[#E5007D] shrink-0"></span>
+              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#E5007D"></span>
               <span class="text-[#1B2A4A]/60 text-sm font-semibold">Provision immer <strong class="text-[#1B2A4A]">"best case"</strong> abgerechnet</span>
             </div>
           </div>
@@ -307,186 +311,167 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- INTERAKTIVER RECHNER -->
-    <section class="bg-[#F0F7FF] py-20 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="pill bg-[#E5007D] mx-auto w-fit mb-4">Interaktiver Rechner</div>
-        <h2 class="headline-lg text-[#1B2A4A] text-center mb-12">
-          Rechne deinen<br /><span class="text-[#E5007D]">Einsatz durch.</span>
+    <!-- RECHNER -->
+    <section class="bg-[#F0F7FF] py-16 px-5">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="hd text-[#1B2A4A] text-center mb-3" style="font-size:clamp(2rem,6vw,3rem)">
+          Rechne deinen <span style="color:#E5007D">Einsatz durch.</span>
         </h2>
 
-        <!-- Org selector -->
-        <div class="mb-8">
-          <p class="text-[#1B2A4A]/50 text-xs font-bold uppercase tracking-widest mb-3 text-center">Organisation wählen</p>
-          <div class="flex flex-wrap gap-3 justify-center" id="org-grid"></div>
+        <!-- BRK label -->
+        <div class="flex items-center justify-center gap-3 mb-7">
+          <div class="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-sm border border-[#1B2A4A]/08">
+            <span class="w-2 h-2 rounded-full bg-[#E5007D]"></span>
+            <span class="text-[#1B2A4A] text-sm font-bold">Beispiel: BRK · Faktor 4 – 7</span>
+          </div>
         </div>
 
-        <!-- Main calculator: chart left, photo right -->
+        <!-- Chart + Photo: single card on mobile, split on desktop -->
         <div class="calc-main-grid">
 
-          <!-- LEFT: curve chart -->
+          <!-- LEFT: curve -->
           <div class="chart-panel">
-            <div class="chart-header">
-              <div class="zone-labels">
-                <span class="zone-lbl newcomer-lbl">NEWCOMER</span>
-                <span class="zone-lbl pro-lbl">PRO</span>
-                <span class="zone-lbl elite-lbl">ELITE</span>
-              </div>
+            <div class="flex justify-between mb-2">
+              <span class="zone-lbl" style="color:#00B4D8">NEWCOMER</span>
+              <span class="zone-lbl" style="color:#E5007D">PRO</span>
+              <span class="zone-lbl" style="color:#97BF0D">ELITE</span>
             </div>
-
             <div class="chart-wrap" id="chart-wrap">
-              <svg id="provision-chart" class="provision-svg" viewBox="0 0 600 280" preserveAspectRatio="none">
-                <!-- background zones filled by JS -->
-                <g id="chart-bg"></g>
-                <!-- grid lines -->
-                <g id="chart-grid"></g>
-                <!-- curve path -->
-                <path id="chart-curve" fill="none" stroke="#E5007D" stroke-width="3" stroke-linecap="round"/>
-                <!-- area under curve -->
-                <path id="chart-area" fill="url(#curveGrad)" opacity="0.3"/>
-                <!-- cursor line -->
-                <line id="cursor-line" x1="0" y1="0" x2="0" y2="280" stroke="#1B2A4A" stroke-width="1.5" stroke-dasharray="4,3" opacity="0" />
-                <!-- cursor dot -->
-                <circle id="cursor-dot" cx="0" cy="0" r="6" fill="#E5007D" opacity="0" />
-                <!-- gradient def -->
+              <svg id="provision-chart" viewBox="0 0 600 260" preserveAspectRatio="none" style="width:100%;height:100%;display:block;cursor:crosshair">
                 <defs>
                   <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#E5007D"/>
                     <stop offset="100%" stop-color="#E5007D" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
+                <g id="chart-bg"></g>
+                <g id="chart-grid"></g>
+                <path id="chart-area" fill="url(#curveGrad)" opacity="0.25"/>
+                <path id="chart-curve" fill="none" stroke="#E5007D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Ø 3.300€ marker -->
+                <line id="avg-line" x1="0" y1="0" x2="0" y2="260" stroke="#97BF0D" stroke-width="1.5" stroke-dasharray="5,4"/>
+                <rect id="avg-badge-bg" x="0" y="6" width="74" height="18" rx="4" fill="#97BF0D"/>
+                <text id="avg-badge-txt" x="0" y="19" font-size="9.5" font-weight="800" fill="white" font-family="Nunito, sans-serif">Ø 3.300 €</text>
+                <line id="cursor-line" x1="0" y1="0" x2="0" y2="260" stroke="#1B2A4A" stroke-width="1.5" stroke-dasharray="4,3" opacity="0"/>
+                <circle id="cursor-dot" r="6" fill="#E5007D" stroke="#fff" stroke-width="2" opacity="0"/>
               </svg>
-
-              <!-- Tooltip -->
-              <div id="chart-tooltip" class="chart-tooltip" style="opacity:0">
-                <p class="tt-eh" id="tt-eh">450 EH</p>
-                <p class="tt-factor" id="tt-factor">Faktor 5.2</p>
-                <p class="tt-money" id="tt-money">2.340 €</p>
+              <div id="chart-tooltip" class="chart-tooltip" style="opacity:0;pointer-events:none">
+                <p id="tt-eh" class="tt-small"></p>
+                <p id="tt-factor" class="tt-mid"></p>
+                <p id="tt-money" class="tt-big"></p>
               </div>
-
-              <!-- TAKE-OFF marker -->
               <div class="takeoff-marker" id="takeoff-marker">
-                <div class="takeoff-line"></div>
-                <span class="takeoff-label">TAKE-OFF</span>
+                <div style="position:absolute;top:0;bottom:0;width:1px;border-left:1px dashed rgba(27,42,74,0.25)"></div>
+                <span style="position:absolute;top:-18px;left:4px;font-size:0.55rem;font-weight:800;color:rgba(27,42,74,0.4);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap">Start</span>
               </div>
-
-              <!-- 200€ marker -->
-              <div class="bonus-badge">200 € Anreiseprämie</div>
+              <div class="bonus-badge">+ 200 € Anreise</div>
             </div>
-
-            <div class="chart-axis">
-              <span>0 EH</span>
-              <span class="text-[#1B2A4A]/40 text-xs">EINHEITEN →</span>
-              <span id="max-eh-label">900 EH</span>
+            <div class="flex justify-between text-xs font-bold text-[#1B2A4A]/35 mt-1">
+              <span>0 €</span>
+              <span>DEIN GELD →</span>
+              <span>~5.500 €</span>
             </div>
-
-            <!-- Stats row -->
-            <div class="stats-row mt-6">
-              <div class="stat-box" style="border-color:#97BF0D">
-                <p class="stat-label">Faktor</p>
-                <p class="stat-val" id="r-factor" style="color:#97BF0D">4.0</p>
-              </div>
-              <div class="stat-box" style="border-color:#00B4D8">
-                <p class="stat-label">Brutto</p>
-                <p class="stat-val" id="r-gross" style="color:#00B4D8">0 €</p>
-              </div>
-              <div class="stat-box" style="border-color:#E5007D">
-                <p class="stat-label">Dein Geld</p>
-                <p class="stat-val" id="r-net" style="color:#E5007D">200 €</p>
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-2 mt-4">
+              {[
+                { label:'Faktor',      id:'r-factor', col:'#97BF0D' },
+                { label:'Brutto',      id:'r-gross',  col:'#00B4D8' },
+                { label:'Dein Geld',   id:'r-net',    col:'#E5007D' },
+              ].map(s => (
+                <div class="stat-box" style={`border-top:3px solid ${s.col}`}>
+                  <p class="stat-label">{s.label}</p>
+                  <p class="hd stat-val" id={s.id} style={`color:${s.col}`}>–</p>
+                </div>
+              ))}
+            </div>
+            <!-- Mobile photo strip (hidden on desktop) -->
+            <div class="mobile-photo-strip">
+              <img id="context-photo-mobile" src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80" alt="" />
+              <div class="mobile-photo-cap">
+                <span id="caption-emoji-m">🗺️</span>
+                <span id="caption-text-m">Schiebe über die Kurve</span>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT: contextual photo -->
+          <!-- RIGHT: photo (desktop only) -->
           <div class="photo-panel">
-            <div class="photo-wrap" id="photo-wrap">
-              <img id="context-photo" src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80" alt="" class="context-img" />
-              <div class="photo-caption" id="photo-caption">
-                <span class="caption-emoji" id="caption-emoji">🗺️</span>
-                <span class="caption-text" id="caption-text">Bewege den Cursor über die Kurve</span>
-              </div>
+            <img id="context-photo" src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80" alt="" class="context-img" />
+            <div class="photo-caption">
+              <span class="caption-emoji" id="caption-emoji">🗺️</span>
+              <span class="caption-text" id="caption-text">Bewege den Cursor über die Kurve</span>
             </div>
           </div>
-
         </div>
 
-        <p class="text-[#1B2A4A]/30 text-xs mt-6 text-center">
-          * 20 % Stornorücklage werden nach 1,5 Jahren verrechnet und ggf. zurückerstattet. Alle Angaben sind Beispielrechnungen ohne Gewähr.
+        <p class="text-[#1B2A4A]/30 text-xs mt-5 text-center">
+          * 20 % Stornorücklage wird nach 1,5 Jahren verrechnet und ggf. zurückerstattet. Alle Angaben ohne Gewähr.
         </p>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="bg-[#E5007D] py-28 px-6 text-center">
-      <h2 class="headline-lg text-white max-w-xl mx-auto">
+    <section class="py-24 px-5 text-center" style="background:#E5007D">
+      <h2 class="hd text-white max-w-xl mx-auto" style="font-size:clamp(2rem,6vw,3rem)">
         Klingt gut?<br />Dann frag an.
       </h2>
-      <p class="text-white/80 text-lg mt-4 mb-10 max-w-md mx-auto font-semibold">
-        Wir melden uns innerhalb von 24 Stunden. Keine Verpflichtung.
-      </p>
-      <button onclick="goToPage(3)" class="btn-light text-lg px-10 py-4">
-        Jetzt anfragen →
-      </button>
+      <p class="text-white/80 text-base md:text-lg mt-4 mb-8 font-semibold">Wir melden uns in 24 Stunden. Keine Verpflichtung.</p>
+      <button onclick="goToPage(3)" class="btn-light px-8 py-4">Jetzt anfragen →</button>
     </section>
 
   </div><!-- /page-2 -->
 
 
   <!-- ══════════════════════════════════════════════
-       PAGE 3 — MULTI-STEP FORM
+       PAGE 3 — FORM
   ══════════════════════════════════════════════════ -->
   <div id="page-3" class="page">
-
-    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 nav-bar">
-      <button onclick="goToPage(2)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] transition-colors text-sm font-bold">← Zurück</button>
-      <div class="logo">hsp</div>
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 nav-bar">
+      <button onclick="goToPage(2)" class="text-[#1B2A4A]/50 hover:text-[#1B2A4A] text-sm font-bold transition-colors">← Zurück</button>
+      <div class="hsp-logo"><span>hsp</span></div>
       <div></div>
     </nav>
-
-    <section class="min-h-screen bg-white flex items-center justify-center px-6 pt-24 pb-16">
-      <div class="w-full max-w-lg">
-
-        <!-- Progress -->
-        <div class="mb-10">
+    <section class="min-h-screen bg-white flex items-center justify-center px-5 pt-24 pb-12">
+      <div class="w-full max-w-md">
+        <div class="mb-8">
           <div class="flex justify-between text-xs text-[#1B2A4A]/40 font-bold mb-2">
             <span id="step-label">Schritt 1 von 3</span>
             <span id="step-pct">33 %</span>
           </div>
-          <div class="h-2 bg-[#1B2A4A]/10 rounded-full overflow-hidden">
-            <div class="h-full bg-[#97BF0D] rounded-full transition-all duration-500" id="progress-bar" style="width:33%"></div>
+          <div class="h-2 rounded-full overflow-hidden" style="background:rgba(27,42,74,0.1)">
+            <div class="h-full rounded-full transition-all duration-500" id="progress-bar" style="width:33%;background:#97BF0D"></div>
           </div>
         </div>
 
         <!-- Step 1 -->
         <div id="fs-1" class="fstep">
-          <h2 class="headline-lg text-[#1B2A4A] mb-2">Wer bist du?</h2>
-          <p class="text-[#1B2A4A]/50 mb-8 font-medium">Kurz vorstellen – das war's für Schritt 1.</p>
-          <div class="space-y-4">
+          <h2 class="hd text-[#1B2A4A] mb-1" style="font-size:2.2rem">Wer bist du?</h2>
+          <p class="text-[#1B2A4A]/50 mb-7 font-semibold">Kurz vorstellen – das war's für Schritt 1.</p>
+          <div class="space-y-3">
             <div class="grid grid-cols-2 gap-3">
               <div class="fgroup"><label class="flabel">Vorname *</label><input id="f-fn" type="text" class="finput" placeholder="Max" /></div>
               <div class="fgroup"><label class="flabel">Nachname *</label><input id="f-ln" type="text" class="finput" placeholder="Mustermann" /></div>
             </div>
             <div class="fgroup"><label class="flabel">Alter *</label><input id="f-age" type="number" class="finput" placeholder="21" min="18" /></div>
           </div>
-          <button onclick="nextStep(2)" class="btn-primary w-full mt-8 py-4">Weiter →</button>
+          <button onclick="nextStep(2)" class="btn-primary w-full mt-7 py-4">Weiter →</button>
         </div>
 
         <!-- Step 2 -->
         <div id="fs-2" class="fstep hidden">
-          <h2 class="headline-lg text-[#1B2A4A] mb-2">Wie erreichst du dich?</h2>
-          <p class="text-[#1B2A4A]/50 mb-8 font-medium">Damit wir uns melden können.</p>
-          <div class="space-y-4">
+          <h2 class="hd text-[#1B2A4A] mb-1" style="font-size:2.2rem">Wie erreichst du dich?</h2>
+          <p class="text-[#1B2A4A]/50 mb-7 font-semibold">Damit wir uns melden können.</p>
+          <div class="space-y-3">
             <div class="fgroup"><label class="flabel">E-Mail *</label><input id="f-email" type="email" class="finput" placeholder="max@beispiel.de" /></div>
             <div class="fgroup"><label class="flabel">Telefon *</label><input id="f-phone" type="tel" class="finput" placeholder="+49 ..." /></div>
-            <div class="fgroup">
-              <label class="flabel">Beste Erreichbarkeit</label>
+            <div class="fgroup"><label class="flabel">Beste Erreichbarkeit</label>
               <select id="f-reach" class="finput">
                 <option value="">Bitte wählen …</option>
                 <option>Vormittags</option><option>Mittags</option><option>Nachmittags</option><option>Abends</option>
               </select>
             </div>
           </div>
-          <div class="flex gap-3 mt-8">
+          <div class="flex gap-3 mt-7">
             <button onclick="nextStep(1)" class="btn-outline flex-1 py-4">← Zurück</button>
             <button onclick="nextStep(3)" class="btn-primary flex-1 py-4">Weiter →</button>
           </div>
@@ -494,24 +479,22 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Step 3 -->
         <div id="fs-3" class="fstep hidden">
-          <h2 class="headline-lg text-[#1B2A4A] mb-2">Fast geschafft.</h2>
-          <p class="text-[#1B2A4A]/50 mb-8 font-medium">Noch ein paar Details – dann sind wir fertig.</p>
-          <div class="space-y-4">
+          <h2 class="hd text-[#1B2A4A] mb-1" style="font-size:2.2rem">Fast geschafft.</h2>
+          <p class="text-[#1B2A4A]/50 mb-7 font-semibold">Noch ein paar Details.</p>
+          <div class="space-y-3">
             <div class="grid grid-cols-2 gap-3">
               <div class="fgroup"><label class="flabel">Ort *</label><input id="f-city" type="text" class="finput" placeholder="München" /></div>
               <div class="fgroup"><label class="flabel">PLZ *</label><input id="f-plz" type="text" class="finput" placeholder="80331" /></div>
             </div>
-            <div class="fgroup">
-              <label class="flabel">Land</label>
+            <div class="fgroup"><label class="flabel">Land</label>
               <select id="f-land" class="finput"><option>Deutschland</option><option>Österreich</option><option>Schweiz</option><option>Sonstiges</option></select>
             </div>
-            <div class="fgroup"><label class="flabel">Was motiviert dich?</label><textarea id="f-motive" class="finput" rows="3" placeholder="Kurz in eigenen Worten …"></textarea></div>
-            <p class="text-[#1B2A4A]/30 text-xs font-medium">
-              Mit dem Absenden akzeptierst du unsere
-              <a href="https://www.hsp-derjob.de/datenschutz/" target="_blank" class="underline hover:text-[#E5007D]">Datenschutzerklärung</a>.
-            </p>
+            <div class="fgroup"><label class="flabel">Was motiviert dich?</label>
+              <textarea id="f-motive" class="finput" rows="3" placeholder="Kurz in eigenen Worten …"></textarea>
+            </div>
+            <p class="text-[#1B2A4A]/30 text-xs font-medium">Mit dem Absenden akzeptierst du unsere <a href="https://www.hsp-derjob.de/datenschutz/" target="_blank" class="underline">Datenschutzerklärung</a>.</p>
           </div>
-          <div class="flex gap-3 mt-8">
+          <div class="flex gap-3 mt-7">
             <button onclick="nextStep(2)" class="btn-outline flex-1 py-4">← Zurück</button>
             <button onclick="submitForm()" class="btn-primary flex-1 py-4">Anfrage absenden ✓</button>
           </div>
@@ -519,252 +502,201 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Success -->
         <div id="fs-ok" class="fstep hidden text-center">
-          <div class="w-20 h-20 rounded-full bg-[#97BF0D] flex items-center justify-center mx-auto mb-6">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5" style="background:#97BF0D">
             <svg class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <h2 class="headline-lg text-[#1B2A4A] mb-3">Anfrage eingegangen!</h2>
-          <p class="text-[#1B2A4A]/60 text-lg max-w-sm mx-auto font-medium">
-            Danke – wir melden uns innerhalb von <strong class="text-[#1B2A4A]">24 Stunden</strong>.
-            Schau auch in deinen Spam-Ordner.
+          <h2 class="hd text-[#1B2A4A] mb-3" style="font-size:2.2rem">Anfrage eingegangen!</h2>
+          <p class="text-[#1B2A4A]/60 text-base max-w-xs mx-auto font-semibold">
+            Danke – wir melden uns in <strong class="text-[#1B2A4A]">24 Stunden</strong>. Schau auch in deinen Spam-Ordner.
           </p>
-          <button onclick="goToPage(1)" class="btn-outline mt-8 px-8 py-3">Zurück zur Startseite</button>
+          <button onclick="goToPage(1)" class="btn-outline mt-7 px-8 py-3">Zurück zur Startseite</button>
         </div>
-
       </div>
     </section>
-
   </div><!-- /page-3 -->
 
 </div><!-- /app -->
 
 
-<!-- ──────────────────────────────────────────── STYLES ── -->
+<!-- ──────────────────── STYLES ── -->
 <style is:global>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: #fff;
-    color: #1B2A4A;
-    overflow-x: hidden;
-    font-family: 'Nunito', system-ui, sans-serif;
+  @font-face {
+    font-family: 'BundaySlab';
+    src: url('/fonts/BundaySlab-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'BundaySlab';
+    src: url('/fonts/BundaySlab-Light.otf') format('opentype');
+    font-weight: 300;
+    font-display: swap;
   }
 
-  /* Pages */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #fff; color: #1B2A4A; overflow-x: hidden; font-family: 'Nunito', system-ui, sans-serif; }
+
   .page { display: none; }
   .page.active { display: block; }
 
-  /* Headlines with Bebas Neue */
-  .headline-xl { font-family: 'Bebas Neue', 'Arial Black', sans-serif; font-size: clamp(3.5rem,10vw,7rem); line-height: 0.92; letter-spacing: 0.02em; }
-  .headline-lg { font-family: 'Bebas Neue', 'Arial Black', sans-serif; font-size: clamp(2rem,5vw,3.25rem); line-height: 1.0; letter-spacing: 0.02em; }
-  .headline-sm { font-family: 'Bebas Neue', 'Arial Black', sans-serif; font-size: 1.5rem; line-height: 1.1; letter-spacing: 0.02em; }
+  /* Headline font */
+  .hd { font-family: 'BundaySlab', 'Arial Black', sans-serif; font-weight: 700; }
 
   /* Nav */
-  .nav-bar {
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 2px solid rgba(27,42,74,0.08);
+  .nav-bar { background: rgba(255,255,255,0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(27,42,74,0.08); }
+
+  /* HSP Logo */
+  .hsp-logo {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #E5001A;
+    display: flex; align-items: center; justify-content: center;
   }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #1B2A4A; letter-spacing: 0.05em; }
+  .hsp-logo span {
+    font-family: 'BundaySlab', 'Arial Black', sans-serif;
+    font-size: 1rem; color: #fff; font-weight: 700;
+    line-height: 1;
+  }
 
   /* Buttons */
-  .btn-nav {
-    background: #1B2A4A; color: #fff;
-    font-weight: 800; border-radius: 100px;
-    border: none; cursor: pointer;
-    padding: 8px 20px; font-size: 0.85rem;
-    transition: background 0.2s;
-    font-family: 'Nunito', sans-serif;
-  }
+  .btn-nav { background: #1B2A4A; color: #fff; font-weight: 800; border-radius: 100px; border: none; cursor: pointer; padding: 9px 20px; font-size: 0.82rem; transition: background 0.2s; font-family: 'Nunito', sans-serif; }
   .btn-nav:hover { background: #E5007D; }
-  .btn-primary {
-    background: #97BF0D; color: #fff;
-    font-weight: 900; border-radius: 100px;
-    border: none; cursor: pointer;
-    display: inline-block; text-align: center;
-    transition: background 0.2s, transform 0.15s;
-    font-family: 'Nunito', sans-serif;
-  }
+  .btn-primary { background: #97BF0D; color: #fff; font-weight: 900; border-radius: 100px; border: none; cursor: pointer; display: inline-block; text-align: center; transition: all 0.2s; font-family: 'Nunito', sans-serif; font-size: 1rem; }
   .btn-primary:hover { background: #7da00b; transform: translateY(-1px); }
-  .btn-dark {
-    background: #1B2A4A; color: #fff;
-    font-weight: 900; border-radius: 100px;
-    border: none; cursor: pointer;
-    display: inline-block; text-align: center;
-    transition: all 0.2s; font-family: 'Nunito', sans-serif;
-  }
+  .btn-dark { background: #1B2A4A; color: #fff; font-weight: 900; border-radius: 100px; border: none; cursor: pointer; display: inline-block; text-align: center; transition: all 0.2s; font-family: 'Nunito', sans-serif; font-size: 1rem; }
   .btn-dark:hover { background: #E5007D; transform: translateY(-1px); }
-  .btn-light {
-    background: #fff; color: #E5007D;
-    font-weight: 900; border-radius: 100px;
-    border: none; cursor: pointer;
-    display: inline-block; text-align: center;
-    transition: all 0.2s; font-family: 'Nunito', sans-serif;
-  }
-  .btn-light:hover { background: #1B2A4A; color: #fff; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent; color: #1B2A4A;
-    font-weight: 800; border-radius: 100px;
-    border: 2px solid #1B2A4A/20;
-    border-color: rgba(27,42,74,0.2);
-    cursor: pointer; transition: all 0.2s;
-    display: inline-block; text-align: center;
-    font-family: 'Nunito', sans-serif;
-  }
+  .btn-light { background: #fff; color: #E5007D; font-weight: 900; border-radius: 100px; border: none; cursor: pointer; display: inline-block; text-align: center; transition: all 0.2s; font-family: 'Nunito', sans-serif; font-size: 1rem; }
+  .btn-light:hover { background: #1B2A4A; color: #fff; }
+  .btn-outline { background: transparent; color: #1B2A4A; font-weight: 800; border-radius: 100px; border: 2px solid rgba(27,42,74,0.2); cursor: pointer; transition: all 0.2s; display: inline-block; text-align: center; font-family: 'Nunito', sans-serif; font-size: 1rem; }
   .btn-outline:hover { border-color: #1B2A4A; }
-
-  /* Pill labels */
-  .pill {
-    display: inline-block;
-    color: #fff; font-weight: 800;
-    font-size: 0.72rem; letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-radius: 100px; padding: 6px 14px;
-  }
-
-  /* Hero */
-  .hero-gradient { background: linear-gradient(to top, #1B2A4A 0%, rgba(27,42,74,0.5) 50%, rgba(27,42,74,0.1) 100%); }
 
   /* Scroll indicator */
   .scroll-dot-wrap { width: 22px; height: 36px; border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; position: relative; }
   .scroll-dot { position: absolute; left: 50%; top: 6px; width: 4px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 4px; transform: translateX(-50%); animation: sdrop 2s ease-in-out infinite; }
   @keyframes sdrop { 0%,100% { top:6px; opacity:1; } 80% { top:18px; opacity:0; } }
 
-  /* Phone mockup */
-  .phone-mockup { width: 270px; height: 550px; background: #fff; border-radius: 42px; border: 3px solid #1B2A4A/15; border-color: rgba(27,42,74,0.15); padding: 12px; position: relative; box-shadow: 0 30px 70px rgba(27,42,74,0.2), 0 0 0 1px rgba(27,42,74,0.05); }
-  .phone-notch { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 70px; height: 5px; background: rgba(27,42,74,0.15); border-radius: 4px; z-index: 10; }
+  /* NGO logos */
+  .ngo-logo { height: 36px; object-fit: contain; filter: grayscale(0.3); opacity: 0.8; transition: all 0.2s; }
+  .ngo-logo:hover { opacity: 1; filter: none; }
+
+  /* Phone */
+  .phone-mockup { width: 260px; height: 520px; background: #fff; border-radius: 40px; border: 3px solid rgba(27,42,74,0.12); padding: 10px; position: relative; box-shadow: 0 30px 60px rgba(27,42,74,0.18); }
+  .phone-notch { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 60px; height: 5px; background: rgba(27,42,74,0.15); border-radius: 4px; z-index: 10; }
   .phone-screen { width: 100%; height: 100%; border-radius: 30px; overflow: hidden; position: relative; }
   .ugc-slides { display: flex; width: 300%; height: 100%; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
-  .ugc-slide { width: calc(100% / 3); height: 100%; position: relative; flex-shrink: 0; }
+  .ugc-slide { width: calc(100%/3); height: 100%; position: relative; flex-shrink: 0; }
   .ugc-slide img { width: 100%; height: 100%; object-fit: cover; }
-  .ugc-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 16px; background: linear-gradient(transparent, rgba(27,42,74,0.85)); }
-  .ugc-tag  { color: #97BF0D; font-size: 0.68rem; font-weight: 800; margin-bottom: 4px; }
-  .ugc-text { color: #fff; font-size: 0.78rem; font-weight: 700; }
-  .ugc-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
-  .ugc-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.25s; }
-  .ugc-dot.active { background: #97BF0D; width: 18px; border-radius: 4px; }
+  .ugc-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px 14px; background: linear-gradient(transparent, rgba(27,42,74,0.88)); }
+  .ugc-tag  { color: #97BF0D; font-size: 0.68rem; font-weight: 800; margin-bottom: 3px; }
+  .ugc-text { color: #fff; font-size: 0.76rem; font-weight: 700; }
+  .ugc-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+  .ugc-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.25s; }
+  .ugc-dot.active { background: #97BF0D; width: 16px; border-radius: 4px; }
 
   /* Community grid */
-  .community-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-  .community-img { width: 100%; height: 190px; object-fit: cover; border-radius: 16px; transition: transform 0.3s; }
+  .community-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+  .community-img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; transition: transform 0.3s; }
   .community-img:hover { transform: scale(1.02); }
-  .community-img.tall { height: 270px; }
+  .community-img.tall { height: 258px; }
 
-  /* Review cards */
-  .review-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 22px; }
+  /* Google Reviews slider */
+  .reviews-slider-wrap { position: relative; overflow: hidden; border-radius: 16px; }
+  .reviews-track { display: flex; gap: 16px; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); padding: 4px 0; }
+  .review-slide { flex-shrink: 0; width: calc(100% / 2.5); }
+  .review-img { width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .rev-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; font-size: 1.4rem; font-weight: 800; color: #1B2A4A; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,0.2); transition: all 0.2s; z-index: 10; }
+  .rev-btn:hover { background: #97BF0D; color: #fff; }
+  .rev-prev { left: 8px; }
+  .rev-next { right: 8px; }
+  .rev-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.2s; border: none; }
+  .rev-dot.active { background: #97BF0D; width: 20px; border-radius: 4px; }
 
   /* Guarantee card */
-  .guarantee-card { background: #F8FAFC; border: 2px solid rgba(151,191,13,0.3); border-radius: 24px; padding: 32px; }
-  .week-tile { background: #fff; border-radius: 14px; padding: 16px; box-shadow: 0 2px 8px rgba(27,42,74,0.06); }
+  .guarantee-card { background: #F8FAFC; border: 2px solid rgba(151,191,13,0.25); border-radius: 20px; padding: 28px; }
+  .week-tile { background: #fff; border-radius: 12px; padding: 14px; box-shadow: 0 2px 8px rgba(27,42,74,0.06); }
 
-  /* Calculator */
-  .calc-main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  /* Calc grid */
+  .calc-main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media(max-width:768px) { .calc-main-grid { grid-template-columns: 1fr; } }
 
-  .chart-panel { background: #fff; border-radius: 24px; padding: 24px; box-shadow: 0 4px 24px rgba(27,42,74,0.08); }
-  .chart-header { margin-bottom: 12px; }
-  .zone-labels { display: flex; justify-content: space-between; }
-  .zone-lbl { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
-  .newcomer-lbl { color: #00B4D8; }
-  .pro-lbl { color: #E5007D; }
-  .elite-lbl { color: #97BF0D; }
+  .chart-panel { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 20px rgba(27,42,74,0.08); }
+  .zone-lbl { font-size: 0.62rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+  .chart-wrap { position: relative; height: 200px; cursor: crosshair; touch-action: none; }
 
-  .chart-wrap { position: relative; width: 100%; height: 220px; cursor: crosshair; }
-  .provision-svg { width: 100%; height: 100%; display: block; }
-
-  .chart-tooltip {
-    position: absolute; top: 0; left: 0;
-    background: #1B2A4A; color: #fff;
-    border-radius: 12px; padding: 10px 14px;
-    pointer-events: none; transition: opacity 0.15s;
-    transform: translate(-50%, -110%);
-    white-space: nowrap; z-index: 10;
-    box-shadow: 0 4px 16px rgba(27,42,74,0.3);
+  /* Mobile photo strip (inside chart card) */
+  .mobile-photo-strip { display: none; margin-top: 14px; border-radius: 14px; overflow: hidden; position: relative; height: 160px; }
+  .mobile-photo-strip img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; }
+  .mobile-photo-cap { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent,rgba(27,42,74,0.85)); padding: 12px 12px 10px; display: flex; align-items: center; gap: 8px; }
+  .mobile-photo-cap span:first-child { font-size: 1.2rem; }
+  .mobile-photo-cap span:last-child { color: #fff; font-weight: 800; font-size: 0.78rem; }
+  @media(max-width:768px) {
+    .mobile-photo-strip { display: block; }
+    .photo-panel { display: none; } /* hide desktop-only photo on mobile */
   }
-  .tt-eh { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 700; }
-  .tt-factor { font-size: 0.75rem; font-weight: 800; color: #97BF0D; }
-  .tt-money { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #E5007D; }
+
+  .chart-tooltip { position: absolute; background: #1B2A4A; color: #fff; border-radius: 10px; padding: 8px 12px; transform: translate(-50%,-115%); white-space: nowrap; z-index: 10; box-shadow: 0 4px 16px rgba(27,42,74,0.3); }
+  .tt-small { font-size: 0.65rem; color: rgba(255,255,255,0.5); font-weight: 700; }
+  .tt-mid   { font-size: 0.72rem; font-weight: 800; color: #97BF0D; }
+  .tt-big   { font-family: 'BundaySlab', sans-serif; font-size: 1.4rem; color: #E5007D; }
 
   .takeoff-marker { position: absolute; top: 0; bottom: 0; pointer-events: none; }
-  .takeoff-line { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(27,42,74,0.2); border: none; border-left: 1px dashed rgba(27,42,74,0.3); }
-  .takeoff-label { position: absolute; top: -20px; left: 4px; font-size: 0.6rem; font-weight: 800; color: rgba(27,42,74,0.4); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .bonus-badge { position: absolute; top: 8px; left: 8px; background: #97BF0D; color: #fff; font-size: 0.6rem; font-weight: 800; padding: 3px 7px; border-radius: 5px; }
 
-  .bonus-badge { position: absolute; top: 10px; left: 10px; background: #97BF0D; color: #fff; font-size: 0.62rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; white-space: nowrap; }
+  .stat-box { background: #F8FAFC; border-radius: 10px; padding: 10px 12px; }
+  .stat-label { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(27,42,74,0.4); margin-bottom: 2px; }
+  .stat-val { font-size: 1.3rem; line-height: 1; }
 
-  .chart-axis { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; font-size: 0.7rem; font-weight: 700; color: rgba(27,42,74,0.4); }
-
-  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-  .stat-box { background: #F8FAFC; border-radius: 12px; padding: 12px; border-top: 3px solid; }
-  .stat-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(27,42,74,0.4); margin-bottom: 4px; }
-  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1; }
-
-  /* Photo panel */
-  .photo-panel { border-radius: 24px; overflow: hidden; position: relative; }
-  .photo-wrap { width: 100%; height: 100%; min-height: 420px; position: relative; }
-  .context-img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; transition: opacity 0.5s; }
-  .photo-caption {
-    position: absolute; bottom: 20px; left: 20px; right: 20px;
-    background: rgba(27,42,74,0.85); backdrop-filter: blur(8px);
-    border-radius: 14px; padding: 14px 16px;
-    display: flex; align-items: center; gap: 10px;
-    transition: all 0.4s;
-  }
-  .caption-emoji { font-size: 1.5rem; }
-  .caption-text { color: #fff; font-weight: 800; font-size: 0.9rem; }
+  /* Photo */
+  .photo-panel { border-radius: 20px; overflow: hidden; position: relative; min-height: 380px; }
+  .context-img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s; position: absolute; inset: 0; }
+  .photo-caption { position: absolute; bottom: 16px; left: 16px; right: 16px; background: rgba(27,42,74,0.85); backdrop-filter: blur(8px); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+  .caption-emoji { font-size: 1.4rem; }
+  .caption-text { color: #fff; font-weight: 800; font-size: 0.88rem; }
 
   /* Org buttons */
-  .org-btn {
-    display: flex; flex-direction: column; align-items: center;
-    background: #fff; border: 2px solid rgba(27,42,74,0.12);
-    border-radius: 14px; padding: 10px 18px;
-    cursor: pointer; transition: all 0.2s; min-width: 100px;
-    font-family: 'Nunito', sans-serif;
-  }
+  .org-btn { display: flex; flex-direction: column; align-items: center; background: #fff; border: 2px solid rgba(27,42,74,0.12); border-radius: 12px; padding: 9px 16px; cursor: pointer; transition: all 0.2s; min-width: 90px; font-family: 'Nunito', sans-serif; }
   .org-btn:hover { border-color: #E5007D; transform: translateY(-2px); }
   .org-btn.active { background: #E5007D; border-color: #E5007D; }
   .org-btn.active .org-name { color: #fff; }
   .org-btn.active .org-fac  { color: rgba(255,255,255,0.7); }
-  .org-name { color: #1B2A4A; font-weight: 900; font-size: 0.88rem; }
-  .org-fac  { color: rgba(27,42,74,0.4); font-size: 0.68rem; font-weight: 700; margin-top: 2px; }
+  .org-name { color: #1B2A4A; font-weight: 900; font-size: 0.85rem; }
+  .org-fac  { color: rgba(27,42,74,0.4); font-size: 0.65rem; font-weight: 700; margin-top: 1px; }
 
   /* Form */
   .fstep.hidden { display: none; }
-  .fgroup { display: flex; flex-direction: column; gap: 6px; }
-  .flabel { color: rgba(27,42,74,0.5); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
-  .finput {
-    background: #F8FAFC; border: 2px solid rgba(27,42,74,0.1);
-    border-radius: 14px; padding: 13px 16px;
-    color: #1B2A4A; font-size: 1rem; outline: none;
-    transition: border-color 0.2s; width: 100%;
-    font-family: 'Nunito', sans-serif; font-weight: 600;
-  }
+  .fgroup { display: flex; flex-direction: column; gap: 5px; }
+  .flabel { color: rgba(27,42,74,0.5); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+  .finput { background: #F8FAFC; border: 2px solid rgba(27,42,74,0.1); border-radius: 12px; padding: 12px 14px; color: #1B2A4A; font-size: 1rem; outline: none; transition: border-color 0.2s; width: 100%; font-family: 'Nunito', sans-serif; font-weight: 600; }
   .finput:focus { border-color: #97BF0D; background: #fff; }
-  .finput::placeholder { color: rgba(27,42,74,0.25); }
+  .finput::placeholder { color: rgba(27,42,74,0.22); }
   textarea.finput { resize: vertical; }
   select.finput option { background: #fff; }
 
+  /* Mobile */
   @media(max-width:640px) {
     .community-grid { grid-template-columns: repeat(2,1fr); }
-    .community-img.tall { height: 190px; }
-    .phone-mockup { width: 230px; height: 460px; }
-    .stats-row { grid-template-columns: repeat(3,1fr); gap: 6px; }
+    .community-img.tall { height: 180px; }
+    .phone-mockup { width: 220px; height: 440px; }
+    .review-slide { width: calc(100% / 1.2); }
+    .photo-panel { min-height: 260px; }
   }
 </style>
 
 
-<!-- ──────────────────────────────────────────── SCRIPTS ── -->
+<!-- ──────────────────── SCRIPTS ── -->
 <script>
-  /* ── Page nav ──────────────────────────── */
+  /* ── Page nav ─────────────────── */
   function goToPage(n) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const pg = document.getElementById('page-' + n);
-    if (pg) { pg.classList.add('active'); window.scrollTo({ top: 0 }); }
-    if (n === 2) setTimeout(initChart, 100);
+    if (pg) { pg.classList.add('active'); window.scrollTo({ top:0 }); }
+    if (n === 2) setTimeout(initChart, 80);
   }
 
-  /* ── UGC slider ────────────────────────── */
+  /* ── UGC swiper ───────────────── */
   let slide = 0;
   function goToSlide(i) {
     slide = i;
@@ -773,242 +705,219 @@ import Layout from '../layouts/Layout.astro';
     document.querySelectorAll('.ugc-dot').forEach((d,j) => d.classList.toggle('active', j===i));
   }
   setInterval(() => goToSlide((slide+1)%3), 3400);
-
-  let tx = 0;
+  let tx0 = 0;
   document.addEventListener('DOMContentLoaded', () => {
     const sc = document.getElementById('ugc-screen');
     if (!sc) return;
-    sc.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+    sc.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, {passive:true});
     sc.addEventListener('touchend',   e => {
-      const dx = e.changedTouches[0].clientX - tx;
+      const dx = e.changedTouches[0].clientX - tx0;
       if (Math.abs(dx)>40) goToSlide(dx<0 ? Math.min(slide+1,2) : Math.max(slide-1,0));
     });
   });
 
-  /* ── Org data ──────────────────────────── */
-  const ORGS = [
-    { id:'brk',  name:'BRK',       newcomer:4,  elite:7,  takeoff:550,  max:2750 },
-    { id:'drk',  name:'DRK',       newcomer:5,  elite:8,  takeoff:450,  max:2250 },
-    { id:'mhd',  name:'Malteser',  newcomer:6,  elite:9,  takeoff:400,  max:2000 },
-    { id:'bn',   name:'BN Bayern', newcomer:7,  elite:11, takeoff:300,  max:1500 },
-    { id:'bund', name:'BUND',      newcomer:9,  elite:13, takeoff:250,  max:1250 },
-  ];
-  let curOrg = ORGS[0];
-  const MAX_EH = 900;
+  /* ── Review slider ────────────── */
+  const TOTAL_REVIEWS = 6;
+  let revIdx = 0;
+  function revMove(dir) {
+    revIdx = Math.max(0, Math.min(TOTAL_REVIEWS - 1, revIdx + dir));
+    const track = document.getElementById('reviews-track');
+    if (track) track.style.transform = `translateX(-${revIdx * (100/2.5)}%)`;
+    document.querySelectorAll('.rev-dot').forEach((d,i) => d.classList.toggle('active', i===revIdx));
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const dotsEl = document.getElementById('rev-dots');
+    if (!dotsEl) return;
+    for (let i=0; i<TOTAL_REVIEWS; i++) {
+      const d = document.createElement('button');
+      d.className = 'rev-dot' + (i===0?' active':'');
+      d.onclick = () => { revIdx = i - 1; revMove(1); };
+      dotsEl.appendChild(d);
+    }
+  });
+
+  /* ── BRK (Beispiel) ──────────── */
+  const curOrg = { newcomer:4, elite:7, takeoff:550, max:2750 };
+  // MAX_EH chosen so right edge ≈ 5.500 €: 1320 EH → factor≈5.09 → net≈5.500
+  const MAX_EH = 1320;
+  // Ø position: 870 EH → net ≈ 3.300 €
+  const AVG_EH = 870;
 
   function getFactor(org, eh) {
     if (eh <= org.takeoff) return org.newcomer;
     if (eh >= org.max)     return org.elite;
-    return org.newcomer + (eh - org.takeoff) / (org.max - org.takeoff) * (org.elite - org.newcomer);
+    return org.newcomer + (eh - org.takeoff)/(org.max - org.takeoff)*(org.elite - org.newcomer);
   }
-
-  function getNet(org, eh) {
-    return eh * getFactor(org, eh) * 0.8 + 200;
-  }
-
+  function getNet(org, eh) { return eh * getFactor(org, eh) * 0.8 + 200; }
   function fmt(n) { return Math.round(n).toLocaleString('de-DE') + ' €'; }
 
-  /* ── Photos ────────────────────────────── */
   const PHOTOS = [
     { min:0,    url:'https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80', emoji:'🗺️', text:'Bewege den Cursor über die Kurve' },
-    { min:300,  url:'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80', emoji:'🎒', text:'Wochenend-Trip finanziert' },
-    { min:800,  url:'https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?w=600&q=80', emoji:'🎪', text:'Festival-Sommer komplett' },
-    { min:1500, url:'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80', emoji:'✈️', text:'1 Monat Backpacking' },
-    { min:2500, url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', emoji:'🚴', text:'Neues Rennrad' },
+    { min:400,  url:'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80', emoji:'🎒', text:'Wochenend-Trip finanziert' },
+    { min:900,  url:'https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?w=600&q=80', emoji:'🎪', text:'Festival-Sommer komplett' },
+    { min:1600, url:'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80', emoji:'✈️', text:'1 Monat Backpacking' },
+    { min:2400, url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', emoji:'🚴', text:'Neues Rennrad' },
     { min:3200, url:'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80', emoji:'🌏', text:'2 Monate Südostasien' },
-    { min:4000, url:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80', emoji:'🏄', text:'Surf-Trip Bali + Unterkunft' },
+    { min:4200, url:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80', emoji:'🏄', text:'Surf-Trip Bali + Unterkunft' },
   ];
 
   function updatePhoto(net) {
     let chosen = PHOTOS[0];
     PHOTOS.forEach(p => { if (net >= p.min) chosen = p; });
+    // Desktop photo
     const img = document.getElementById('context-photo');
-    const cap = document.getElementById('caption-text');
-    const emo = document.getElementById('caption-emoji');
-    if (img && img.src !== chosen.url) {
+    if (img && img.getAttribute('data-src') !== chosen.url) {
+      img.setAttribute('data-src', chosen.url);
       img.style.opacity = '0';
       setTimeout(() => { img.src = chosen.url; img.style.opacity = '1'; }, 300);
     }
+    const cap = document.getElementById('caption-text');
+    const emo = document.getElementById('caption-emoji');
     if (cap) cap.textContent = chosen.text;
     if (emo) emo.textContent = chosen.emoji;
+    // Mobile strip photo
+    const imgM = document.getElementById('context-photo-mobile');
+    if (imgM && imgM.getAttribute('data-src') !== chosen.url) {
+      imgM.setAttribute('data-src', chosen.url);
+      imgM.style.opacity = '0';
+      setTimeout(() => { imgM.src = chosen.url; imgM.style.opacity = '1'; }, 300);
+    }
+    const capM = document.getElementById('caption-text-m');
+    const emoM = document.getElementById('caption-emoji-m');
+    if (capM) capM.textContent = chosen.text;
+    if (emoM) emoM.textContent = chosen.emoji;
   }
 
-  /* ── Chart ─────────────────────────────── */
+  /* ── Chart ───────────────────── */
   let chartInited = false;
-
   function initChart() {
-    if (chartInited) { redrawChart(); return; }
-    chartInited = true;
-
-    /* org buttons */
-    const grid = document.getElementById('org-grid');
-    if (grid && grid.children.length === 0) {
-      ORGS.forEach((org, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'org-btn' + (i===0?' active':'');
-        btn.innerHTML = `<span class="org-name">${org.name}</span><span class="org-fac">Faktor ${org.newcomer}–${org.elite}</span>`;
-        btn.onclick = () => {
-          document.querySelectorAll('.org-btn').forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-          curOrg = org;
-          redrawChart();
-        };
-        grid.appendChild(btn);
-      });
+    if (!chartInited) {
+      chartInited = true;
+      const wrap = document.getElementById('chart-wrap');
+      if (wrap) {
+        wrap.addEventListener('mousemove', onChartMove);
+        wrap.addEventListener('mouseleave', onChartLeave);
+        wrap.addEventListener('touchmove', e => {
+          e.preventDefault();
+          onChartMove({ clientX: e.touches[0].clientX, _wrap: wrap });
+        }, { passive: false });
+        wrap.addEventListener('touchstart', e => {
+          onChartMove({ clientX: e.touches[0].clientX, _wrap: wrap });
+        }, { passive: true });
+        wrap.addEventListener('touchend', onChartLeave, { passive: true });
+      }
     }
-
     redrawChart();
-
-    /* mouse interaction */
-    const wrap = document.getElementById('chart-wrap');
-    if (wrap) {
-      wrap.addEventListener('mousemove', onChartMove);
-      wrap.addEventListener('mouseleave', onChartLeave);
-      wrap.addEventListener('touchmove', e => {
-        const r = wrap.getBoundingClientRect();
-        onChartMove({ clientX: e.touches[0].clientX, currentTarget: wrap, rect: r });
-      }, {passive:true});
-    }
   }
 
   function ehToX(eh, W) { return (eh / MAX_EH) * W; }
-  function factorToY(f, H, minF, maxF) { return H - ((f - minF) / (maxF - minF)) * (H * 0.8) - H*0.1; }
+  // Y-axis based on net earnings (0 to MAX_NET) for intuitive display
+  const MAX_NET = 5700; // slightly above 5.500 for visual breathing room
+  function netToY(net, H) { return H - (net / MAX_NET) * H * 0.88 - H * 0.06; }
 
   function redrawChart() {
     const svg = document.getElementById('provision-chart');
     if (!svg) return;
-    const W = 600, H = 280;
-    const org = curOrg;
-    const minF = org.newcomer * 0.9;
-    const maxF = org.elite * 1.05;
-
-    /* build points */
+    const W = 600, H = 260, org = curOrg;
     const pts = [];
     for (let eh = 0; eh <= MAX_EH; eh += 10) {
-      const f = getFactor(org, eh);
-      pts.push({ x: ehToX(eh, W), y: factorToY(f, H, minF, maxF), eh, f });
+      const net = getNet(org, eh);
+      pts.push({ x: ehToX(eh,W), y: netToY(net,H) });
     }
-
-    /* curve path */
-    const d = pts.map((p,i) => (i===0?`M${p.x},${p.y}`:`L${p.x},${p.y}`)).join(' ');
+    const d = pts.map((p,i) => (i===0?`M${p.x.toFixed(1)},${p.y.toFixed(1)}`:`L${p.x.toFixed(1)},${p.y.toFixed(1)}`)).join(' ');
     document.getElementById('chart-curve').setAttribute('d', d);
+    document.getElementById('chart-area').setAttribute('d', d + ` L${W},${H} L0,${H} Z`);
 
-    /* area */
-    const areaD = d + ` L${W},${H} L0,${H} Z`;
-    document.getElementById('chart-area').setAttribute('d', areaD);
+    /* zones */
+    const tX = ehToX(org.takeoff, W), mX = ehToX(Math.min(org.max,MAX_EH), W);
+    document.getElementById('chart-bg').innerHTML =
+      `<rect x="0" y="0" width="${tX}" height="${H}" fill="#E0F4FF" opacity=".5"/>` +
+      `<rect x="${tX}" y="0" width="${mX-tX}" height="${H}" fill="#FFE0F0" opacity=".35"/>` +
+      `<rect x="${mX}" y="0" width="${W-mX}" height="${H}" fill="#F0FFE0" opacity=".4"/>`;
 
-    /* bg zones */
-    const bg = document.getElementById('chart-bg');
-    const tX = ehToX(org.takeoff, W);
-    const mX = ehToX(Math.min(org.max, MAX_EH), W);
-    bg.innerHTML = `
-      <rect x="0" y="0" width="${tX}" height="${H}" fill="#E0F4FF" opacity="0.6"/>
-      <rect x="${tX}" y="0" width="${mX-tX}" height="${H}" fill="#FFE0F0" opacity="0.4"/>
-      <rect x="${mX}" y="0" width="${W-mX}" height="${H}" fill="#F0FFE0" opacity="0.4"/>
-    `;
-
-    /* grid lines */
-    const grid = document.getElementById('chart-grid');
+    /* grid */
     let gl = '';
-    for (let i=1; i<5; i++) {
-      const y = (H/5)*i;
-      gl += `<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="rgba(27,42,74,0.06)" stroke-width="1"/>`;
-    }
-    grid.innerHTML = gl;
+    for (let i=1;i<5;i++) gl += `<line x1="0" y1="${H/5*i}" x2="${W}" y2="${H/5*i}" stroke="rgba(27,42,74,0.06)" stroke-width="1"/>`;
+    document.getElementById('chart-grid').innerHTML = gl;
 
     /* takeoff marker */
-    const pct = (org.takeoff / MAX_EH * 100);
     const mkr = document.getElementById('takeoff-marker');
-    if (mkr) { mkr.style.left = pct+'%'; }
+    if (mkr) mkr.style.left = (org.takeoff/MAX_EH*100) + '%';
 
-    /* max EH label */
-    document.getElementById('max-eh-label').textContent = MAX_EH+' EH';
+    /* Ø 3.300€ marker at AVG_EH */
+    const avgX = (AVG_EH / MAX_EH) * W;
+    const avgLine = document.getElementById('avg-line');
+    const avgBg   = document.getElementById('avg-badge-bg');
+    const avgTxt  = document.getElementById('avg-badge-txt');
+    if (avgLine) { avgLine.setAttribute('x1', avgX); avgLine.setAttribute('x2', avgX); }
+    if (avgBg)   { avgBg.setAttribute('x', avgX + 5); }
+    if (avgTxt)  { avgTxt.setAttribute('x', avgX + 9); }
 
-    /* init display at takeoff */
-    updateDisplay(org.takeoff);
+    updateDisplay(AVG_EH);
   }
 
   function onChartMove(e) {
-    const wrap = document.getElementById('chart-wrap');
+    const wrap = e._wrap || document.getElementById('chart-wrap');
     if (!wrap) return;
     const rect = wrap.getBoundingClientRect();
-    const relX = e.clientX - rect.left;
-    const pct  = Math.max(0, Math.min(1, relX / rect.width));
+    const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
     const eh   = Math.round(pct * MAX_EH / 10) * 10;
-
-    /* SVG coordinates */
-    const svgW = 600, svgH = 280;
-    const svgX = pct * svgW;
-    const org  = curOrg;
+    const W=600, H=260, org=curOrg;
+    const svgX = pct * W;
     const f    = getFactor(org, eh);
-    const minF = org.newcomer * 0.9;
-    const maxF = org.elite * 1.05;
-    const svgY = factorToY(f, svgH, minF, maxF);
+    const net  = getNet(org, eh);
+    const svgY = netToY(net, H);
 
-    /* cursor line & dot */
     const line = document.getElementById('cursor-line');
     const dot  = document.getElementById('cursor-dot');
-    if (line) { line.setAttribute('x1', svgX); line.setAttribute('x2', svgX); line.style.opacity='1'; }
-    if (dot)  { dot.setAttribute('cx', svgX); dot.setAttribute('cy', svgY); dot.style.opacity='1'; }
+    if (line) { line.setAttribute('x1',svgX); line.setAttribute('x2',svgX); line.style.opacity='1'; }
+    if (dot)  { dot.setAttribute('cx',svgX); dot.setAttribute('cy',svgY); dot.style.opacity='1'; }
 
-    /* tooltip */
     const tt = document.getElementById('chart-tooltip');
     if (tt) {
-      const net = getNet(org, eh);
-      document.getElementById('tt-eh').textContent     = eh+' EH';
-      document.getElementById('tt-factor').textContent = 'Faktor '+getFactor(org,eh).toFixed(1);
+      document.getElementById('tt-eh').textContent     = eh + ' EH';
+      document.getElementById('tt-factor').textContent = 'Faktor ' + f.toFixed(1);
       document.getElementById('tt-money').textContent  = fmt(net);
-      const ttX = relX;
-      const ttY = (svgY/svgH)*rect.height;
-      tt.style.left    = ttX+'px';
-      tt.style.top     = ttY+'px';
+      // keep tooltip inside bounds
+      const ttLeft = Math.min(pct * rect.width, rect.width - 110);
+      tt.style.left    = Math.max(10, ttLeft) + 'px';
+      tt.style.top     = ((svgY/H) * rect.height) + 'px';
       tt.style.opacity = '1';
       updatePhoto(net);
     }
-
     updateDisplay(eh);
   }
 
   function onChartLeave() {
-    document.getElementById('cursor-line').style.opacity='0';
-    document.getElementById('cursor-dot').style.opacity='0';
-    document.getElementById('chart-tooltip').style.opacity='0';
+    ['cursor-line','cursor-dot'].forEach(id => { const el=document.getElementById(id); if(el) el.style.opacity='0'; });
+    const tt = document.getElementById('chart-tooltip'); if(tt) tt.style.opacity='0';
   }
 
   function updateDisplay(eh) {
-    const org    = curOrg;
-    const factor = getFactor(org, eh);
-    const gross  = eh * factor;
-    const net    = gross * 0.8 + 200;
-    const fEl    = document.getElementById('r-factor');
-    const gEl    = document.getElementById('r-gross');
-    const nEl    = document.getElementById('r-net');
-    if (fEl) fEl.textContent = factor.toFixed(1);
-    if (gEl) gEl.textContent = fmt(gross);
-    if (nEl) nEl.textContent = fmt(net);
+    const org=curOrg, f=getFactor(org,eh), gross=eh*f, net=gross*0.8+200;
+    const fEl=document.getElementById('r-factor'), gEl=document.getElementById('r-gross'), nEl=document.getElementById('r-net');
+    if(fEl) fEl.textContent=f.toFixed(1);
+    if(gEl) gEl.textContent=fmt(gross);
+    if(nEl) nEl.textContent=fmt(net);
   }
 
-  /* ── Form steps ────────────────────────── */
+  /* ── Form ────────────────────── */
   function nextStep(n) {
     [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
     document.getElementById('fs-'+n)?.classList.remove('hidden');
-    const p = {1:33,2:66,3:100}[n]||33;
-    const bar = document.getElementById('progress-bar');
-    if (bar) bar.style.width = p+'%';
-    document.getElementById('step-label').textContent = 'Schritt '+n+' von 3';
-    document.getElementById('step-pct').textContent   = p+' %';
+    const p={1:33,2:66,3:100}[n]||33;
+    const bar=document.getElementById('progress-bar'); if(bar) bar.style.width=p+'%';
+    document.getElementById('step-label').textContent='Schritt '+n+' von 3';
+    document.getElementById('step-pct').textContent=p+' %';
   }
-
   function submitForm() {
     [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
     document.getElementById('fs-ok')?.classList.remove('hidden');
-    document.getElementById('progress-bar').style.width = '100%';
+    document.getElementById('progress-bar').style.width='100%';
   }
 
-  window.goToPage  = goToPage;
-  window.goToSlide = goToSlide;
-  window.nextStep  = nextStep;
-  window.submitForm= submitForm;
+  window.goToPage=goToPage; window.goToSlide=goToSlide; window.nextStep=nextStep;
+  window.submitForm=submitForm; window.revMove=revMove;
 </script>
 
 </Layout>
