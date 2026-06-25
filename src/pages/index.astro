@@ -28,7 +28,7 @@ import Layout from '../layouts/Layout.astro';
     </nav>
 
     <!-- HERO -->
-    <section class="relative min-h-screen flex flex-col justify-end overflow-hidden">
+    <section class="relative overflow-hidden hero-section">
       <div class="absolute inset-0 z-0">
         <img
           src="/images/hero-bild.jpg"
@@ -36,9 +36,9 @@ import Layout from '../layouts/Layout.astro';
           class="w-full h-full object-cover object-top"
           onerror="this.src='https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/83f030975e710fa51e73d412a5b6b838.png'"
         />
-        <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.6) 45%,rgba(27,42,74,0.15) 100%)"></div>
+        <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.7) 40%,rgba(27,42,74,0.2) 100%)"></div>
       </div>
-      <div class="relative z-10 px-5 md:px-16 pb-10 md:pb-16 pt-24 max-w-4xl">
+      <div class="relative z-10 px-5 md:px-16 hero-content max-w-4xl">
         <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-4 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-[#97BF0D] animate-pulse"></span>
           <span class="text-[#1B2A4A] text-sm font-bold">Jetzt für Sommer & Herbst verfügbar</span>
@@ -58,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
           Für den guten Zweck von Tür zu Tür unterwegs –
           und dabei richtig gutes Geld machen.
         </p>
-        <div class="mt-6 flex items-center gap-3 text-white/40 text-sm font-semibold">
+        <div class="mt-5 hidden md:flex items-center gap-3 text-white/40 text-sm font-semibold">
           <div class="scroll-dot-wrap"><span class="scroll-dot"></span></div>
           Scroll
         </div>
@@ -561,6 +561,23 @@ import Layout from '../layouts/Layout.astro';
   .btn-light:hover { background: #1B2A4A; color: #fff; }
   .btn-outline { background: transparent; color: #1B2A4A; font-weight: 800; border-radius: 100px; border: 2px solid rgba(27,42,74,0.2); cursor: pointer; transition: all 0.2s; display: inline-block; text-align: center; font-family: 'Nunito', sans-serif; font-size: 1rem; }
   .btn-outline:hover { border-color: #1B2A4A; }
+
+  /* Hero */
+  .hero-section {
+    /* Mobile: just tall enough for the image + content */
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-content {
+    padding-top: 72px;   /* nav height */
+    padding-bottom: 32px;
+  }
+  @media(min-width:768px) {
+    .hero-section { min-height: 100vh; }
+    .hero-content { padding-top: 96px; padding-bottom: 64px; }
+  }
 
   /* Scroll indicator */
   .scroll-dot-wrap { width: 22px; height: 36px; border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; position: relative; }
