@@ -131,11 +131,12 @@ import Layout from '../layouts/Layout.astro';
             <div class="phone-notch"></div>
             <div class="phone-screen">
               <video
-                autoplay
+                id="ugc-video"
                 muted
                 loop
                 playsinline
                 preload="auto"
+                poster="/videos/ugc-poster.jpg"
                 style="width:100%;height:100%;object-fit:cover;display:block"
               >
                 <source src="/videos/ugc-hero.mp4" type="video/mp4" />
@@ -633,6 +634,16 @@ import Layout from '../layouts/Layout.astro';
 
 <!-- ──────────────────── SCRIPTS ── -->
 <script>
+  /* ── UGC Video autoplay ────────── */
+  document.addEventListener('DOMContentLoaded', function() {
+    var v = document.getElementById('ugc-video');
+    if (v) {
+      v.muted = true;
+      var p = v.play();
+      if (p !== undefined) p.catch(function(){});
+    }
+  });
+
   /* ── Page nav ─────────────────── */
   function goToPage(n) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
