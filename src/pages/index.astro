@@ -307,6 +307,9 @@ import Layout from '../layouts/Layout.astro';
               <span>Ø 3.300 € nach 4 Wochen</span>
               <span>~5.500 €</span>
             </div>
+            <div id="chart-hint" style="text-align:center;font-size:0.72rem;font-weight:700;color:rgba(229,0,125,0.6);margin-top:4px;opacity:0;transition:opacity 0.4s;pointer-events:none">
+              ← Schiebe über die Kurve →
+            </div>
             <!-- Stats -->
             <div class="grid grid-cols-3 gap-2 mt-4">
               {[
@@ -752,19 +755,20 @@ import Layout from '../layouts/Layout.astro';
       chartInited = true;
       const wrap = document.getElementById('chart-wrap');
       if (wrap) {
-        wrap.addEventListener('mousemove', onChartMove);
+        wrap.addEventListener('mousemove', onChartMoveWithStop);
         wrap.addEventListener('mouseleave', onChartLeave);
         wrap.addEventListener('touchmove', e => {
           e.preventDefault();
-          onChartMove({ clientX: e.touches[0].clientX, _wrap: wrap });
+          onChartMoveWithStop({ clientX: e.touches[0].clientX, _wrap: wrap });
         }, { passive: false });
         wrap.addEventListener('touchstart', e => {
-          onChartMove({ clientX: e.touches[0].clientX, _wrap: wrap });
+          onChartMoveWithStop({ clientX: e.touches[0].clientX, _wrap: wrap });
         }, { passive: true });
         wrap.addEventListener('touchend', onChartLeave, { passive: true });
       }
     }
     redrawChart();
+    setTimeout(runChartIntro, 600);
   }
 
   // Non-linear x-axis: center (50%) = AVG_EH = 870 EH = Ø 3.300€
@@ -851,6 +855,62 @@ import Layout from '../layouts/Layout.astro';
   function onChartLeave() {
     ['cursor-line','cursor-dot'].forEach(id => { const el=document.getElementById(id); if(el) el.style.opacity='0'; });
     const tt = document.getElementById('chart-tooltip'); if(tt) tt.style.opacity='0';
+  }
+
+  /* ── Chart intro animation ────── */
+  let chartAnimDone = false;
+  function runChartIntro() {
+    if (chartAnimDone) return;
+    const wrap = document.getElementById('chart-wrap');
+    if (!wrap) return;
+    const W = 600, H = 260;
+    const duration = 1800; // ms to sweep to center
+    const start = performance.now();
+    const endPct = 0.5; // stop at center = Ø 3.300€
+
+    function frame(now) {
+      if (chartAnimDone) return;
+      const t = Math.min((now - start) / duration, 1);
+      // ease in-out
+      const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+      const pct = ease * endPct;
+      const eh = Math.round(MAX_EH * Math.pow(pct, 0.601) / 10) * 10;
+      const svgX = pct * W;
+      const net = getNet(curOrg, eh);
+      const svgY = netToY(net, H);
+
+      const line = document.getElementById('cursor-line');
+      const dot  = document.getElementById('cursor-dot');
+      if (line) { line.setAttribute('x1',svgX); line.setAttribute('x2',svgX); line.style.opacity='0.6'; }
+      if (dot)  { dot.setAttribute('cx',svgX); dot.setAttribute('cy',svgY); dot.style.opacity='1'; }
+      updateDisplay(eh);
+
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        // pulse dot at center
+        dot && dot.animate([
+          { transform:'scale(1)', opacity:1 },
+          { transform:'scale(1.8)', opacity:0.4 },
+          { transform:'scale(1)', opacity:1 }
+        ], { duration:700, iterations:3 });
+        // show hint text
+        const hint = document.getElementById('chart-hint');
+        if (hint) { hint.style.opacity='1'; setTimeout(()=>{ hint.style.opacity='0'; }, 2000); }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Stop intro when user interacts
+  const _origOnChartMove = onChartMove;
+  function onChartMoveWithStop(e) {
+    if (!chartAnimDone) {
+      chartAnimDone = true;
+      const hint = document.getElementById('chart-hint');
+      if (hint) hint.style.opacity = '0';
+    }
+    _origOnChartMove(e);
   }
 
   function updateDisplay(eh) {
