@@ -9,7 +9,10 @@ import Layout from '../layouts/Layout.astro';
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
-<div id="app">
+<!-- TOP ACCENT BAR -->
+<div style="height:5px;background:linear-gradient(90deg,#319EA3 0%,#319EA3 60%,#E41B13 100%);position:fixed;top:0;left:0;right:0;z-index:100"></div>
+
+<div id="app" style="padding-top:5px">
 
   <!-- ══════════════════════════════════════════════
        PAGE 1
@@ -264,36 +267,12 @@ import Layout from '../layouts/Layout.astro';
           Als Sicherheitsnetz gibt's eine garantierte Basis.
         </p>
         <div class="guarantee-card">
-          <div class="flex flex-col md:flex-row md:items-center gap-8">
-            <div class="md:w-1/3">
-              <p class="text-[#1B2A4A]/40 text-xs font-bold uppercase tracking-widest mb-2">Garantierte Basis</p>
-              <p class="hd" style="color:#97BF0D;font-size:3.2rem">2.400 €</p>
-              <p class="text-[#1B2A4A]/50 mt-1 text-sm font-semibold">Mindestprovision in 4 Wochen</p>
-            </div>
-            <div class="md:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-3">
-              {[
-                { week:'Woche 1', rate:'55 €',  col:'#97BF0D' },
-                { week:'Woche 2', rate:'85 €',  col:'#00B4D8' },
-                { week:'Woche 3', rate:'115 €', col:'#E5007D' },
-                { week:'Woche 4', rate:'145 €', col:'#1B2A4A' },
-              ].map(w => (
-                <div class="week-tile" style={`border-top:3px solid ${w.col}`}>
-                  <p class="text-[#1B2A4A]/40 text-xs font-bold mb-1">{w.week}</p>
-                  <p class="hd" style={`color:${w.col};font-size:1.5rem`}>{w.rate}</p>
-                  <p class="text-[#1B2A4A]/40 text-xs font-semibold">pro Tag</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="mt-5 pt-5 border-t border-[#1B2A4A]/8 flex flex-wrap gap-5">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#97BF0D"></span>
-              <span class="text-[#1B2A4A]/60 text-sm font-semibold">+ <strong class="text-[#1B2A4A]">200 € Anreisebonus</strong> nach deinem 6. Einsatztag</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#E5007D"></span>
-              <span class="text-[#1B2A4A]/60 text-sm font-semibold">Provision immer <strong class="text-[#1B2A4A]">"best case"</strong> abgerechnet</span>
-            </div>
+          <p class="text-[#1B2A4A]/40 text-xs font-bold uppercase tracking-widest mb-2">Garantierte Basis</p>
+          <p class="hd" style="color:#97BF0D;font-size:3.5rem;line-height:1">2.400 €</p>
+          <p class="text-[#1B2A4A]/50 mt-1 mb-5 text-sm font-semibold">Mindestprovision in 4 Wochen</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#97BF0D"></span>
+            <span class="text-[#1B2A4A]/60 text-sm font-semibold">+ <strong class="text-[#1B2A4A]">200 € Anreisebonus</strong> nach deinem 6. Einsatztag</span>
           </div>
         </div>
       </div>
@@ -319,11 +298,6 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- LEFT: curve -->
           <div class="chart-panel">
-            <div class="flex justify-between mb-2">
-              <span class="zone-lbl" style="color:#00B4D8">NEWCOMER</span>
-              <span class="zone-lbl" style="color:#E5007D">PRO</span>
-              <span class="zone-lbl" style="color:#97BF0D">ELITE</span>
-            </div>
             <div class="chart-wrap" id="chart-wrap">
               <svg id="provision-chart" viewBox="0 0 600 260" preserveAspectRatio="none" style="width:100%;height:100%;display:block;cursor:crosshair">
                 <defs>
@@ -334,6 +308,11 @@ import Layout from '../layouts/Layout.astro';
                 </defs>
                 <g id="chart-bg"></g>
                 <g id="chart-grid"></g>
+                <!-- Y-axis week labels -->
+                <text x="6" y="248" font-size="9" font-weight="700" fill="rgba(27,42,74,0.35)" font-family="Nunito, sans-serif">Woche 1</text>
+                <text x="6" y="187" font-size="9" font-weight="700" fill="rgba(27,42,74,0.35)" font-family="Nunito, sans-serif">Woche 2</text>
+                <text x="6" y="124" font-size="9" font-weight="700" fill="rgba(27,42,74,0.35)" font-family="Nunito, sans-serif">Woche 3</text>
+                <text x="6" y="62" font-size="9" font-weight="700" fill="rgba(27,42,74,0.35)" font-family="Nunito, sans-serif">Woche 4</text>
                 <path id="chart-area" fill="url(#curveGrad)" opacity="0.25"/>
                 <path id="chart-curve" fill="none" stroke="#E5007D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 <!-- Ø 3.300€ marker -->
@@ -350,13 +329,12 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div class="takeoff-marker" id="takeoff-marker">
                 <div style="position:absolute;top:0;bottom:0;width:1px;border-left:1px dashed rgba(27,42,74,0.25)"></div>
-                <span style="position:absolute;top:-18px;left:4px;font-size:0.55rem;font-weight:800;color:rgba(27,42,74,0.4);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap">Start</span>
               </div>
               <div class="bonus-badge">+ 200 € Anreise</div>
             </div>
             <div class="flex justify-between text-xs font-bold text-[#1B2A4A]/35 mt-1">
               <span>0 €</span>
-              <span>DEIN GELD →</span>
+              <span>Ø 3.300 € nach 4 Wochen</span>
               <span>~5.500 €</span>
             </div>
             <!-- Stats -->
@@ -506,6 +484,9 @@ import Layout from '../layouts/Layout.astro';
   </div><!-- /page-3 -->
 
 </div><!-- /app -->
+
+<!-- BOTTOM ACCENT BAR -->
+<div style="height:5px;background:linear-gradient(90deg,#E41B13 0%,#319EA3 40%,#319EA3 100%);width:100%"></div>
 
 
 <!-- ──────────────────── STYLES ── -->
