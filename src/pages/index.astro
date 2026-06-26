@@ -789,7 +789,10 @@ import Layout from '../layouts/Layout.astro';
     redrawChart();
   }
 
-  function ehToX(eh, W) { return (eh / MAX_EH) * W; }
+  // Non-linear x-axis: center (50%) = AVG_EH = 870 EH = Ø 3.300€
+  // Forward:  pct → eh  = MAX_EH * pct^0.601
+  // Inverse:  eh  → pct = (eh/MAX_EH)^1.664  → x = W * pct
+  function ehToX(eh, W) { return W * Math.pow(eh / MAX_EH, 1.664); }
   // Y-axis based on net earnings (0 to MAX_NET) for intuitive display
   const MAX_NET = 5700; // slightly above 5.500 for visual breathing room
   function netToY(net, H) { return H - (net / MAX_NET) * H * 0.88 - H * 0.06; }
@@ -821,7 +824,7 @@ import Layout from '../layouts/Layout.astro';
 
     /* takeoff marker */
     const mkr = document.getElementById('takeoff-marker');
-    if (mkr) mkr.style.left = (org.takeoff/MAX_EH*100) + '%';
+    if (mkr) mkr.style.left = (Math.pow(org.takeoff/MAX_EH, 1.664)*100) + '%';
 
     /* Ø 3.300€ marker at AVG_EH */
     const avgX = (AVG_EH / MAX_EH) * W;
@@ -840,7 +843,7 @@ import Layout from '../layouts/Layout.astro';
     if (!wrap) return;
     const rect = wrap.getBoundingClientRect();
     const pct  = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const eh   = Math.round(pct * MAX_EH / 10) * 10;
+    const eh   = Math.round(MAX_EH * Math.pow(pct, 0.601) / 10) * 10;
     const W=600, H=260, org=curOrg;
     const svgX = pct * W;
     const f    = getFactor(org, eh);
