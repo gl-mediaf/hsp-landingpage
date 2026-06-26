@@ -281,13 +281,6 @@ import Layout from '../layouts/Layout.astro';
           Rechne deinen <span style="color:#E5007D">Einsatz durch.</span>
         </h2>
 
-        <!-- BRK label -->
-        <div class="flex items-center justify-center gap-3 mb-7">
-          <div class="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-sm border border-[#1B2A4A]/08">
-            <span class="w-2 h-2 rounded-full bg-[#E5007D]"></span>
-            <span class="text-[#1B2A4A] text-sm font-bold">Beispiel: BRK · Faktor 4 – 7</span>
-          </div>
-        </div>
 
         <!-- Chart + Photo: single card on mobile, split on desktop -->
         <div class="calc-main-grid">
@@ -311,10 +304,8 @@ import Layout from '../layouts/Layout.astro';
                 <text x="6" y="62" font-size="9" font-weight="700" fill="rgba(27,42,74,0.35)" font-family="Nunito, sans-serif">Woche 4</text>
                 <path id="chart-area" fill="url(#curveGrad)" opacity="0.25"/>
                 <path id="chart-curve" fill="none" stroke="#E5007D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Ø 3.300€ marker -->
+                <!-- Ø 3.300€ marker (dashed line only, no badge) -->
                 <line id="avg-line" x1="0" y1="0" x2="0" y2="260" stroke="#97BF0D" stroke-width="1.5" stroke-dasharray="5,4"/>
-                <rect id="avg-badge-bg" x="0" y="6" width="74" height="18" rx="4" fill="#97BF0D"/>
-                <text id="avg-badge-txt" x="0" y="19" font-size="9.5" font-weight="800" fill="white" font-family="Nunito, sans-serif">Ø 3.300 €</text>
                 <line id="cursor-line" x1="0" y1="0" x2="0" y2="260" stroke="#1B2A4A" stroke-width="1.5" stroke-dasharray="4,3" opacity="0"/>
                 <circle id="cursor-dot" r="6" fill="#E5007D" stroke="#fff" stroke-width="2" opacity="0"/>
               </svg>
@@ -326,7 +317,6 @@ import Layout from '../layouts/Layout.astro';
               <div class="takeoff-marker" id="takeoff-marker">
                 <div style="position:absolute;top:0;bottom:0;width:1px;border-left:1px dashed rgba(27,42,74,0.25)"></div>
               </div>
-              <div class="bonus-badge">+ 200 € Anreise</div>
             </div>
             <div class="flex justify-between text-xs font-bold text-[#1B2A4A]/35 mt-1">
               <span>0 €</span>
@@ -356,12 +346,33 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
-          <!-- RIGHT: photo (desktop only) -->
-          <div class="photo-panel">
-            <img id="context-photo" src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80" alt="" class="context-img" />
-            <div class="photo-caption">
-              <span class="caption-emoji" id="caption-emoji">🗺️</span>
-              <span class="caption-text" id="caption-text">Bewege den Cursor über die Kurve</span>
+          <!-- RIGHT: Formel-Grafik -->
+          <div class="photo-panel items-center justify-center" style="background:#F0F7FF;border-radius:20px;display:flex">
+            <div class="flex flex-col gap-6 items-center justify-center w-full px-6 py-8">
+              <!-- Formel: Einheiten × Faktor = Provision -->
+              <div class="flex items-center justify-center gap-4 w-full">
+                <!-- Einheiten -->
+                <div class="flex flex-col items-center gap-2">
+                  <div class="formula-circle" style="border-color:#E5007D;background:rgba(229,0,125,0.06)">
+                    <span class="hd text-center leading-tight" style="color:#E5007D;font-size:0.85rem">Deine<br/>Einheiten</span>
+                  </div>
+                </div>
+                <span class="hd text-[#1B2A4A]/30" style="font-size:1.8rem">×</span>
+                <!-- Faktor -->
+                <div class="flex flex-col items-center gap-2">
+                  <div class="formula-circle" style="border-color:#00B4D8;background:rgba(0,180,216,0.06)">
+                    <span class="hd text-center leading-tight" style="color:#00B4D8;font-size:0.85rem">Dein<br/>Faktor</span>
+                  </div>
+                </div>
+                <span class="hd text-[#1B2A4A]/30" style="font-size:1.8rem">=</span>
+                <!-- Provision -->
+                <div class="flex flex-col items-center gap-2">
+                  <div class="formula-circle" style="border-color:#97BF0D;background:rgba(151,191,13,0.06)">
+                    <span class="hd text-center leading-tight" style="color:#97BF0D;font-size:0.85rem">Deine<br/>Provision</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-[#1B2A4A]/40 text-xs font-bold text-center" style="letter-spacing:0.08em">BRK · Faktor 4 – 7 · bis 5.500 €</p>
             </div>
           </div>
         </div>
@@ -587,6 +598,9 @@ import Layout from '../layouts/Layout.astro';
   .rev-next { right: 8px; }
   .rev-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.2s; border: none; }
   .rev-dot.active { background: #97BF0D; width: 20px; border-radius: 4px; }
+
+  /* Formula circles */
+  .formula-circle { width: 110px; height: 110px; border-radius: 50%; border: 4px solid; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; }
 
   /* Guarantee card */
   .guarantee-card { background: #F8FAFC; border: 2px solid rgba(151,191,13,0.25); border-radius: 20px; padding: 28px; }
