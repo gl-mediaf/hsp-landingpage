@@ -132,6 +132,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="phone-screen">
               <video
                 id="ugc-video"
+                autoplay
                 muted
                 loop
                 playsinline
@@ -635,14 +636,14 @@ import Layout from '../layouts/Layout.astro';
 <!-- ──────────────────── SCRIPTS ── -->
 <script>
   /* ── UGC Video autoplay ────────── */
-  document.addEventListener('DOMContentLoaded', function() {
+  function tryPlayVideo() {
     var v = document.getElementById('ugc-video');
-    if (v) {
-      v.muted = true;
-      var p = v.play();
-      if (p !== undefined) p.catch(function(){});
-    }
-  });
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(function(){});
+  }
+  tryPlayVideo();
+  window.addEventListener('load', tryPlayVideo);
 
   /* ── Page nav ─────────────────── */
   function goToPage(n) {
