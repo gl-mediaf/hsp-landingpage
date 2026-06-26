@@ -902,15 +902,13 @@ import Layout from '../layouts/Layout.astro';
     requestAnimationFrame(frame);
   }
 
-  // Stop intro when user interacts
-  const _origOnChartMove = onChartMove;
   function onChartMoveWithStop(e) {
     if (!chartAnimDone) {
       chartAnimDone = true;
       const hint = document.getElementById('chart-hint');
       if (hint) hint.style.opacity = '0';
     }
-    _origOnChartMove(e);
+    onChartMove(e);
   }
 
   function updateDisplay(eh) {
