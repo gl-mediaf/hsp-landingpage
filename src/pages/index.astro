@@ -39,10 +39,6 @@ import Layout from '../layouts/Layout.astro';
         <div class="absolute inset-0" style="background:linear-gradient(to top,#1B2A4A 0%,rgba(27,42,74,0.7) 40%,rgba(27,42,74,0.2) 100%)"></div>
       </div>
       <div class="relative z-10 px-5 md:px-16 hero-content max-w-4xl">
-        <div class="inline-flex items-center gap-2 bg-white/90 rounded-full px-4 py-2 mb-4 shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-[#97BF0D] animate-pulse"></span>
-          <span class="text-[#1B2A4A] text-sm font-bold">Jetzt für Sommer & Herbst verfügbar</span>
-        </div>
         <h1 class="hd text-white mb-4" style="font-size:clamp(2.6rem,11vw,6.5rem);line-height:0.92">
           3 Monate<br />
           <span style="color:#97BF0D">arbeiten.</span><br />
@@ -70,19 +66,19 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-5xl mx-auto">
         <p class="text-white/25 text-xs font-bold uppercase tracking-widest mb-5 text-center">Unterwegs für diese Organisationen</p>
         <!-- Desktop: alle 4 nebeneinander -->
-        <div class="hidden md:flex items-center justify-center gap-12">
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" />
-          <img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" />
+        <div class="hidden md:flex items-center justify-center gap-6">
+          <div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" /></div>
+          <div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" /></div>
+          <div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" /></div>
+          <div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" /></div>
         </div>
         <!-- Mobile: 2er-Slider -->
         <div class="md:hidden ngo-slider-wrap">
           <div class="ngo-slider-track" id="ngo-track">
-            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" /></div>
-            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" /></div>
-            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" /></div>
-            <div class="ngo-slide"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" /></div>
+            <div class="ngo-slide"><div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/a1fb69a2c913e2039dbcb6b948598f9f.png" alt="Malteser" class="ngo-logo-color" /></div></div>
+            <div class="ngo-slide"><div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/073d6a9102a1cf494cf6447eda00d271.png" alt="BUND" class="ngo-logo-color" /></div></div>
+            <div class="ngo-slide"><div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/88c9cd2ef210ff7229bc1e488c3b8fbb.png" alt="BRK" class="ngo-logo-color" /></div></div>
+            <div class="ngo-slide"><div class="ngo-card"><img src="https://static.funnelcockpit.com/upload/LLmaqMFur7JxCm9fW/9d4bdf70be465070a020c846b1279d1c.png" alt="BN Bayern" class="ngo-logo-color" /></div></div>
           </div>
         </div>
       </div>
@@ -583,14 +579,14 @@ import Layout from '../layouts/Layout.astro';
   .scroll-dot { position: absolute; left: 50%; top: 6px; width: 4px; height: 8px; background: rgba(255,255,255,0.6); border-radius: 4px; transform: translateX(-50%); animation: sdrop 2s ease-in-out infinite; }
   @keyframes sdrop { 0%,100% { top:6px; opacity:1; } 80% { top:18px; opacity:0; } }
 
-  /* NGO logos – colored, desktop */
-  .ngo-logo-color { height: 52px; object-fit: contain; transition: transform 0.2s; }
-  .ngo-logo-color:hover { transform: scale(1.05); }
+  /* NGO logos */
+  .ngo-card { background: #fff; border-radius: 14px; padding: 12px 20px; display: flex; align-items: center; justify-content: center; min-width: 140px; }
+  .ngo-logo-color { height: 44px; object-fit: contain; }
 
   /* NGO mobile slider */
   .ngo-slider-wrap { overflow: hidden; }
   .ngo-slider-track { display: flex; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
-  .ngo-slide { flex: 0 0 50%; display: flex; align-items: center; justify-content: center; padding: 0 16px; }
+  .ngo-slide { flex: 0 0 50%; display: flex; align-items: center; justify-content: center; padding: 0 8px; }
 
   /* Phone */
   .phone-mockup { width: 260px; height: 520px; background: #fff; border-radius: 40px; border: 3px solid rgba(27,42,74,0.12); padding: 10px; position: relative; box-shadow: 0 30px 60px rgba(27,42,74,0.18); }
