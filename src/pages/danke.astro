@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Anfrage eingegangen – hsp" description="Deine Bewerbung ist bei uns angekommen.">
+  <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;background:#fff;text-align:center">
+    <img src="/images/hsp-logo.png" alt="hsp" style="height:48px;margin-bottom:2.5rem" />
+
+    <div style="width:80px;height:80px;border-radius:50%;background:#97BF0D;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem">
+      <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+
+    <h1 style="font-family:'BundaySlab',serif;font-size:clamp(2rem,6vw,3rem);color:#1B2A4A;line-height:1.1;margin-bottom:1rem">
+      Anfrage eingegangen!
+    </h1>
+    <p style="color:rgba(27,42,74,0.6);font-size:1.1rem;font-weight:600;max-width:380px;line-height:1.6;margin-bottom:2rem">
+      Danke – wir melden uns innerhalb von <strong style="color:#1B2A4A">24 Stunden</strong>.<br/>
+      Schau auch kurz in deinen Spam-Ordner.
+    </p>
+
+    <a href="/" style="display:inline-block;background:#1B2A4A;color:#fff;font-weight:800;font-size:1rem;padding:14px 32px;border-radius:14px;text-decoration:none">
+      ← Zurück zur Startseite
+    </a>
+  </div>
+
+  <style is:global>
+    @font-face {
+      font-family: 'BundaySlab';
+      src: url('/fonts/BundaySlab-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-display: swap;
+    }
+  </style>
+</Layout>

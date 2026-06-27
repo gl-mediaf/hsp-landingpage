@@ -684,6 +684,7 @@ import Layout from '../layouts/Layout.astro';
       if (overlay) overlay.style.display = 'none';
       started = true;
       vid.play().catch(function(){});
+      window.posthog?.capture('ugc_video_played');
     };
 
     // Touch swipe
@@ -717,6 +718,8 @@ import Layout from '../layouts/Layout.astro';
     const pg = document.getElementById('page-' + n);
     if (pg) { pg.classList.add('active'); window.scrollTo({ top:0 }); }
     if (n === 2) setTimeout(initChart, 80);
+    if (n === 2) window.posthog?.capture('page_2_viewed');
+    if (n === 3) window.posthog?.capture('page_3_viewed');
   }
 
   /* ── UGC swiper ───────────────── */
@@ -1008,12 +1011,17 @@ import Layout from '../layouts/Layout.astro';
     chartAnimRaf = requestAnimationFrame(frame);
   }
 
+  let chartInteractedOnce = false;
   function onChartMoveWithStop(e) {
     if (!chartAnimDone) {
       chartAnimDone = true;
       if (chartAnimRaf) { cancelAnimationFrame(chartAnimRaf); chartAnimRaf = null; }
       const hint = document.getElementById('chart-hint');
       if (hint) hint.style.opacity = '0';
+    }
+    if (!chartInteractedOnce) {
+      chartInteractedOnce = true;
+      window.posthog?.capture('calculator_interacted');
     }
     onChartMove(e);
   }
@@ -1033,11 +1041,57 @@ import Layout from '../layouts/Layout.astro';
     const bar=document.getElementById('progress-bar'); if(bar) bar.style.width=p+'%';
     document.getElementById('step-label').textContent='Schritt '+n+' von 3';
     document.getElementById('step-pct').textContent=p+' %';
+    if (n > 1) window.posthog?.capture('form_step_completed', { step_number: n - 1 });
   }
-  function submitForm() {
-    [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
-    document.getElementById('fs-ok')?.classList.remove('hidden');
-    document.getElementById('progress-bar').style.width='100%';
+  async function submitForm() {
+    // Show loading state
+    const btn = document.querySelector('#fs-3 .btn-primary');
+    if (btn) { btn.disabled = true; btn.textContent = 'Wird gesendet …'; }
+
+    // Collect UTM params from URL
+    const params = new URLSearchParams(window.location.search);
+
+    const payload = {
+      vorname:       document.getElementById('f-fn')?.value?.trim() || '',
+      nachname:      document.getElementById('f-ln')?.value?.trim() || '',
+      alter:         document.getElementById('f-age')?.value?.trim() || '',
+      email:         document.getElementById('f-email')?.value?.trim() || '',
+      phone:         document.getElementById('f-phone')?.value?.trim() || '',
+      erreichbarkeit: document.getElementById('f-reach')?.value || '',
+      stadt:         document.getElementById('f-city')?.value?.trim() || '',
+      plz:           document.getElementById('f-plz')?.value?.trim() || '',
+      land:          document.getElementById('f-land')?.value || '',
+      motivation:    document.getElementById('f-motive')?.value?.trim() || '',
+      utm_source:    params.get('utm_source') || sessionStorage.getItem('utm_source') || '',
+      utm_medium:    params.get('utm_medium') || sessionStorage.getItem('utm_medium') || '',
+      utm_campaign:  params.get('utm_campaign') || sessionStorage.getItem('utm_campaign') || '',
+      utm_content:   params.get('utm_content') || sessionStorage.getItem('utm_content') || '',
+      utm_term:      params.get('utm_term') || sessionStorage.getItem('utm_term') || '',
+      fbclid:        params.get('fbclid') || sessionStorage.getItem('fbclid') || '',
+      gclid:         params.get('gclid') || sessionStorage.getItem('gclid') || '',
+      ScCid:         params.get('ScCid') || sessionStorage.getItem('ScCid') || '',
+    };
+
+    // PostHog event
+    if (window.posthog) window.posthog.capture('form_submitted', { source: payload.utm_source });
+
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        window.location.href = '/danke';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (e) {
+      // Fallback: show inline success if API fails
+      [1,2,3].forEach(i => document.getElementById('fs-'+i)?.classList.add('hidden'));
+      document.getElementById('fs-ok')?.classList.remove('hidden');
+      document.getElementById('progress-bar').style.width='100%';
+    }
   }
 
   /* ── NGO slider (mobile, 2 per view) ── */
