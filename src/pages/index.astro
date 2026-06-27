@@ -132,28 +132,37 @@ import Layout from '../layouts/Layout.astro';
             <div class="phone-screen" style="overflow:hidden;position:relative">
               <!-- Video Carousel -->
               <div id="ugc-track" style="display:flex;width:300%;height:100%;transition:transform 0.35s cubic-bezier(.4,0,.2,1);will-change:transform">
-                <video class="ugc-slide" autoplay playsinline preload="auto"
+                <video class="ugc-slide" muted playsinline preload="auto"
                   poster="/videos/ugc-poster.jpg"
                   style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
                   <source src="/videos/ugc-hero.mp4" type="video/mp4" />
                 </video>
-                <video class="ugc-slide" playsinline preload="none"
+                <video class="ugc-slide" muted playsinline preload="none"
                   poster="/videos/ugc-9-poster.jpg"
                   style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
                   <source src="/videos/ugc-9.mp4" type="video/mp4" />
                 </video>
-                <video class="ugc-slide" playsinline preload="none"
+                <video class="ugc-slide" muted playsinline preload="none"
                   poster="/videos/ugc-cash-poster.jpg"
                   style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
                   <source src="/videos/ugc-cash.mp4" type="video/mp4" />
                 </video>
               </div>
               <!-- Dots -->
-              <div id="ugc-dots" style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none">
+              <div id="ugc-dots" style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none;z-index:3">
                 <span class="ugc-dot active" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:1;transition:opacity .2s"></span>
                 <span class="ugc-dot" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s"></span>
                 <span class="ugc-dot" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s"></span>
               </div>
+              <!-- Sound toggle -->
+              <button id="ugc-sound" onclick="ugcToggleSound()" style="position:absolute;top:10px;right:10px;z-index:4;background:rgba(0,0,0,0.45);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px)">
+                <svg id="ugc-icon-mute" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+                <svg id="ugc-icon-sound" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white" style="display:none">
+                  <path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v4.06l2.45 2.45c.03-.16.05-.31.05-.48zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06A8.99 8.99 0 0 0 17.73 19l2 2L21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -670,13 +679,24 @@ import Layout from '../layouts/Layout.astro';
       v.play().catch(function(){});
     }
 
-    // Autoplay first
+    // Autoplay first (muted — browsers require it)
     slides[0].play().catch(function(){});
 
     // Loop: when current video ends, go to next
     slides.forEach(function(v, i){
       v.addEventListener('ended', function(){ goTo(i + 1); });
     });
+
+    // Sound toggle (shared across all slides)
+    var soundOn = false;
+    window.ugcToggleSound = function() {
+      soundOn = !soundOn;
+      slides.forEach(function(v){ v.muted = !soundOn; });
+      // If paused (browser blocked), try to play current
+      if (soundOn) slides[cur].play().catch(function(){});
+      document.getElementById('ugc-icon-mute').style.display  = soundOn ? 'none'  : '';
+      document.getElementById('ugc-icon-sound').style.display = soundOn ? ''      : 'none';
+    };
 
     // Touch swipe
     track.parentElement.addEventListener('touchstart', function(e){
