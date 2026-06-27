@@ -317,25 +317,23 @@ import Layout from '../layouts/Layout.astro';
             <div id="chart-hint" style="text-align:center;font-size:0.72rem;font-weight:700;color:rgba(229,0,125,0.6);margin-top:4px;opacity:0;transition:opacity 0.4s;pointer-events:none">
               ← Schiebe über die Kurve →
             </div>
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-2 mt-4">
-              {[
-                { label:'Faktor',      id:'r-factor', col:'#97BF0D' },
-                { label:'Brutto',      id:'r-gross',  col:'#00B4D8' },
-                { label:'Dein Geld',   id:'r-net',    col:'#E5007D' },
-              ].map(s => (
-                <div class="stat-box" style={`border-top:3px solid ${s.col}`}>
-                  <p class="stat-label">{s.label}</p>
-                  <p class="hd stat-val" id={s.id} style={`color:${s.col}`}>–</p>
-                </div>
-              ))}
-            </div>
-            <!-- Mobile photo strip (hidden on desktop) -->
-            <div class="mobile-photo-strip">
+            <!-- Mobile photo strip — above chart on mobile via CSS order -->
+            <div class="mobile-photo-strip" style="order:-1">
               <img id="context-photo-mobile" src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=600&q=80" alt="" />
               <div class="mobile-photo-cap">
                 <span id="caption-emoji-m">🗺️</span>
                 <span id="caption-text-m">Schiebe über die Kurve</span>
+              </div>
+            </div>
+            <!-- Stats: nur Brutto + Dein Geld -->
+            <div class="grid grid-cols-2 gap-3 mt-4">
+              <div class="stat-box" style="border-top:3px solid #00B4D8">
+                <p class="stat-label">Brutto</p>
+                <p class="hd stat-val" id="r-gross" style="color:#00B4D8">–</p>
+              </div>
+              <div class="stat-box" style="border-top:3px solid #E5007D">
+                <p class="stat-label">Dein Geld</p>
+                <p class="hd stat-val" id="r-net" style="color:#E5007D">–</p>
               </div>
             </div>
           </div>
@@ -575,7 +573,7 @@ import Layout from '../layouts/Layout.astro';
   .calc-main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media(max-width:768px) { .calc-main-grid { grid-template-columns: 1fr; } }
 
-  .chart-panel { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 20px rgba(27,42,74,0.08); }
+  .chart-panel { background: #fff; border-radius: 20px; padding: 20px; box-shadow: 0 4px 20px rgba(27,42,74,0.08); display:flex; flex-direction:column; }
   .zone-lbl { font-size: 0.62rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
   .chart-wrap { position: relative; height: 200px; cursor: crosshair; touch-action: none; }
 
@@ -785,7 +783,7 @@ import Layout from '../layouts/Layout.astro';
     { min:1600, url:'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80', emoji:'✈️', text:'1 Monat Backpacking' },
     { min:2400, url:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', emoji:'🚴', text:'Neues Rennrad' },
     { min:3200, url:'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=600&q=80', emoji:'🌏', text:'2 Monate Südostasien' },
-    { min:4200, url:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80', emoji:'🏄', text:'Surf-Trip Bali + Unterkunft' },
+    { min:4200, url:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', emoji:'🌏', text:'3 Monate Südostasien' },
   ];
 
   function updatePhoto(net) {
@@ -1001,10 +999,9 @@ import Layout from '../layouts/Layout.astro';
 
   function updateDisplay(eh) {
     const org=curOrg, f=getFactor(org,eh), gross=eh*f, net=gross*0.8+200;
-    const fEl=document.getElementById('r-factor'), gEl=document.getElementById('r-gross'), nEl=document.getElementById('r-net');
-    if(fEl) fEl.textContent=f.toFixed(1);
-    if(gEl) gEl.textContent=fmt(gross);
-    if(nEl) nEl.textContent=fmt(net);
+    const gEl=document.getElementById('r-gross'), nEl=document.getElementById('r-net');
+    if(gEl) gEl.textContent=fmt(gross)+' €';
+    if(nEl) nEl.textContent=fmt(net)+' €';
   }
 
   /* ── Form ────────────────────── */
