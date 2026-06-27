@@ -129,32 +129,20 @@ import Layout from '../layouts/Layout.astro';
         <div class="md:w-1/2 flex justify-center">
           <div class="phone-mockup">
             <div class="phone-notch"></div>
-            <div class="phone-screen" style="overflow:hidden;position:relative">
-              <!-- Video Carousel -->
-              <div id="ugc-track" style="display:flex;width:300%;height:100%;transition:transform 0.35s cubic-bezier(.4,0,.2,1);will-change:transform">
-                <video class="ugc-slide" playsinline preload="auto"
-                  poster="/videos/ugc-poster.jpg"
-                  style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
-                  <source src="/videos/ugc-hero.mp4" type="video/mp4" />
-                </video>
-                <video class="ugc-slide" playsinline preload="none"
-                  poster="/videos/ugc-9-poster.jpg"
-                  style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
-                  <source src="/videos/ugc-9.mp4" type="video/mp4" />
-                </video>
-                <video class="ugc-slide" playsinline preload="none"
-                  poster="/videos/ugc-cash-poster.jpg"
-                  style="width:33.333%;flex-shrink:0;height:100%;object-fit:cover;display:block">
-                  <source src="/videos/ugc-cash.mp4" type="video/mp4" />
-                </video>
-              </div>
+            <div class="phone-screen" style="overflow:hidden;position:relative;background:#000">
+              <!-- Single video element — iOS-kompatibel -->
+              <video id="ugc-video" playsinline
+                poster="/videos/ugc-poster.jpg"
+                style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.2s">
+                <source src="/videos/ugc-hero.mp4" type="video/mp4" />
+              </video>
               <!-- Dots -->
-              <div id="ugc-dots" style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none;z-index:3">
-                <span class="ugc-dot active" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:1;transition:opacity .2s"></span>
-                <span class="ugc-dot" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s"></span>
-                <span class="ugc-dot" style="width:6px;height:6px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s"></span>
+              <div id="ugc-dots" style="position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:3">
+                <span class="ugc-dot" style="width:10px;height:10px;border-radius:50%;background:#fff;opacity:1;transition:opacity .2s;cursor:pointer"></span>
+                <span class="ugc-dot" style="width:10px;height:10px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s;cursor:pointer"></span>
+                <span class="ugc-dot" style="width:10px;height:10px;border-radius:50%;background:#fff;opacity:0.4;transition:opacity .2s;cursor:pointer"></span>
               </div>
-              <!-- Play overlay — tap to start with sound -->
+              <!-- Play overlay -->
               <div id="ugc-play-overlay" style="position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);cursor:pointer" onclick="ugcStart()">
                 <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#1B2A4A"><path d="M8 5v14l11-7z"/></svg>
@@ -657,54 +645,52 @@ import Layout from '../layouts/Layout.astro';
 
 <!-- ──────────────────── SCRIPTS ── -->
 <script>
-  /* ── UGC Video Carousel ────────── */
+  /* ── UGC Video Carousel (single video, iOS-kompatibel) ── */
   (function(){
-    var slides = Array.from(document.querySelectorAll('.ugc-slide'));
-    var dots   = Array.from(document.querySelectorAll('.ugc-dot'));
-    var track  = document.getElementById('ugc-track');
-    if (!track || slides.length === 0) return;
+    var vid  = document.getElementById('ugc-video');
+    var dots = Array.from(document.querySelectorAll('.ugc-dot'));
+    var screen = vid && vid.parentElement;
+    if (!vid || !screen) return;
 
-    var cur = 0;
+    var VIDEOS = [
+      { src: '/videos/ugc-hero.mp4',  poster: '/videos/ugc-poster.jpg' },
+      { src: '/videos/ugc-9.mp4',     poster: '/videos/ugc-9-poster.jpg' },
+      { src: '/videos/ugc-cash.mp4',  poster: '/videos/ugc-cash-poster.jpg' }
+    ];
+
+    var cur = 0, started = false;
     var startX = 0, startY = 0, dragging = false;
 
-    var started = false;
-
     function goTo(idx) {
-      slides[cur].pause();
-      cur = (idx + slides.length) % slides.length;
-      track.style.transform = 'translateX(-' + (cur * 33.333) + '%)';
+      cur = ((idx % VIDEOS.length) + VIDEOS.length) % VIDEOS.length;
       dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.4'; });
-      if (started) {
-        var v = slides[cur];
-        v.currentTime = 0;
-        v.play().catch(function(){});
-      }
+      if (!started) return;
+      // Fade out, swap source, fade in
+      vid.style.opacity = '0';
+      vid.pause();
+      setTimeout(function(){
+        vid.poster = VIDEOS[cur].poster;
+        vid.src    = VIDEOS[cur].src;
+        vid.load();
+        vid.style.opacity = '1';
+        vid.play().catch(function(){});
+      }, 180);
     }
 
-    // Loop: when current video ends, go to next
-    slides.forEach(function(v, i){
-      v.addEventListener('ended', function(){ goTo(i + 1); });
-    });
+    vid.addEventListener('ended', function(){ goTo(cur + 1); });
 
-    // First tap — hides overlay and starts playing WITH audio
+    // Dots
+    dots.forEach(function(d,i){ d.addEventListener('click', function(){ goTo(i); }); });
+
+    // First tap — play with audio
     window.ugcStart = function() {
       var overlay = document.getElementById('ugc-play-overlay');
       if (overlay) overlay.style.display = 'none';
       started = true;
-      slides[cur].play().catch(function(){});
+      vid.play().catch(function(){});
     };
 
-    // Dots klickbar machen
-    dots.forEach(function(d, i){
-      d.style.pointerEvents = 'auto';
-      d.style.cursor = 'pointer';
-      d.style.width = '10px';
-      d.style.height = '10px';
-      d.addEventListener('click', function(){ goTo(i); });
-    });
-
     // Touch swipe
-    var screen = track.parentElement;
     screen.addEventListener('touchstart', function(e){
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
@@ -712,23 +698,18 @@ import Layout from '../layouts/Layout.astro';
     }, { passive: true });
 
     screen.addEventListener('touchend', function(e){
-      if (!dragging) return;
-      dragging = false;
+      if (!dragging) return; dragging = false;
       var dx = e.changedTouches[0].clientX - startX;
       var dy = e.changedTouches[0].clientY - startY;
-      // horizontal swipe: dx > 20px and more horizontal than vertical
       if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy) * 0.8) {
         goTo(dx < 0 ? cur + 1 : cur - 1);
       }
     }, { passive: true });
 
     // Mouse drag (desktop)
-    track.parentElement.addEventListener('mousedown', function(e){
-      startX = e.clientX; dragging = true;
-    });
-    track.parentElement.addEventListener('mouseup', function(e){
-      if (!dragging) return;
-      dragging = false;
+    screen.addEventListener('mousedown', function(e){ startX = e.clientX; dragging = true; });
+    screen.addEventListener('mouseup', function(e){
+      if (!dragging) return; dragging = false;
       var dx = e.clientX - startX;
       if (Math.abs(dx) > 30) goTo(dx < 0 ? cur + 1 : cur - 1);
     });
