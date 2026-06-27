@@ -633,6 +633,7 @@ import Layout from '../layouts/Layout.astro';
     .community-img.tall { height: 130px; }
     .phone-mockup { width: 240px; height: 480px; }
     .review-slide { width: 100%; }
+    .rev-btn { display: none; }
     .photo-panel { min-height: 200px; }
     .guarantee-card { padding: 16px; }
     .week-tile { padding: 10px; }
@@ -747,18 +748,34 @@ import Layout from '../layouts/Layout.astro';
   function revMove(dir) {
     revIdx = Math.max(0, Math.min(TOTAL_REVIEWS - 1, revIdx + dir));
     const track = document.getElementById('reviews-track');
-    if (track) track.style.transform = `translateX(-${revIdx * (100/2.5)}%)`;
+    if (!track) return;
+    // Offset based on actual slide pixel width + gap — works on both mobile and desktop
+    const slide = track.querySelector('.review-slide');
+    const gap = 16; // matches CSS gap
+    const slideW = slide ? slide.offsetWidth + gap : 0;
+    track.style.transform = `translateX(-${revIdx * slideW}px)`;
     document.querySelectorAll('.rev-dot').forEach((d,i) => d.classList.toggle('active', i===revIdx));
   }
+
+  // Touch swipe for reviews
   document.addEventListener('DOMContentLoaded', () => {
     const dotsEl = document.getElementById('rev-dots');
-    if (!dotsEl) return;
-    for (let i=0; i<TOTAL_REVIEWS; i++) {
-      const d = document.createElement('button');
-      d.className = 'rev-dot' + (i===0?' active':'');
-      d.onclick = () => { revIdx = i - 1; revMove(1); };
-      dotsEl.appendChild(d);
+    if (dotsEl) {
+      for (let i=0; i<TOTAL_REVIEWS; i++) {
+        const d = document.createElement('button');
+        d.className = 'rev-dot' + (i===0?' active':'');
+        d.onclick = () => { revIdx = i - 1; revMove(1); };
+        dotsEl.appendChild(d);
+      }
     }
+    const wrap = document.querySelector('.reviews-slider-wrap');
+    if (!wrap) return;
+    let sx = 0;
+    wrap.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 30) revMove(dx < 0 ? 1 : -1);
+    }, { passive: true });
   });
 
   /* ── BRK (Beispiel) ──────────── */
