@@ -691,9 +691,19 @@ import Layout from '../layouts/Layout.astro';
     var soundOn = false;
     window.ugcToggleSound = function() {
       soundOn = !soundOn;
-      slides.forEach(function(v){ v.muted = !soundOn; });
-      // If paused (browser blocked), try to play current
-      if (soundOn) slides[cur].play().catch(function(){});
+      slides.forEach(function(v){
+        if (soundOn) {
+          v.removeAttribute('muted');
+          v.muted = false;
+        } else {
+          v.muted = true;
+        }
+      });
+      // Replay current slide to apply audio change
+      var v = slides[cur];
+      var t = v.currentTime;
+      v.play().catch(function(){});
+      v.currentTime = t;
       document.getElementById('ugc-icon-mute').style.display  = soundOn ? 'none'  : '';
       document.getElementById('ugc-icon-sound').style.display = soundOn ? ''      : 'none';
     };
