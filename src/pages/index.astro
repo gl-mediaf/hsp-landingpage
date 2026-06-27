@@ -584,7 +584,8 @@ import Layout from '../layouts/Layout.astro';
     .photo-panel { display: none; }
   }
 
-  .chart-tooltip { position: absolute; background: #1B2A4A; color: #fff; border-radius: 10px; padding: 8px 12px; transform: translate(-50%,-115%); white-space: nowrap; z-index: 10; box-shadow: 0 4px 16px rgba(27,42,74,0.3); }
+  .chart-tooltip { position: absolute; background: rgba(27,42,74,0.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; border-radius: 10px; padding: 8px 12px; transform: translate(-50%,-115%); white-space: nowrap; z-index: 10; box-shadow: 0 4px 16px rgba(27,42,74,0.3); transition: opacity 0.15s; }
+  .chart-tooltip.flip { transform: translate(-50%, 15%); }
   .tt-small { font-size: 0.65rem; color: rgba(255,255,255,0.5); font-weight: 700; }
   .tt-mid   { font-size: 0.72rem; font-weight: 800; color: #97BF0D; }
   .tt-big   { font-family: 'BundaySlab', sans-serif; font-size: 1.4rem; color: #E5007D; }
@@ -922,8 +923,15 @@ import Layout from '../layouts/Layout.astro';
       document.getElementById('tt-money').textContent  = fmt(net);
       // keep tooltip inside bounds
       const ttLeft = Math.min(pct * rect.width, rect.width - 110);
-      tt.style.left    = Math.max(10, ttLeft) + 'px';
-      tt.style.top     = ((svgY/H) * rect.height) + 'px';
+      tt.style.left = Math.max(10, ttLeft) + 'px';
+      const dotY = (svgY / H) * rect.height;
+      tt.style.top = dotY + 'px';
+      // flip below dot if tooltip would overlap photo strip (top ~90px of chart area)
+      if (dotY < 90) {
+        tt.classList.add('flip');
+      } else {
+        tt.classList.remove('flip');
+      }
       tt.style.opacity = '1';
       updatePhoto(net);
     }
