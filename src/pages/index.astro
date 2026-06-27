@@ -808,8 +808,8 @@ import Layout from '../layouts/Layout.astro';
     const mkr = document.getElementById('takeoff-marker');
     if (mkr) mkr.style.left = (Math.pow(org.takeoff/MAX_EH, 1.664)*100) + '%';
 
-    /* Ø 3.300€ marker at AVG_EH */
-    const avgX = (AVG_EH / MAX_EH) * W;
+    /* Ø 3.300€ marker at AVG_EH — use non-linear mapping */
+    const avgX = ehToX(AVG_EH, W);
     const avgLine = document.getElementById('avg-line');
     const avgBg   = document.getElementById('avg-badge-bg');
     const avgTxt  = document.getElementById('avg-badge-txt');
@@ -859,52 +859,73 @@ import Layout from '../layouts/Layout.astro';
 
   /* ── Chart intro animation ────── */
   let chartAnimDone = false;
+  let chartAnimRaf  = null;
+
   function runChartIntro() {
     if (chartAnimDone) return;
     const wrap = document.getElementById('chart-wrap');
     if (!wrap) return;
     const W = 600, H = 260;
-    const duration = 1800; // ms to sweep to center
+
+    // Keyframes: 0→center→0→center (2 sweeps so user clearly sees it's interactive)
+    // Each sweep: 1200ms, pause 200ms at peaks
+    const SWEEP = 1200, PAUSE = 300;
+    const SEQ = [
+      { from: 0, to: 0.5, dur: SWEEP },
+      { from: 0.5, to: 0.5, dur: PAUSE },  // pause at center
+      { from: 0.5, to: 0.05, dur: 700 },   // sweep back (faster)
+      { from: 0.05, to: 0.05, dur: PAUSE },
+      { from: 0.05, to: 0.5, dur: SWEEP },  // sweep to center again
+      { from: 0.5, to: 0.5, dur: PAUSE },
+    ];
+    const totalDur = SEQ.reduce((s, k) => s + k.dur, 0);
     const start = performance.now();
-    const endPct = 0.5; // stop at center = Ø 3.300€
+
+    function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    function getPct(elapsed) {
+      let acc = 0;
+      for (const k of SEQ) {
+        if (elapsed <= acc + k.dur) {
+          const localT = (elapsed - acc) / k.dur;
+          const e = easeInOut(Math.max(0, Math.min(1, localT)));
+          return k.from + (k.to - k.from) * e;
+        }
+        acc += k.dur;
+      }
+      return 0.5; // end at center
+    }
 
     function frame(now) {
       if (chartAnimDone) return;
-      const t = Math.min((now - start) / duration, 1);
-      // ease in-out
-      const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
-      const pct = ease * endPct;
-      const eh = Math.round(MAX_EH * Math.pow(pct, 0.601) / 10) * 10;
+      const elapsed = now - start;
+      const pct = getPct(elapsed);
+      const eh = Math.round(MAX_EH * Math.pow(Math.max(0.0001, pct), 0.601) / 10) * 10;
       const svgX = pct * W;
-      const net = getNet(curOrg, eh);
+      const net  = getNet(curOrg, eh);
       const svgY = netToY(net, H);
 
       const line = document.getElementById('cursor-line');
       const dot  = document.getElementById('cursor-dot');
-      if (line) { line.setAttribute('x1',svgX); line.setAttribute('x2',svgX); line.style.opacity='0.6'; }
+      if (line) { line.setAttribute('x1',svgX); line.setAttribute('x2',svgX); line.style.opacity='1'; }
       if (dot)  { dot.setAttribute('cx',svgX); dot.setAttribute('cy',svgY); dot.style.opacity='1'; }
       updateDisplay(eh);
 
-      if (t < 1) {
-        requestAnimationFrame(frame);
+      if (elapsed < totalDur) {
+        chartAnimRaf = requestAnimationFrame(frame);
       } else {
-        // pulse dot at center
-        dot && dot.animate([
-          { transform:'scale(1)', opacity:1 },
-          { transform:'scale(1.8)', opacity:0.4 },
-          { transform:'scale(1)', opacity:1 }
-        ], { duration:700, iterations:3 });
-        // show hint text
+        // finished – keep cursor at center, show hint
         const hint = document.getElementById('chart-hint');
-        if (hint) { hint.style.opacity='1'; setTimeout(()=>{ hint.style.opacity='0'; }, 2000); }
+        if (hint) { hint.style.opacity='1'; setTimeout(()=>{ hint.style.opacity='0'; }, 2500); }
       }
     }
-    requestAnimationFrame(frame);
+    chartAnimRaf = requestAnimationFrame(frame);
   }
 
   function onChartMoveWithStop(e) {
     if (!chartAnimDone) {
       chartAnimDone = true;
+      if (chartAnimRaf) { cancelAnimationFrame(chartAnimRaf); chartAnimRaf = null; }
       const hint = document.getElementById('chart-hint');
       if (hint) hint.style.opacity = '0';
     }
