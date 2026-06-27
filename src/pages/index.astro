@@ -669,17 +669,21 @@ import Layout from '../layouts/Layout.astro';
     var cur = 0;
     var startX = 0, startY = 0, dragging = false;
 
+    var soundOn = false;
+
     function goTo(idx) {
       slides[cur].pause();
       cur = (idx + slides.length) % slides.length;
       track.style.transform = 'translateX(-' + (cur * 33.333) + '%)';
       dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.4'; });
       var v = slides[cur];
+      v.muted = !soundOn;
       v.currentTime = 0;
       v.play().catch(function(){});
     }
 
-    // Autoplay first (muted — browsers require it)
+    // Autoplay first (muted)
+    slides[0].muted = true;
     slides[0].play().catch(function(){});
 
     // Loop: when current video ends, go to next
@@ -687,23 +691,20 @@ import Layout from '../layouts/Layout.astro';
       v.addEventListener('ended', function(){ goTo(i + 1); });
     });
 
-    // Sound toggle (shared across all slides)
-    var soundOn = false;
+    // Sound toggle — pause/unmute/play is required for iOS Safari
     window.ugcToggleSound = function() {
       soundOn = !soundOn;
-      slides.forEach(function(v){
-        if (soundOn) {
-          v.removeAttribute('muted');
-          v.muted = false;
-        } else {
-          v.muted = true;
-        }
-      });
-      // Replay current slide to apply audio change
       var v = slides[cur];
-      var t = v.currentTime;
-      v.play().catch(function(){});
-      v.currentTime = t;
+      if (soundOn) {
+        var t = v.currentTime;
+        v.pause();
+        v.removeAttribute('muted');
+        v.muted = false;
+        v.currentTime = t;
+        v.play().catch(function(){});
+      } else {
+        v.muted = true;
+      }
       document.getElementById('ugc-icon-mute').style.display  = soundOn ? 'none'  : '';
       document.getElementById('ugc-icon-sound').style.display = soundOn ? ''      : 'none';
     };
