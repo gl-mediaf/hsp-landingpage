@@ -1000,8 +1000,8 @@ import Layout from '../layouts/Layout.astro';
   function updateDisplay(eh) {
     const org=curOrg, f=getFactor(org,eh), gross=eh*f, net=gross*0.8+200;
     const gEl=document.getElementById('r-gross'), nEl=document.getElementById('r-net');
-    if(gEl) gEl.textContent=fmt(gross)+' €';
-    if(nEl) nEl.textContent=fmt(net)+' €';
+    if(gEl) gEl.textContent=fmt(gross);
+    if(nEl) nEl.textContent=fmt(net);
   }
 
   /* ── Form ────────────────────── */
